@@ -1,10 +1,10 @@
 # 🚀 Enterprise Migration: SQL Server → PostgreSQL (Babelfish + AWS DMS)
 
-## 📌 Summary
+## 📌 Overview
 
-This PR introduces a complete enterprise-grade architecture for legacy modernization, migrating a SQL Server-based system to PostgreSQL using Babelfish for T-SQL compatibility and AWS DMS for continuous data replication.
+This project demonstrates an enterprise-grade architecture for migrating legacy SQL Server workloads to PostgreSQL using Babelfish and AWS Database Migration Service (DMS).
 
-The solution is designed for **incremental migration with near-zero downtime**, reducing operational risk while maintaining application continuity.
+The solution enables **incremental migration with near-zero downtime**, allowing organizations to modernize their database layer without rewriting existing applications.
 
 ---
 
@@ -14,7 +14,7 @@ Legacy SQL Server systems introduce:
 
 - High licensing costs
 - Strong vendor lock-in
-- High risk of full rewrite migrations
+- Risky full rewrite migrations
 - Limited cloud-native scalability
 
 ---
@@ -23,69 +23,73 @@ Legacy SQL Server systems introduce:
 
 This implementation introduces:
 
-- Babelfish (PostgreSQL + T-SQL compatibility layer)
-- AWS DMS (CDC-based migration pipeline)
-- Containerized local environment (Docker)
-- Cloud-ready architecture (ECS / RDS)
-- Terraform-ready infrastructure model (future phase)
+- **Babelfish for PostgreSQL** → Enables T-SQL compatibility
+- **AWS DMS** → Continuous Data Capture (CDC) for live migration
+- **Amazon RDS (PostgreSQL)** → Managed database target
+- **Amazon S3** → Intermediate storage (optional)
+- **Docker** → Local simulation environment
 
 ---
 
-## 🏗️ Architecture Changes
+## 🏗️ Architecture
 
-- Added C4-based architecture model
-- Introduced migration pipeline (Initial Load → CDC → Validation → Cutover)
-- Defined separation between Application / Data / Migration layers
-- Added observability strategy (logs, metrics, replication lag monitoring)
+SQL Server (Source)
+│
+▼
+AWS DMS (CDC)
+│
+▼
+Amazon RDS (PostgreSQL + Babelfish)
+│
+▼
+Application Layer (unchanged)
+
 
 ---
 
 ## 🔄 Migration Strategy
 
-- Phase 1: Initial full load from SQL Server
-- Phase 2: Continuous replication using CDC (AWS DMS)
-- Phase 3: Data consistency validation
-- Phase 4: Progressive cutover
-- Phase 5: Legacy decommission
+1. Full load migration using AWS DMS
+2. Enable CDC (Change Data Capture)
+3. Redirect application to Babelfish endpoint
+4. Gradual decommission of SQL Server
 
 ---
 
-## ⚠️ Risks Identified
+## ⚙️ How to Run (Local Simulation)
 
-- Partial T-SQL incompatibility in Babelfish
-- CDC replication lag under high throughput
-- Schema drift during live migration
-- Locking behavior differences between engines
+```bash
+# Start containers
+docker-compose up -d --build
+
+# Access application
+http://localhost:8080
+
+📂 Project Structure
+.
+├── docs/
+├── scripts/
+├── docker-compose.yml
+└── README.md
+
+🎯 Key Benefits
+Zero/low downtime migration
+No need to rewrite application layer
+Cost reduction (SQL Server → PostgreSQL)
+Cloud-native readiness
+
+🧠 Technical Decisions
+
+| Decision  | Reason                     |
+| --------- | -------------------------- |
+| Babelfish | Avoid rewriting T-SQL      |
+| AWS DMS   | Reliable CDC pipeline      |
+| Docker    | Reproducible local testing |
+
+🚀 Future Improvements
+CI/CD with GitHub Actions
+Terraform for infra provisioning
+Observability with CloudWatch
+
 
 ---
-
-## 📊 Impact
-
-- Reduced dependency on SQL Server licensing
-- Enabled cloud-native evolution path
-- Enabled zero-downtime migration strategy
-- Improved scalability and observability readiness
-
----
-
-## ✅ Validation
-
-- Local environment successfully containerized
-- PostgreSQL + Babelfish layer validated
-- Architecture aligned with AWS best practices
-
----
-
-## 🚀 Next Steps
-
-- Implement Terraform infrastructure
-- Add CI/CD pipeline (GitHub Actions / AWS pipeline)
-- Add load testing and performance benchmarking
-- Implement automated rollback strategy
-
----
-
-## 👩‍💻 Author
-
-Engineering: Ana Duarte  
-Domain: Cloud / DevOps / Data Migration
