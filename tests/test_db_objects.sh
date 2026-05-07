@@ -1,19 +1,17 @@
+
 #!/bin/bash
 
 echo "🔎 Validando objetos do banco SQL Server..."
 
-RESULT=$(docker exec sqlserver /opt/mssql-tools18/bin/sqlcmd \
--S localhost -U SA -P 'YourStrongPassw0rd' -C -N -Q "
-SELECT COUNT(*) 
-FROM sys.objects 
-WHERE type IN ('P','V','FN');
-")
+/opt/mssql-tools18/bin/sqlcmd \
+-S localhost \
+-U sa \
+-P 'YourStrongPassw0rd' \
+-Q "SELECT name FROM sys.tables" \
+-C
 
-echo "$RESULT"
-
-if echo "$RESULT" | grep -q "[0-9]"; then
-  echo "✅ Teste executado com sucesso"
-  exit 0
+if [ $? -eq 0 ]; then
+  echo "✅ Validação executada com sucesso"
 else
   echo "❌ Falha na validação do banco"
   exit 1
