@@ -1,0 +1,18 @@
+migration-poc
+├── dashboards
+├── infra
+├── logs
+├── reports
+├── scripts
+│   ├── performance
+│   ├── reporting
+│   ├── restore
+│   └── validation
+└── tests
+    ├── compatibility
+    ├── integrity
+    ├── performance
+    ├── security
+    └── smoke
+
+16 directories, 0 files
