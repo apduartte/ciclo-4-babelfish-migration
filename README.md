@@ -93,3 +93,78 @@ Observability with CloudWatch
 
 
 ---
+## 🧱 Infraestrutura Implementada (Estado Atual)
+
+O projeto atualmente executa um ambiente local containerizado com SQL Server 2019 utilizando Docker.
+
+### 🐳 Componentes implementados:
+
+- SQL Server rodando em container Docker
+- Restore do banco AdventureWorks2019
+- Execução via `sqlcmd`
+- Validação de integridade pós-restore
+- Estrutura de diretórios padronizada para migração
+
+---
+
+## 📦 Processo de Restore Executado
+
+O banco de dados foi restaurado com sucesso a partir de um arquivo `.bak` utilizando o seguinte fluxo:
+
+1. Cópia do arquivo AdventureWorks para o container
+2. Criação do diretório de backup no SQL Server
+3. Execução de `RESTORE FILELISTONLY` para análise de arquivos lógicos
+4. Execução do `RESTORE DATABASE` com `WITH MOVE`
+5. Validação do estado ONLINE do banco
+
+Exemplo:
+
+```sql
+RESTORE DATABASE AdventureWorks2019
+FROM DISK = '/var/opt/mssql/backup/AdventureWorks2019.bak'
+WITH
+MOVE 'AdventureWorks2019' TO '/var/opt/mssql/data/AdventureWorks2019.mdf',
+MOVE 'AdventureWorks2019_log' TO '/var/opt/mssql/data/AdventureWorks2019_log.ldf',
+REPLACE,
+STATS = 10;
+
+🔎 Validações Técnicas Realizadas
+Consulta em sys.databases para validação do restore
+Exploração de schemas via sys.tables e sys.schemas
+Execução de queries OLTP para validação de dados reais
+Inspeção de objetos do sistema
+
+☁️ Arquitetura Alvo (AWS Migration Roadmap)
+
+Este laboratório está sendo evoluído para um cenário real de migração:
+
+Fase 1 — Ambiente Local (Atual)
+SQL Server em Docker
+Restore de backup AdventureWorks
+Validação de dados
+
+Fase 2 — AWS DMS
+Migração de dados SQL Server → AWS
+Replicação contínua
+Minimização de downtime
+Fase 3 — Babelfish for Aurora PostgreSQL
+Execução de T-SQL em PostgreSQL engine
+Compatibilidade com aplicações legadas
+
+Fase 3 — Babelfish for Aurora PostgreSQL
+Execução de T-SQL em PostgreSQL engine
+Compatibilidade com aplicações legadas
+Fase 4 — Arquitetura Cloud-Native
+Amazon S3 (staging)
+AWS DMS replication instance
+Aurora PostgreSQL + Babelfish
+Observabilidade com CloudWatch
+
+📌 Status do Projeto
+
+✔ Infraestrutura local funcional
+✔ Restore de banco validado
+✔ Exploração de dados executada
+✔ Base preparada para integração com AWS
+
+
