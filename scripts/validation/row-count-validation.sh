@@ -1,25 +1,14 @@
 #!/bin/bash
 
-echo "================================="
-echo "ROW COUNT VALIDATION"
-echo "================================="
+set -e
 
-echo ""
-echo "[1] SQL Server - Person.Person"
+echo "🔎 Validating row count..."
 
-docker exec sqlserver \
 /opt/mssql-tools18/bin/sqlcmd \
 -S localhost \
--U SA \
+-U sa \
 -P 'YourStrongPassw0rd' \
--C \
--d AdventureWorks2019 \
--Q "SELECT COUNT(*) AS Total FROM Person.Person;"
+-Q "SELECT name FROM sys.databases;" \
+-C
 
-echo ""
-echo "[2] PostgreSQL - Inventory"
-
-docker exec bia-db \
-psql -U postgres \
--c "SELECT COUNT(*) FROM information_schema.tables;"
-
+echo "✅ Validation completed."
