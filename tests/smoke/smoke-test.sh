@@ -12,3 +12,4 @@ echo "🔎 Running SQL Server smoke test..."
 -C
 
 echo "✅ Smoke test completed successfully."
+
