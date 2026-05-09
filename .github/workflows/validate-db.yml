@@ -1,0 +1,93 @@
+name: Database Validation Pipeline
+
+on:
+
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+
+jobs:
+
+  database-validation:
+
+    runs-on: ubuntu-latest
+
+    services:
+
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: YourStrongPassw0rd
+
+        ports:
+          - 1433:1433
+
+        options: >-
+          --health-cmd "bash -c '</dev/tcp/localhost/1433'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Display project structure
+        run: |
+          echo "Database validation pipeline"
+          find .
+
+      - name: Install SQLCMD tools
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+
+          curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list \
+          | sudo tee /etc/apt/sources.list.d/msprod.list
+
+          sudo apt-get update
+
+          sudo ACCEPT_EULA=Y apt-get install -y \
+            mssql-tools18 \
+            unixodbc-dev
+
+      - name: Wait SQL Server initialize
+        run: sleep 30
+
+      - name: Validate SQL Server connectivity
+        run: |
+          /opt/mssql-tools18/bin/sqlcmd \
+          -S localhost \
+          -U sa \
+          -P 'YourStrongPassw0rd' \
+          -Q "SELECT @@VERSION;" \
+          -C
+
+      - name: Execute database object validation
+        run: |
+          chmod +x tests/test_db_objects.sh
+          ./tests/test_db_objects.sh
+
+      - name: Execute row count reconciliation
+        run: |
+          chmod +x scripts/validation/row-count-validation.sh
+          ./scripts/validation/row-count-validation.sh
+
+      - name: Generate migration reports
+        run: |
+          chmod +x scripts/reporting/export-schema.sh
+          ./scripts/reporting/export-schema.sh
+
+      - name: Upload database validation reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: database-validation-reports
+          path: reports/
+
+      - name: Validation pipeline completed
+        run: |
+          echo "Database validation completed successfully."
