@@ -1,15 +1,30 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
-echo "🔎 Running SQL Server smoke test..."
+echo "========================================="
+echo "SQL Server Smoke Test Initialization"
+echo "========================================="
 
-/opt/mssql-tools18/bin/sqlcmd \
--S localhost \
--U sa \
--P 'YourStrongPassw0rd' \
--Q "SELECT GETDATE();" \
--C
+SQLCMD="/opt/mssql-tools18/bin/sqlcmd"
 
-echo "✅ Smoke test completed successfully."
+if [ ! -f "$SQLCMD" ]; then
+  echo "ERROR: sqlcmd binary not found at:"
+  echo "$SQLCMD"
+  exit 1
+fi
+
+echo "Validating SQL Server connectivity..."
+
+$SQLCMD \
+  -S localhost \
+  -U sa \
+  -P 'YourStrongPassw0rd' \
+  -Q "SELECT GETDATE() AS current_timestamp;" \
+  -C
+
+echo "========================================="
+echo "Smoke test executed successfully."
+echo "SQL Server connection validated."
+echo "========================================="
 
