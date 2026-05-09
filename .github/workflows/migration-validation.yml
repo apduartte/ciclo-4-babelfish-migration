@@ -11,16 +11,31 @@ on:
     branches:
       - main
 
+  pull_request:
+    branches:
+      - main
+
 jobs:
 
   migration-validation:
 
     runs-on: ubuntu-latest
 
+    strategy:
+
+      matrix:
+
+        sqlserver-version:
+          - 2022-latest
+
+        postgres-version:
+          - 15
+          - 16
+
     services:
 
       sqlserver:
-        image: mcr.microsoft.com/mssql/server:2022-latest
+        image: mcr.microsoft.com/mssql/server:${{ matrix.sqlserver-version }}
 
         env:
           ACCEPT_EULA: Y
@@ -36,7 +51,7 @@ jobs:
           --health-retries 10
 
       postgres:
-        image: postgres:16
+        image: postgres:${{ matrix.postgres-version }}
 
         env:
           POSTGRES_USER: postgres
@@ -57,9 +72,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Display migration structure
+      - name: Display project structure
         run: |
-          echo "Migration validation pipeline"
+          echo "Migration validation pipeline started..."
           find .
 
       - name: Install SQL Server tools
@@ -80,10 +95,14 @@ jobs:
           sudo apt-get install -y postgresql-client
 
       - name: Wait database services initialize
-        run: sleep 40
+        run: |
+          echo "Waiting database services..."
+          sleep 40
 
       - name: Validate SQL Server connectivity
         run: |
+          echo "Validating SQL Server..."
+
           /opt/mssql-tools18/bin/sqlcmd \
           -S localhost \
           -U sa \
@@ -93,31 +112,39 @@ jobs:
 
       - name: Validate PostgreSQL connectivity
         run: |
+          echo "Validating PostgreSQL..."
+
           PGPASSWORD=postgres psql \
           -h localhost \
           -U postgres \
           -d migrationdb \
           -c "SELECT version();"
 
-      - name: Execute smoke validation
+      - name: Execute smoke tests
         run: |
           chmod +x tests/smoke/smoke-test.sh
           ./tests/smoke/smoke-test.sh
 
-      - name: Execute migration reconciliation
+      - name: Execute database object validation
+        run: |
+          chmod +x tests/test_db_objects.sh
+          ./tests/test_db_objects.sh
+
+      - name: Execute reconciliation validation
         run: |
           chmod +x scripts/validation/row-count-validation.sh
           ./scripts/validation/row-count-validation.sh
 
-      - name: Generate migration assessment reports
+      - name: Generate migration reports
         run: |
           chmod +x scripts/reporting/export-schema.sh
           ./scripts/reporting/export-schema.sh
 
       - name: Upload migration reports
         uses: actions/upload-artifact@v4
+
         with:
-          name: migration-validation-reports
+          name: migration-validation-reports-${{ matrix.postgres-version }}
           path: reports/
 
       - name: Migration validation completed
