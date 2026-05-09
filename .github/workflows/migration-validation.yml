@@ -1,0 +1,125 @@
+name: Migration Validation Pipeline
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+on:
+
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+
+jobs:
+
+  migration-validation:
+
+    runs-on: ubuntu-latest
+
+    services:
+
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: YourStrongPassw0rd
+
+        ports:
+          - 1433:1433
+
+        options: >-
+          --health-cmd "bash -c '</dev/tcp/localhost/1433'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+      postgres:
+        image: postgres:16
+
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: migrationdb
+
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Display migration structure
+        run: |
+          echo "Migration validation pipeline"
+          find .
+
+      - name: Install SQL Server tools
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+
+          curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list \
+          | sudo tee /etc/apt/sources.list.d/msprod.list
+
+          sudo apt-get update
+
+          sudo ACCEPT_EULA=Y apt-get install -y \
+            mssql-tools18 \
+            unixodbc-dev
+
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get install -y postgresql-client
+
+      - name: Wait database services initialize
+        run: sleep 40
+
+      - name: Validate SQL Server connectivity
+        run: |
+          /opt/mssql-tools18/bin/sqlcmd \
+          -S localhost \
+          -U sa \
+          -P 'YourStrongPassw0rd' \
+          -Q "SELECT @@VERSION;" \
+          -C
+
+      - name: Validate PostgreSQL connectivity
+        run: |
+          PGPASSWORD=postgres psql \
+          -h localhost \
+          -U postgres \
+          -d migrationdb \
+          -c "SELECT version();"
+
+      - name: Execute smoke validation
+        run: |
+          chmod +x tests/smoke/smoke-test.sh
+          ./tests/smoke/smoke-test.sh
+
+      - name: Execute migration reconciliation
+        run: |
+          chmod +x scripts/validation/row-count-validation.sh
+          ./scripts/validation/row-count-validation.sh
+
+      - name: Generate migration assessment reports
+        run: |
+          chmod +x scripts/reporting/export-schema.sh
+          ./scripts/reporting/export-schema.sh
+
+      - name: Upload migration reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: migration-validation-reports
+          path: reports/
+
+      - name: Migration validation completed
+        run: |
+          echo "Migration validation completed successfully."
