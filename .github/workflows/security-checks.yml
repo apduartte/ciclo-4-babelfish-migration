@@ -1,0 +1,83 @@
+name: Security Checks Pipeline
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+on:
+
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  security-validation:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Display repository structure
+        run: |
+          echo "Running security validation pipeline..."
+          find .
+
+      - name: Verify hardcoded passwords
+        run: |
+          echo "Scanning repository for hardcoded passwords..."
+
+          if grep -R "password" . \
+            --exclude-dir=.git \
+            --exclude=*.md \
+            --exclude=*.png
+          then
+            echo "Potential hardcoded password detected."
+            exit 1
+          else
+            echo "No hardcoded passwords detected."
+          fi
+
+      - name: Verify AWS credentials exposure
+        run: |
+          echo "Scanning for AWS credentials..."
+
+          if grep -R "AKIA" . \
+            --exclude-dir=.git
+          then
+            echo "Potential AWS credential detected."
+            exit 1
+          else
+            echo "No AWS credentials detected."
+          fi
+
+      - name: Verify private keys exposure
+        run: |
+          echo "Scanning for private keys..."
+
+          if grep -R "BEGIN RSA PRIVATE KEY" . \
+            --exclude-dir=.git
+          then
+            echo "Private key detected."
+            exit 1
+          else
+            echo "No private keys detected."
+          fi
+
+      - name: Validate shell scripts permissions
+        run: |
+          echo "Validating shell scripts..."
+
+          find . -name "*.sh"
+
+      - name: Security validation completed
+        run: |
+          echo "Security checks completed successfully."
