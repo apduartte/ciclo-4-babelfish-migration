@@ -1,123 +1,175 @@
-# 🚀 Enterprise Migration: SQL Server → PostgreSQL (Babelfish + AWS DMS)
+# 🚀 Migração Enterprise: SQL Server → PostgreSQL com Babelfish + AWS DMS
 
-## 📌 Overview
+## 📌 Visão Geral
 
-This project demonstrates an enterprise-grade architecture for migrating legacy SQL Server workloads to PostgreSQL using Babelfish and AWS Database Migration Service (DMS).
+Este projeto demonstra uma estratégia enterprise de modernização de banco de dados utilizando SQL Server, PostgreSQL, Babelfish e AWS Database Migration Service (AWS DMS).
 
-The solution enables **incremental migration with near-zero downtime**, allowing organizations to modernize their database layer without rewriting existing applications.
+A proposta da solução é permitir uma migração incremental e de baixo risco de workloads legados SQL Server para PostgreSQL, reduzindo dependência de licenciamento proprietário e minimizando impactos na camada de aplicação.
 
----
+O laboratório foi construído com foco em:
 
-## 🎯 Problem Statement
-
-Legacy SQL Server systems introduce:
-
-- High licensing costs
-- Strong vendor lock-in
-- Risky full rewrite migrations
-- Limited cloud-native scalability
+* Reprodutibilidade
+* Automação
+* Validação técnica
+* Simulação de cenários reais de migração
+* Preparação para ambientes cloud-native
 
 ---
 
-## 🧠 Solution Overview
+# 🎯 Problema de Negócio
 
-This implementation introduces:
+Muitas empresas ainda dependem fortemente de ambientes Microsoft SQL Server legados, enfrentando desafios como:
 
-- **Babelfish for PostgreSQL** → Enables T-SQL compatibility
-- **AWS DMS** → Continuous Data Capture (CDC) for live migration
-- **Amazon RDS (PostgreSQL)** → Managed database target
-- **Amazon S3** → Intermediate storage (optional)
-- **Docker** → Local simulation environment
+* Alto custo de licenciamento
+* Vendor lock-in
+* Dificuldade de escalabilidade
+* Risco elevado em migrações tradicionais
+* Dependência de aplicações escritas em T-SQL
+* Baixa flexibilidade para modernização cloud-native
+
+Migrar diretamente aplicações legadas para PostgreSQL normalmente exige:
+
+* Reescrita de queries
+* Refatoração da aplicação
+* Ajustes em procedures e funções
+* Longas janelas de indisponibilidade
 
 ---
 
-## 🏗️ Architecture
+# 🧠 Solução Proposta
 
-SQL Server (Source)
-│
-▼
+A arquitetura proposta utiliza serviços e tecnologias que permitem modernização progressiva da camada de dados sem necessidade imediata de reescrita da aplicação.
+
+## 🔧 Componentes Principais
+
+| Tecnologia         | Objetivo                    |
+| ------------------ | --------------------------- |
+| SQL Server 2019    | Banco de origem             |
+| Docker             | Ambiente local reproduzível |
+| AdventureWorks2019 | Base de testes corporativa  |
+| AWS DMS            | Migração e CDC              |
+| PostgreSQL         | Banco de destino            |
+| Babelfish          | Compatibilidade T-SQL       |
+| GitHub Actions     | Automação CI/CD             |
+
+---
+
+# 🏗️ Arquitetura da Solução
+
+```text
+SQL Server (Origem)
+        │
+        ▼
 AWS DMS (CDC)
-│
-▼
-Amazon RDS (PostgreSQL + Babelfish)
-│
-▼
-Application Layer (unchanged)
-
-
----
-
-## 🔄 Migration Strategy
-
-1. Full load migration using AWS DMS
-2. Enable CDC (Change Data Capture)
-3. Redirect application to Babelfish endpoint
-4. Gradual decommission of SQL Server
+        │
+        ▼
+Aurora PostgreSQL + Babelfish
+        │
+        ▼
+Aplicações Legadas (sem reescrita)
+```
 
 ---
 
-## ⚙️ How to Run (Local Simulation)
+# 🔄 Estratégia de Migração
 
-```bash
-# Start containers
-docker-compose up -d --build
+A estratégia foi dividida em fases progressivas para reduzir riscos operacionais.
 
-# Access application
-http://localhost:8080
+## 📍 Fase 1 — Ambiente Local Containerizado (Atual)
 
-📂 Project Structure
-.
-├── docs/
-├── scripts/
-├── docker-compose.yml
-└── README.md
+### ✔ Implementado
 
-🎯 Key Benefits
-Zero/low downtime migration
-No need to rewrite application layer
-Cost reduction (SQL Server → PostgreSQL)
-Cloud-native readiness
-
-🧠 Technical Decisions
-
-| Decision  | Reason                     |
-| --------- | -------------------------- |
-| Babelfish | Avoid rewriting T-SQL      |
-| AWS DMS   | Reliable CDC pipeline      |
-| Docker    | Reproducible local testing |
-
-🚀 Future Improvements
-CI/CD with GitHub Actions
-Terraform for infra provisioning
-Observability with CloudWatch
-
-
----
-## 🧱 Infraestrutura Implementada (Estado Atual)
-
-O projeto atualmente executa um ambiente local containerizado com SQL Server 2019 utilizando Docker.
-
-### 🐳 Componentes implementados:
-
-- SQL Server rodando em container Docker
-- Restore do banco AdventureWorks2019
-- Execução via `sqlcmd`
-- Validação de integridade pós-restore
-- Estrutura de diretórios padronizada para migração
+* SQL Server 2019 em container Docker
+* Restore do banco AdventureWorks2019
+* Execução de comandos T-SQL
+* Estruturação inicial do repositório
+* Validações de integridade
+* Testes operacionais do banco
+* Simulação de ambiente enterprise
 
 ---
 
-## 📦 Processo de Restore Executado
+## 📍 Fase 2 — Refatoração e Automação (Atual)
 
-O banco de dados foi restaurado com sucesso a partir de um arquivo `.bak` utilizando o seguinte fluxo:
+### ✔ Implementado
 
-1. Cópia do arquivo AdventureWorks para o container
-2. Criação do diretório de backup no SQL Server
-3. Execução de `RESTORE FILELISTONLY` para análise de arquivos lógicos
-4. Execução do `RESTORE DATABASE` com `WITH MOVE`
-5. Validação do estado ONLINE do banco
+* Refatoração estrutural do projeto
+* Organização modular de diretórios
+* Separação de scripts por responsabilidade
+* Criação de scripts de validação
+* Automatização de verificações técnicas
+* Preparação para pipelines CI/CD
+* Hardening operacional da POC
 
-Exemplo:
+---
+
+## 📍 Fase 3 — AWS Database Migration Service (Planejado)
+
+### 🚧 Em andamento
+
+* Replicação Full Load
+* Change Data Capture (CDC)
+* Migração contínua
+* Minimização de downtime
+* Simulação de migração enterprise
+
+---
+
+## 📍 Fase 4 — Babelfish for PostgreSQL (Planejado)
+
+### 🚧 Planejado
+
+* Compatibilidade T-SQL
+* Migração sem reescrita imediata
+* Redução de impacto na aplicação
+* Modernização gradual da camada de dados
+
+---
+
+## 📍 Fase 5 — Arquitetura Cloud-Native (Planejado)
+
+### 🚧 Planejado
+
+* Amazon S3 para staging
+* Aurora PostgreSQL
+* AWS DMS Replication Instance
+* Observabilidade com CloudWatch
+* Provisionamento com Terraform
+* CI/CD completo
+
+---
+
+# 🐳 Ambiente Local Implementado
+
+O laboratório executa atualmente um ambiente SQL Server totalmente containerizado utilizando Docker.
+
+## 🔧 Componentes configurados
+
+* SQL Server 2019
+* Docker Compose
+* Banco AdventureWorks2019
+* Scripts de restore
+* Scripts de validação
+* Estrutura modular de diretórios
+
+---
+
+# 📦 Processo de Restore do Banco
+
+O banco AdventureWorks2019 foi restaurado utilizando restore nativo do SQL Server.
+
+## 🔄 Fluxo executado
+
+1. Upload do arquivo `.bak`
+2. Criação do diretório de backup
+3. Execução de `RESTORE FILELISTONLY`
+4. Mapeamento de arquivos MDF/LDF
+5. Execução do restore com `WITH MOVE`
+6. Validação do estado ONLINE
+
+---
+
+## 🧪 Exemplo de Restore
 
 ```sql
 RESTORE DATABASE AdventureWorks2019
@@ -127,44 +179,158 @@ MOVE 'AdventureWorks2019' TO '/var/opt/mssql/data/AdventureWorks2019.mdf',
 MOVE 'AdventureWorks2019_log' TO '/var/opt/mssql/data/AdventureWorks2019_log.ldf',
 REPLACE,
 STATS = 10;
+```
 
-🔎 Validações Técnicas Realizadas
-Consulta em sys.databases para validação do restore
-Exploração de schemas via sys.tables e sys.schemas
-Execução de queries OLTP para validação de dados reais
-Inspeção de objetos do sistema
+---
 
-☁️ Arquitetura Alvo (AWS Migration Roadmap)
+# 🔎 Validações Técnicas Executadas
 
-Este laboratório está sendo evoluído para um cenário real de migração:
+Após o restore, foram realizadas validações operacionais e estruturais do ambiente.
 
-Fase 1 — Ambiente Local (Atual)
-SQL Server em Docker
-Restore de backup AdventureWorks
-Validação de dados
+## ✔ Validações implementadas
 
-Fase 2 — AWS DMS
-Migração de dados SQL Server → AWS
-Replicação contínua
-Minimização de downtime
-Fase 3 — Babelfish for Aurora PostgreSQL
-Execução de T-SQL em PostgreSQL engine
-Compatibilidade com aplicações legadas
+* Verificação do estado do banco
+* Consulta em `sys.databases`
+* Inspeção de schemas
+* Exploração de tabelas
+* Validação de objetos do sistema
+* Execução de queries OLTP
+* Verificação de integridade pós-restore
 
-Fase 3 — Babelfish for Aurora PostgreSQL
-Execução de T-SQL em PostgreSQL engine
-Compatibilidade com aplicações legadas
-Fase 4 — Arquitetura Cloud-Native
-Amazon S3 (staging)
-AWS DMS replication instance
-Aurora PostgreSQL + Babelfish
-Observabilidade com CloudWatch
+---
 
-📌 Status do Projeto
+# 🧪 Testes Automatizados
 
-✔ Infraestrutura local funcional
-✔ Restore de banco validado
-✔ Exploração de dados executada
-✔ Base preparada para integração com AWS
+Foram implementados scripts automatizados para validação da infraestrutura e do banco de dados.
 
+## ✔ Objetivos dos testes
 
+* Validar disponibilidade do container
+* Verificar status do SQL Server
+* Confirmar disponibilidade do banco
+* Validar objetos restaurados
+* Garantir consistência do ambiente
+
+---
+
+# ⚙️ Estrutura do Projeto
+
+```text
+migration-poc/
+├── docs/
+│
+├── scripts/
+│   ├── restore/
+│   ├── validation/
+│   └── reporting/
+│
+├── reports/
+│   └── assessment/
+│
+├── tests/
+│
+├── docker-compose.yml
+│
+└── README.md
+```
+
+---
+
+# 🔄 Automação CI/CD
+
+O projeto começou a ser preparado para integração contínua utilizando GitHub Actions.
+
+## 🎯 Objetivos da pipeline
+
+* Validar inicialização do container
+* Executar verificações automatizadas
+* Detectar falhas de infraestrutura
+* Garantir reprodutibilidade
+* Automatizar validações da POC
+
+---
+
+# ☁️ Roadmap Cloud
+
+## Próximos passos planejados
+
+* Integração AWS DMS
+* Aurora PostgreSQL
+* Babelfish
+* CDC em tempo real
+* Terraform
+* Observabilidade
+* Métricas operacionais
+* Pipeline DevOps completa
+
+---
+
+# 🧠 Decisões Técnicas
+
+| Decisão          | Motivo                  |
+| ---------------- | ----------------------- |
+| Docker           | Ambiente reproduzível   |
+| SQL Server local | Simulação realista      |
+| AdventureWorks   | Base enterprise oficial |
+| Babelfish        | Compatibilidade T-SQL   |
+| AWS DMS          | Migração contínua       |
+| GitHub Actions   | Automação operacional   |
+
+---
+
+# 🚀 Competências Demonstradas
+
+Este projeto demonstra conhecimentos em:
+
+* SQL Server Administration
+* Docker
+* T-SQL
+* Restore e Recovery
+* Organização de repositórios
+* Refatoração estrutural
+* DevOps
+* CI/CD
+* Automação de testes
+* Estratégias de migração
+* PostgreSQL
+* AWS Migration
+* Cloud Architecture
+
+---
+
+# 📌 Status Atual do Projeto
+
+| Item                   | Status          |
+| ---------------------- | --------------- |
+| SQL Server Dockerizado | ✔ Concluído     |
+| Restore AdventureWorks | ✔ Concluído     |
+| Exploração de dados    | ✔ Concluído     |
+| Scripts de validação   | ✔ Concluído     |
+| Refatoração estrutural | ✔ Concluído     |
+| Testes automatizados   | ✔ Concluído     |
+| Preparação para CI/CD  | ✔ Concluído     |
+| AWS DMS                | 🚧 Em andamento |
+| Babelfish              | 🚧 Planejado    |
+| Aurora PostgreSQL      | 🚧 Planejado    |
+
+---
+
+# 📚 Objetivo Educacional
+
+Este laboratório foi desenvolvido com objetivo de aprofundar conhecimentos em:
+
+* Modernização de bancos de dados
+* Estratégias de migração enterprise
+* Arquiteturas híbridas
+* DevOps aplicado a banco de dados
+* Cloud Computing
+* Engenharia de Plataforma
+* Arquiteturas resilientes e reproduzíveis
+
+---
+
+# 👨‍💻 Autor
+
+Projeto desenvolvido para fins de estudo, laboratório técnico e evolução profissional em arquitetura de dados, cloud e engenharia de software.
+* Formação AWS 5.0
+* 
