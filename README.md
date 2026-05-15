@@ -49,7 +49,7 @@ Em muitos cenários, migrar diretamente para PostgreSQL exige:
 
 # 🧠 Solução Proposta
 
-A arquitetura proposta permite modernização progressiva da camada de dados sem necessidade imediata de reescrita da aplicação.
+A arquitetura foi desenhada prevendo futura integração com observabilidade enterprise e cenários de disaster recovery.
 
 A solução combina:
 
