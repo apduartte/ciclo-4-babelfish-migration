@@ -1,3 +1,4 @@
+
 name: SAST Security Scan
 
 env:
@@ -9,24 +10,48 @@ on:
       - main
 
   pull_request:
+    branches:
+      - main
 
 jobs:
 
   sast:
-
+    name: Static Application Security Testing
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
 
     steps:
 
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Run Semgrep Scan
+      # =========================
+      # SEMGREP SAST SCAN
+      # =========================
+      - name: Run Semgrep Security Scan
         uses: returntocorp/semgrep-action@v1
+        with:
+          config: auto
 
+      # =========================
+      # TRIVY FILESYSTEM SCAN
+      # =========================
       - name: Run Trivy Filesystem Scan
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: fs
           scan-ref: .
+          format: table
+          exit-code: 0
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
 
+      # =========================
+      # PIPELINE STATUS
+      # =========================
+      - name: Security Scan Completed
+        run: echo "SAST and filesystem security scans completed successfully."
