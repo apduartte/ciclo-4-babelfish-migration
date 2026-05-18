@@ -1,2 +1,9 @@
 *.swp
 index.html
+target/
+*.jar
+reports/
+*.log
+.idea/
+.vscode/
+.env
