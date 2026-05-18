@@ -1,4 +1,3 @@
-
 name: SAST Security Scan
 
 env:
@@ -25,11 +24,14 @@ jobs:
 
     steps:
 
+      # =========================
+      # CHECKOUT REPOSITORY
+      # =========================
       - name: Checkout Repository
         uses: actions/checkout@v4
 
       # =========================
-      # SEMGREP SAST SCAN
+      # SEMGREP SAST SECURITY SCAN
       # =========================
       - name: Run Semgrep Security Scan
         uses: returntocorp/semgrep-action@v1
@@ -37,7 +39,7 @@ jobs:
           config: auto
 
       # =========================
-      # TRIVY FILESYSTEM SCAN
+      # TRIVY FILESYSTEM SECURITY SCAN
       # =========================
       - name: Run Trivy Filesystem Scan
         uses: aquasecurity/trivy-action@master
@@ -47,11 +49,10 @@ jobs:
           format: table
           exit-code: 0
           ignore-unfixed: true
-          vuln-type: os,library
           severity: CRITICAL,HIGH
 
       # =========================
       # PIPELINE STATUS
       # =========================
-      - name: Security Scan Completed
+      - name: Security Validation Completed
         run: echo "SAST and filesystem security scans completed successfully."
