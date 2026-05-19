@@ -1,0 +1,38 @@
+# =========================================================
+# POC SQL Server → PostgreSQL/Babelfish
+# =========================================================
+#
+# Ambiente local para validação:
+#
+# - PostgreSQL;
+# - T-SQL;
+# - readiness Babelfish;
+# - futura integração AWS DMS.
+#
+# =========================================================
+
+services:
+
+  postgres:
+
+    image: postgres:15
+
+    container_name: postgres-babelfish
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: migrationlab
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+
+volumes:
+
+  postgres_data:
