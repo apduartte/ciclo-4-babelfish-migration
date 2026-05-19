@@ -124,7 +124,7 @@ jobs:
         #
         # Motivo:
         # 0.24.0 não existe no marketplace
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@master
 
         with:
 
