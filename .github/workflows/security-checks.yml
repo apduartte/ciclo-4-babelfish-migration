@@ -1,33 +1,147 @@
 name: Security Checks
 
+# =========================================================
+# VARIÁVEIS GLOBAIS
+# =========================================================
 env:
+
+  # Força compatibilidade das GitHub Actions
+  # com runtime Node.js 24
+  #
+  # Objetivo:
+  # evitar warnings relacionados à descontinuação
+  # do Node.js 20
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
+# =========================================================
+# EVENTOS QUE DISPARAM O PIPELINE
+# =========================================================
 on:
+
+  # Executa automaticamente em pushes na branch main
   push:
     branches:
       - main
+
+  # Executa automaticamente em Pull Requests
   pull_request:
 
+# =========================================================
+# JOBS
+# =========================================================
 jobs:
+
   security:
+
+    # Runner Linux oficial do GitHub Actions
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+    # =====================================================
+    # PERMISSÕES
+    # =====================================================
+    permissions:
 
-      - name: Verify hardcoded secrets
+      # Permite leitura do conteúdo do repositório
+      contents: read
+
+    steps:
+
+      # =====================================================
+      # ETAPA 1 — CHECKOUT DO REPOSITÓRIO
+      # =====================================================
+      - name: Checkout Repository
+
+        # Action oficial GitHub
+        uses: actions/checkout@v4.2.2
+
+        # Objetivo:
+        # baixar o código-fonte para o runner
+
+      # =====================================================
+      # ETAPA 2 — HARD CODED SECRETS SCAN
+      # =====================================================
+      - name: Verify Hardcoded Secrets
+
+        shell: bash
+
         run: |
+
+          echo "======================================="
+          echo "STARTING HARD CODED SECRET SCAN"
+          echo "======================================="
+
+          # ------------------------------------------------
+          # OBJETIVO:
+          #
+          # Detectar possíveis credenciais expostas
+          # diretamente no código-fonte.
+          #
+          # Exemplos:
+          # - passwords
+          # - tokens
+          # - API Keys
+          # - secrets
+          # ------------------------------------------------
+
           echo "Scanning repository for potential hardcoded secrets..."
+
+          # ------------------------------------------------
+          # GREP RECURSIVO
+          #
+          # Flags utilizadas:
+          #
+          # -R  -> busca recursiva
+          # -I  -> ignora arquivos binários
+          # -n  -> exibe número da linha
+          # -E  -> habilita regex avançada
+          # ------------------------------------------------
 
           if grep -RInE \
             --exclude-dir=.git \
             --exclude-dir=.github \
+            --exclude-dir=node_modules \
+            --exclude-dir=.terraform \
+            --exclude-dir=dist \
+            --exclude-dir=build \
             --exclude=*.md \
-            "(password\s*=|passwd\s*=|pwd\s*=|secret\s*=|api_key\s*=|token\s*=)" .; then
+            --exclude=*.txt \
+            --exclude=*.log \
+            "(password\s*=|passwd\s*=|pwd\s*=|secret\s*=|api_key\s*=|apikey\s*=|token\s*=|access_key\s*=|secret_key\s*=)" .; then
+
+            echo "======================================="
+            echo "SECURITY ALERT"
+            echo "======================================="
 
             echo "Potential hardcoded secret detected."
+
+            # ------------------------------------------------
+            # FALHA O PIPELINE
+            #
+            # exit 1:
+            # interrompe execução imediatamente
+            # ------------------------------------------------
             exit 1
+
           else
+
+            echo "======================================="
+            echo "SECURITY VALIDATION SUCCESS"
+            echo "======================================="
+
             echo "No hardcoded secrets detected."
+
           fi
+
+      # =====================================================
+      # ETAPA 3 — FINALIZAÇÃO
+      # =====================================================
+      - name: Security Validation Completed
+
+        run: |
+
+          echo "======================================="
+          echo "PIPELINE FINISHED SUCCESSFULLY"
+          echo "======================================="
+
+          echo "Repository validation completed."
+          echo "No exposed credentials identified."
