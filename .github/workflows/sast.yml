@@ -10,7 +10,7 @@ env:
   #
   # Objetivo:
   # evitar warnings relacionados à descontinuação
-  # do Node.js 20 no GitHub Actions
+  # do Node.js 20
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 # =========================================================
@@ -23,7 +23,8 @@ on:
     branches:
       - main
 
-  # Executa em Pull Requests direcionados para main
+  # Executa automaticamente em Pull Requests
+  # direcionados para branch main
   pull_request:
     branches:
       - main
@@ -35,7 +36,7 @@ jobs:
 
   sast:
 
-    # Nome amigável exibido no GitHub Actions
+    # Nome exibido no GitHub Actions
     name: Static Application Security Testing
 
     # Runner oficial Linux Ubuntu
@@ -53,7 +54,7 @@ jobs:
       # na aba Security do GitHub
       security-events: write
 
-      # Necessário para algumas integrações futuras
+      # Necessário para integração entre actions
       actions: read
 
     steps:
@@ -67,14 +68,15 @@ jobs:
         uses: actions/checkout@v4.2.2
 
         # Objetivo:
-        # baixar o código-fonte para o runner
+        # baixar código-fonte do repositório
+        # para dentro do runner
 
       # =====================================================
       # ETAPA 2 — SEMGREP SAST SECURITY SCAN
       # =====================================================
       - name: Run Semgrep Security Scan
 
-        # Action oficial Semgrep
+        # Scanner SAST oficial Semgrep
         uses: semgrep/semgrep-action@v1
 
         with:
@@ -82,27 +84,32 @@ jobs:
           # Configuração automática de regras
           #
           # Detecta:
-          # - hardcoded secrets
           # - SQL Injection
           # - Command Injection
-          # - insecure deserialization
+          # - hardcoded secrets
           # - vulnerabilidades OWASP
+          # - insecure deserialization
           # - padrões inseguros
           config: auto
 
-          # Publica resultados SARIF
-          # no GitHub Security Tab
+          # Gera saída SARIF
+          #
+          # Permite integração:
+          # GitHub Security Tab
+          # Code Scanning Alerts
           generateSarif: "1"
 
         env:
 
-          # Token do Semgrep AppSec Platform
+          # Token Semgrep AppSec Platform
           #
-          # Necessário criar em:
+          # Criar em:
           # https://semgrep.dev
           #
           # GitHub:
-          # Settings -> Secrets -> Actions
+          # Settings
+          # -> Secrets and variables
+          # -> Actions
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
 
       # =====================================================
@@ -110,8 +117,14 @@ jobs:
       # =====================================================
       - name: Run Trivy Filesystem Scan
 
-        # Scanner da Aqua Security
-        uses: aquasecurity/trivy-action@0.24.0
+        # Scanner oficial Aqua Security
+        #
+        # Versão corrigida:
+        # 0.28.0
+        #
+        # Motivo:
+        # 0.24.0 não existe no marketplace
+        uses: aquasecurity/trivy-action@0.28.0
 
         with:
 
@@ -125,13 +138,14 @@ jobs:
           # Formato da saída
           format: table
 
-          # NÃO quebrar pipeline automaticamente
+          # Não falhar pipeline automaticamente
           #
-          # 0 = continua pipeline
+          # 0 = continua execução
           # 1 = falha pipeline
           exit-code: 0
 
-          # Ignora vulnerabilidades sem correção
+          # Ignora vulnerabilidades
+          # ainda sem correção disponível
           ignore-unfixed: true
 
           # Severidades analisadas
@@ -142,15 +156,18 @@ jobs:
       # =====================================================
       - name: Security Validation Completed
 
+        shell: bash
+
         run: |
 
           echo "======================================="
           echo "SAST SECURITY PIPELINE FINALIZED"
           echo "======================================="
 
-          echo "Semgrep scan completed."
-          echo "Trivy filesystem scan completed."
-
+          echo ""
+          echo "[OK] Semgrep SAST scan completed."
+          echo "[OK] Trivy filesystem scan completed."
+          echo ""
           echo "Security validation finished successfully."
 
       # =====================================================
@@ -158,15 +175,25 @@ jobs:
       # =====================================================
       - name: Pipeline Summary
 
+        shell: bash
+
         run: |
 
           echo "======================================="
           echo "PIPELINE COMPONENTS"
           echo "======================================="
+          echo ""
 
-          echo "[1] Semgrep -> Static Application Security Testing"
-          echo "[2] Trivy   -> Filesystem Vulnerability Scan"
+          echo "[1] Semgrep"
+          echo "    -> Static Application Security Testing"
+
+          echo ""
+
+          echo "[2] Trivy"
+          echo "    -> Filesystem Vulnerability Scan"
+
+          echo ""
 
           echo "======================================="
-          echo "STATUS: COMPLETED"
+          echo "FINAL STATUS: COMPLETED"
           echo "======================================="
