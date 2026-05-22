@@ -1,5 +1,3 @@
-# 🚀 Plataforma de Migração SQL Server → PostgreSQL com Babelfish
-
 Modernização de workloads SQL Server utilizando PostgreSQL, Babelfish, AWS DMS e práticas DevSecOps.
 
 ---
