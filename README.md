@@ -1,120 +1,80 @@
-# 🚀 Plataforma Enterprise de Migração de Banco de Dados  
-## SQL Server → PostgreSQL com Babelfish, AWS DMS e DevSecOps
+# 🚀 Plataforma de Migração SQL Server → PostgreSQL com Babelfish
 
-> Estratégia enterprise de modernização de bancos de dados legados utilizando PostgreSQL, Babelfish, AWS Database Migration Service (AWS DMS), CI/CD e práticas avançadas de DevSecOps.
-
----
-
-# 📌 Resumo Executivo
-
-Este projeto demonstra uma arquitetura enterprise para modernização de ambientes legados SQL Server com foco em:
-
-- Migração de baixo risco
-- Redução de downtime
-- Compatibilidade com aplicações legadas
-- Automação de validações
-- Segurança integrada ao pipeline
-- Preparação para ambientes cloud-native
-
-A solução foi construída simulando cenários reais de migração corporativa utilizando:
-
-- PostgreSQL
-- Babelfish for PostgreSQL
-- AWS Database Migration Service (DMS)
-- Docker
-- GitHub Actions
-- Pipelines DevSecOps
+Modernização de workloads SQL Server utilizando PostgreSQL, Babelfish, AWS DMS e práticas DevSecOps.
 
 ---
 
-# 🎯 Problema de Negócio
+# 📌 Visão Geral
 
-Muitas empresas ainda dependem fortemente de ambientes Microsoft SQL Server legados e enfrentam desafios como:
+Este projeto demonstra uma estratégia de modernização de bancos de dados SQL Server para PostgreSQL utilizando:
 
-- Alto custo de licenciamento
-- Vendor lock-in
-- Baixa flexibilidade operacional
-- Escalabilidade limitada
-- Alto risco em migrações tradicionais
-- Dependência de aplicações escritas em T-SQL
+* Babelfish for PostgreSQL;
+* AWS Database Migration Service (AWS DMS);
+* pipelines DevSecOps;
+* automação operacional;
+* validações pós-migração.
 
-Em muitos cenários, migrar diretamente para PostgreSQL exige:
+A proposta busca reduzir:
 
-- Reescrita da aplicação
-- Refatoração de procedures
-- Conversão de queries
-- Longas janelas de indisponibilidade
-
----
-
-# 🧠 Solução Proposta
-
-A arquitetura foi desenhada prevendo futura integração com observabilidade enterprise e cenários de disaster recovery.
-
-A solução combina:
-
-- SQL Server como origem
-- PostgreSQL como destino
-- Babelfish para compatibilidade T-SQL
-- AWS DMS para replicação contínua
-- Pipelines CI/CD para automação
-- DevSecOps para validações de segurança
+* dependência de licenciamento Microsoft;
+* risco operacional;
+* downtime durante migração;
+* necessidade imediata de refatoração das aplicações legadas.
 
 ---
 
-# 🏗️ Arquitetura Enterprise
+# 🎯 Objetivos do Projeto
 
-```text
-SQL Server (Origem)
-        │
-        ▼
-AWS DMS (CDC Replicação)
-        │
-        ▼
-Aurora PostgreSQL + Babelfish
-        │
-        ▼
-Aplicações Legadas
-(Sem necessidade imediata de reescrita)
+A POC foi construída para validar:
+
+* compatibilidade T-SQL via Babelfish;
+* conectividade TDS;
+* migração controlada SQL Server → PostgreSQL;
+* readiness para AWS DMS;
+* rollback operacional;
+* validação pós-migração;
+* automação de evidências técnicas.
 
 ---
 
-# 🔍 Validação Técnica da POC
+# 🧠 Cenário de Negócio
 
-A prova de conceito (POC) foi construída utilizando ambiente containerizado com:
+Muitas organizações ainda operam workloads críticos em Microsoft SQL Server e enfrentam desafios como:
 
-- WSL2
-- Ubuntu
-- Docker Desktop
-- SQL Server 2022
-- sqlcmd
+* alto custo de licenciamento;
+* vendor lock-in;
+* baixa flexibilidade operacional;
+* dificuldades de escalabilidade;
+* risco elevado em migrações tradicionais.
 
-O objetivo foi validar:
+Em ambientes legados, aplicações frequentemente dependem de:
 
-- conectividade TDS;
-- compatibilidade T-SQL;
-- CRUD;
-- procedures;
-- JOINs;
-- preparação para Babelfish;
-- readiness para AWS DMS.
+* T-SQL;
+* procedures;
+* drivers SQL Server;
+* protocolo TDS.
 
----
+Migrar diretamente para PostgreSQL normalmente exige:
 
-# ✅ Ambiente Provisionado
-
-| Componente | Status |
-|---|---|
-| WSL2 | ✅ |
-| Ubuntu 24.04 | ✅ |
-| Docker Desktop | ✅ |
-| SQL Server Container | ✅ |
-| sqlcmd | ✅ |
-| Porta 1433 | ✅ |
+* reescrita de código;
+* refatoração de procedures;
+* alterações na camada de aplicação;
+* longas janelas de indisponibilidade.
 
 ---
 
 # 🐳 Arquitetura Local da POC
+
+A prova de conceito foi implementada em ambiente containerizado utilizando:
+
+* Windows 11;
+* WSL2;
+* Ubuntu 24.04;
+* Docker Desktop;
+* SQL Server 2022;
+* PostgreSQL 15;
+* Babelfish;
+* sqlcmd.
 
 ```text
 Windows Host
@@ -123,245 +83,320 @@ WSL2 Ubuntu
     ↓
 Docker Desktop
     ↓
-Docker Engine
-    ↓
-SQL Server 2022 Container
-    ↓
-sqlcmd / T-SQL Validation
+Containers Docker
+    ├── SQL Server 2022
+    └── PostgreSQL + Babelfish
 ```
 
 ---
 
-# 🧪 Testes Validados
+# ✅ Ambiente Provisionado
 
-| Teste | Resultado |
-|---|---|
-| Conectividade TDS | ✅ |
-| CREATE DATABASE | ✅ |
-| CREATE TABLE | ✅ |
-| INSERT | ✅ |
-| SELECT | ✅ |
-| UPDATE | ✅ |
-| DELETE | ✅ |
-| JOINs | ✅ |
-| Stored Procedures | ✅ |
+| Componente      | Status |
+| --------------- | ------ |
+| WSL2            | ✅      |
+| Ubuntu 24.04    | ✅      |
+| Docker Desktop  | ✅      |
+| SQL Server 2022 | ✅      |
+| PostgreSQL 15   | ✅      |
+| Babelfish       | ✅      |
+| sqlcmd          | ✅      |
+| Porta 1433      | ✅      |
+| Porta 5432      | ✅      |
+
+---
+
+# ✅ SQL Server — Testes Validados
+
+| Teste             | Resultado |
+| ----------------- | --------- |
+| Conectividade TDS | ✅         |
+| CREATE DATABASE   | ✅         |
+| CREATE TABLE      | ✅         |
+| INSERT            | ✅         |
+| SELECT            | ✅         |
+| UPDATE            | ✅         |
+| DELETE            | ✅         |
+| JOINs             | ✅         |
+| Stored Procedures | ✅         |
 
 ---
 
 # 🧠 Compatibilidade Babelfish
 
-O Babelfish permite que aplicações SQL Server continuem utilizando:
+O Babelfish permite compatibilidade parcial com workloads SQL Server através de:
 
-- protocolo TDS;
-- porta 1433;
-- drivers ODBC/JDBC;
-- sintaxe T-SQL;
+* protocolo TDS;
+* drivers SQL Server;
+* sintaxe T-SQL;
+* porta 1433;
+* integração com aplicações legadas.
 
-sem necessidade imediata de reescrita da aplicação.
-
----
-
-# ⚠️ Limitações Conhecidas
-
-Embora o Babelfish possua alta compatibilidade, alguns recursos podem exigir refatoração:
-
-- dynamic SQL complexo;
-- temp tables encadeadas;
-- cursores antigos;
-- SQL CLR;
-- Service Broker;
-- linked servers;
-- cross-database transactions.
+Isso reduz significativamente o impacto inicial da migração.
 
 ---
 
-# 🔐 Hardening e Segurança
+# ⚠️ Limitações Conhecidas do Babelfish
 
-A arquitetura considera práticas enterprise de segurança:
+Alguns recursos do SQL Server ainda podem exigir refatoração:
 
-- IAM Least Privilege;
-- Secrets Manager;
-- KMS Encryption;
-- Security Groups restritivos;
-- Backup Policies;
-- Observabilidade centralizada;
-- CloudTrail;
-- CloudWatch;
-- Logs auditáveis.
+* dynamic SQL complexo;
+* SQL CLR;
+* linked servers;
+* Service Broker;
+* cursores legados;
+* cross-database transactions;
+* temp tables complexas.
 
 ---
 
-# 🔄 Estratégia de Migração
+# 💾 Restore do AdventureWorksLT2019
 
-A migração é executada em fases controladas:
-
-## 1. Assessment
-
-- análise de compatibilidade;
-- Babelfish Compass;
-- mapeamento de riscos.
+O banco de dados utilizado na POC foi o `AdventureWorksLT2019`, disponibilizado oficialmente pela Microsoft.
 
 ---
 
-## 2. POC e Validação
+## 📥 Download do Backup
 
-- testes com dados reais;
-- validação funcional;
-- benchmark inicial.
-
----
-
-## 3. Preparação
-
-- configuração DMS;
-- ajustes T-SQL;
-- hardening operacional.
+```bash
+curl -L https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2019.bak \
+-o sqlserver/backup/AdventureWorksLT2019.bak
+```
 
 ---
 
-## 4. Migração
+## 📦 Cópia do Backup para o Container
 
-- Full Load;
-- CDC contínuo;
-- cutover controlado;
-- downtime mínimo.
-
----
-
-## 5. Estabilização
-
-- tuning;
-- monitoramento;
-- rollback disponível;
-- validação operacional.
+```bash
+docker cp sqlserver/backup/AdventureWorksLT2019.bak \
+sqlserver-adventureworks:/var/opt/mssql/backup/
+```
 
 ---
 
-# 🔙 Estratégia de Rollback
+## 🔎 Verificação do Arquivo
 
-O SQL Server original permanece íntegro durante todo o processo.
-
-Em caso de incidente:
-
-- basta redirecionar a aplicação para o endpoint original;
-- rollback ocorre em poucos minutos;
-- sem restore massivo;
-- sem replay complexo de logs.
+```bash
+docker exec -it sqlserver-adventureworks \
+ls -lh /var/opt/mssql/backup
+```
 
 ---
 
-# 📊 Benefícios Estratégicos
+## 🛠️ Restore do Banco
 
-A proposta não representa apenas troca de banco de dados.
+```sql
+RESTORE DATABASE AdventureWorksLT2019
+FROM DISK = '/var/opt/mssql/backup/AdventureWorksLT2019.bak'
+WITH
+MOVE 'AdventureWorksLT2019_Data'
+TO '/var/opt/mssql/data/AdventureWorksLT2019.mdf',
 
-Ela estabelece:
+MOVE 'AdventureWorksLT2019_Log'
+TO '/var/opt/mssql/data/AdventureWorksLT2019_log.ldf',
 
-- modernização progressiva;
-- redução de dependência Microsoft;
-- preparação cloud-native;
-- readiness para Kubernetes;
-- automação operacional;
-- redução de RTO/RPO;
-- observabilidade enterprise;
-- FinOps;
-- escalabilidade futura.
-
----
-
-# 💰 Benefícios Financeiros
-
-## Redução de Custos
-
-Comparado ao SQL Server Enterprise:
-
-- redução significativa de licenciamento;
-- menor custo operacional;
-- menor dependência de soluções proprietárias.
+REPLACE;
+GO
+```
 
 ---
 
-# 📈 Escalabilidade
+## ✅ Resultado do Restore
 
-A arquitetura Aurora Multi-AZ permite:
+O restore foi concluído com sucesso no SQL Server 2022.
 
-- failover automático;
-- read replicas;
-- auto-scaling;
-- alta concorrência;
-- workloads analíticos isolados.
+Durante o processo:
+
+* o SQL Server converteu automaticamente o banco da versão interna 904 para 957;
+* 858 páginas de dados foram processadas;
+* o ambiente foi validado para migração e assessment.
+
+Exemplo do log:
+
+```text
+Database 'AdventureWorksLT2019' running the upgrade step from version 956 to version 957.
+
+RESTORE DATABASE successfully processed 858 pages in 1.183 seconds (5.662 MB/sec).
+```
 
 ---
 
-# 🔍 Observabilidade
+# 📂 Evidências
 
-A solução suporta integração com:
+As evidências da POC estão organizadas por fases da migração e validação.
 
-- CloudWatch;
-- X-Ray;
-- Grafana;
-- Prometheus;
-- CloudTrail;
-- OpenTelemetry.
+```text
+docs/evidence/
+├── 01-environment/
+├── 02-sqlserver/
+├── 03-compass/
+├── 04-assessment/
+├── 05-remediation/
+├── 06-migration/
+├── 07-validation/
+└── 08-rollback/
+```
+
+---
+
+# 🔍 Estratégia de Migração
+
+A estratégia foi dividida em fases controladas para garantir segurança, rastreabilidade e minimização de riscos durante a migração.
+
+---
+
+## 1️⃣ Assessment
+
+* Babelfish Compass;
+* análise de compatibilidade;
+* identificação de riscos.
+
+---
+
+## 2️⃣ Preparação
+
+* configuração do ambiente;
+* hardening;
+* backup;
+* validações iniciais.
+
+---
+
+## 3️⃣ Migração
+
+* Full Load;
+* CDC contínuo;
+* sincronização controlada;
+* cutover planejado.
+
+---
+
+## 4️⃣ Validação
+
+* contagem de registros;
+* integridade de dados;
+* testes funcionais;
+* validação de queries.
+
+---
+
+## 5️⃣ Rollback
+
+* preservação do SQL Server original;
+* retorno rápido ao ambiente anterior;
+* minimização de downtime.
+
+---
+
+# 🔐 Segurança e Hardening
+
+A arquitetura considera práticas modernas de segurança para garantir proteção, rastreabilidade e conformidade operacional.
+
+---
+
+## 🛡️ Controles de Segurança
+
+* IAM Least Privilege;
+* Secrets Manager;
+* KMS Encryption;
+* backups automatizados;
+* logs auditáveis;
+* CloudTrail;
+* CloudWatch;
+* pipelines DevSecOps.
+
+---
+
+# 📊 Benefícios Técnicos
+
+* redução de custos de licenciamento;
+* modernização progressiva;
+* compatibilidade com aplicações legadas;
+* preparação para cloud-native;
+* redução de downtime;
+* automação operacional;
+* observabilidade centralizada.
 
 ---
 
 # 🚀 DevSecOps
 
-A plataforma foi desenhada considerando:
+O projeto utiliza conceitos modernos de automação, segurança e integração contínua.
 
-- CI/CD;
-- segurança shift-left;
-- Infrastructure as Code;
-- automação;
-- versionamento;
-- pipelines auditáveis.
+---
+
+## ⚙️ Práticas Implementadas
+
+* CI/CD;
+* GitHub Actions;
+* automação de validações;
+* Infrastructure as Code;
+* versionamento Git;
+* segurança shift-left.
 
 ---
 
 # 🧱 Estrutura do Projeto
 
 ```text
+backup/
+docker/
 docs/
 ├── architecture/
-├── security/
-├── grc/
 ├── evidence/
+├── grc/
 
 scripts/
 terraform/
-diagrams/
+tests/
 .github/workflows/
 ```
 
 ---
 
+# 📌 Status Atual do Projeto
+
+| Etapa                    | Status |
+| ------------------------ | ------ |
+| Ambiente Docker          | ✅      |
+| SQL Server 2022          | ✅      |
+| PostgreSQL + Babelfish   | ✅      |
+| Backup PostgreSQL        | ✅      |
+| Restore AdventureWorksLT | ✅      |
+| Validação SQL Server     | ✅      |
+| Babelfish Compass        | 🔄     |
+| Migração                 | 🔄     |
+| Validação Pós-Migração   | 🔄     |
+| AWS DMS                  | ⏳      |
+| Terraform                | ⏳      |
+
+---
+
 # 📌 Próximos Passos
 
-- importar AdventureWorks;
-- validar AWS DMS;
-- validar CDC;
-- testar Babelfish;
-- criar pipelines CI/CD;
-- implementar Terraform;
-- criar observabilidade enterprise.
+* executar Babelfish Compass;
+* validar compatibilidade T-SQL;
+* migrar schema;
+* validar carga de dados;
+* executar testes de performance;
+* implementar DMS;
+* automatizar validações;
+* provisionar infraestrutura via Terraform.
 
 ---
 
 # 🎯 Conclusão
 
-A solução proposta demonstra uma estratégia enterprise moderna para migração de ambientes SQL Server legados.
+Esta POC demonstra uma abordagem moderna para modernização de workloads SQL Server utilizando PostgreSQL e Babelfish.
 
-A arquitetura permite:
+A arquitetura proposta permite:
 
-- modernização progressiva;
-- baixo risco operacional;
-- compatibilidade com aplicações existentes;
-- redução de custos;
-- preparação para ambientes cloud-native.
+* migração progressiva;
+* redução de riscos;
+* compatibilidade com aplicações existentes;
+* menor dependência de tecnologias proprietárias;
+* preparação para ambientes cloud-native.
 
-O projeto estabelece uma base sólida para:
+---
 
-- transformação digital;
-- adoção de DevSecOps;
-- workloads escaláveis;
-- operação resiliente em nuvem.
+O projeto estabelece uma base sólida para cenários enterprise de transformação digital e migração de banco de dados em larga escala.
