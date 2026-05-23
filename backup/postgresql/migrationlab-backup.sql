@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict YrvcgPK0TocSS95GxXmJkHmOIXYgayeWdYbvuuUAmFdd6czO2zBODd0LkYqI5PV
+\restrict rhGhVcQ4MgOEumnxlePLbszafmffHSyAR692juUfyuFStl2zxNEt6JRqxbs2gZW
 
 -- Dumped from database version 15.18 (Debian 15.18-1.pgdg13+1)
 -- Dumped by pg_dump version 15.18 (Debian 15.18-1.pgdg13+1)
@@ -101,5 +101,5 @@ ALTER TABLE ONLY migration.clientes
 -- PostgreSQL database dump complete
 --
 
-\unrestrict YrvcgPK0TocSS95GxXmJkHmOIXYgayeWdYbvuuUAmFdd6czO2zBODd0LkYqI5PV
+\unrestrict rhGhVcQ4MgOEumnxlePLbszafmffHSyAR692juUfyuFStl2zxNEt6JRqxbs2gZW
 
