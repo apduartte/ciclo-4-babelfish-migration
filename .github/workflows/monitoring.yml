@@ -45,24 +45,17 @@ jobs:
         # Baixar o código do repositório
         # para dentro do runner do GitHub Actions
 
-      # =========================
-      # ETAPA 2 — AUTENTICAÇÃO AWS VIA OIDC
-      # =========================
+# =========================
+# ETAPA 2 — AUTENTICAÇÃO AWS
+# =========================
       - name: Configure AWS Credentials
 
-        # Action oficial AWS
         uses: aws-actions/configure-aws-credentials@v4
 
         with:
-
-          # Role IAM assumida dinamicamente via OIDC
-          # Evita uso de ACCESS_KEY e SECRET_KEY
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-
-          # Região AWS utilizada no pipeline
-          aws-region: us-east-1
-          audience: sts.amazonaws.com
-          output-env-credentials: true
+         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws-region: us-east-1
 
       # =========================
       # ETAPA 3 — VALIDAÇÃO DA CONEXÃO AWS
