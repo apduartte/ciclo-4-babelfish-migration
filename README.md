@@ -398,3 +398,85 @@ A arquitetura proposta permite:
 ---
 
 O projeto estabelece uma base sólida para cenários enterprise de transformação digital e migração de banco de dados em larga escala.
+
+---
+
+# 📂 Evidências de Validação PostgreSQL
+
+As evidências relacionadas ao PostgreSQL e às validações pós-migração foram organizadas para garantir rastreabilidade, auditoria técnica e documentação operacional da POC.
+
+---
+
+## 🗂️ Estrutura Recomendada de Evidências
+
+### 📁 Evidências Operacionais PostgreSQL
+
+```text
+docs/evidence/02-postgresql/
+
+Diretório responsável por armazenar evidências técnicas relacionadas ao ambiente PostgreSQL/Babelfish, incluindo:
+
+criação de banco;
+conectividade PostgreSQL;
+validações do container;
+execução do pg_dump;
+backup lógico;
+testes operacionais do PostgreSQL;
+validação de serviços ativos.
+🖼️ Evidência — PostgreSQL pg_dump Validation
+
+Arquivo sugerido:
+
+postgresql-pgdump-validation.png
+📌 Objetivo da Evidência
+
+Documentar a execução bem-sucedida do comando pg_dump no ambiente PostgreSQL containerizado, validando:
+
+integridade do banco migrationlab;
+capacidade de geração de backup lógico;
+readiness para estratégias de rollback;
+preparação para migração e recuperação operacional.
+
+🧠 Contexto Técnico
+
+A validação foi executada no container PostgreSQL utilizado pela POC Babelfish, garantindo que o ambiente esteja apto para:
+
+backup;
+restore;
+recuperação;
+continuidade operacional;
+validações pós-migração.
+⚙️ Comando Executado
+docker exec -t postgres-babelfish \
+pg_dump -U postgres migrationlab \
+> backup/postgresql/migrationlab-backup.sql
+✅ Resultado Validado
+
+✅ Resultado Validado
+
+A evidência confirma:
+
+execução bem-sucedida do pg_dump;
+acesso válido ao banco migrationlab;
+geração correta do arquivo .sql;
+funcionamento operacional do PostgreSQL 15;
+preparação do ambiente para migração controlada.
+🔍 Evidência Complementar
+
+Validação do conteúdo do backup:
+
+head backup/postgresql/migrationlab-backup.sql
+
+Resultado esperado:
+--
+-- PostgreSQL database dump
+--
+📊 Aplicação do 5W2H
+Elemento	Descrição
+What	Validação de backup lógico PostgreSQL utilizando pg_dump
+Why	Garantir integridade, recuperação e readiness operacional
+Where	Container Docker postgres-babelfish
+When	Durante fase de validação da POC
+Who	Equipe responsável pela modernização/migração
+How	Execução do pg_dump via Docker container
+How Much	Sem custo adicional — utilização de ferramentas open source
