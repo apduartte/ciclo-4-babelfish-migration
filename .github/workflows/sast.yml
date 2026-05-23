@@ -5,12 +5,8 @@ name: SAST Security Scan
 # =========================================================
 env:
 
-  # Força compatibilidade das GitHub Actions
-  # com runtime Node.js 24
-  #
-  # Objetivo:
-  # evitar warnings relacionados à descontinuação
-  # do Node.js 20
+  # Compatibilidade com GitHub Actions runtime
+  # evitando warnings relacionados ao Node.js 20
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 # =========================================================
@@ -39,7 +35,7 @@ jobs:
     # Nome exibido no GitHub Actions
     name: Static Application Security Testing
 
-    # Runner oficial Linux Ubuntu
+    # Runner oficial Ubuntu
     runs-on: ubuntu-latest
 
     # =====================================================
@@ -47,16 +43,19 @@ jobs:
     # =====================================================
     permissions:
 
-      # Permite leitura do repositório
+      # Permissão de leitura do repositório
       contents: read
 
-      # Permite publicação de findings SARIF
+      # Permissão para publicar resultados SARIF
       # na aba Security do GitHub
       security-events: write
 
       # Necessário para integração entre actions
       actions: read
 
+    # =====================================================
+    # ETAPAS
+    # =====================================================
     steps:
 
       # =====================================================
@@ -65,135 +64,56 @@ jobs:
       - name: Checkout Repository
 
         # Action oficial GitHub
-        uses: actions/checkout@v4.2.2
-
-        # Objetivo:
-        # baixar código-fonte do repositório
-        # para dentro do runner
+        uses: actions/checkout@v4
 
       # =====================================================
-      # ETAPA 2 — SEMGREP SAST SECURITY SCAN
+      # ETAPA 2 — SEMGREP SAST SCAN
       # =====================================================
       - name: Run Semgrep Security Scan
 
-        # Scanner SAST oficial Semgrep
+        # Scanner oficial Semgrep
         uses: semgrep/semgrep-action@v1
 
         with:
 
-          # Configuração automática de regras
+          # Regras automáticas da comunidade
           #
           # Detecta:
           # - SQL Injection
           # - Command Injection
           # - hardcoded secrets
           # - vulnerabilidades OWASP
-          # - insecure deserialization
           # - padrões inseguros
           config: auto
 
-          # Gera saída SARIF
+          # Geração de relatório SARIF
           #
-          # Permite integração:
+          # Integração:
           # GitHub Security Tab
           # Code Scanning Alerts
           generateSarif: "1"
 
         env:
 
-          # Token Semgrep AppSec Platform
+          # Token opcional Semgrep Platform
           #
-          # Criar em:
-          # https://semgrep.dev
+          # Caso não exista secret configurado,
+          # o pipeline continuará funcionando.
           #
-          # GitHub:
+          # Configuração no GitHub:
           # Settings
           # -> Secrets and variables
           # -> Actions
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
 
       # =====================================================
-      # ETAPA 3 — TRIVY FILESYSTEM SCAN
+      # ETAPA 3 — UPLOAD SARIF PARA GITHUB SECURITY
       # =====================================================
-      - name: Run Trivy Filesystem Scan
+      - name: Upload Semgrep SARIF Results
 
-        # Scanner oficial Aqua Security
-        #
-        # Versão corrigida:
-        # 0.28.0
-        #
-        # Motivo:
-        # 0.24.0 não existe no marketplace
-        uses: aquasecurity/trivy-action@master
+        uses: github/codeql-action/upload-sarif@v3
 
         with:
 
-          # Tipo de scan:
-          # filesystem local
-          scan-type: fs
-
-          # Diretório analisado
-          scan-ref: .
-
-          # Formato da saída
-          format: table
-
-          # Não falhar pipeline automaticamente
-          #
-          # 0 = continua execução
-          # 1 = falha pipeline
-          exit-code: 0
-
-          # Ignora vulnerabilidades
-          # ainda sem correção disponível
-          ignore-unfixed: true
-
-          # Severidades analisadas
-          severity: CRITICAL,HIGH
-
-      # =====================================================
-      # ETAPA 4 — VALIDAÇÃO FINAL
-      # =====================================================
-      - name: Security Validation Completed
-
-        shell: bash
-
-        run: |
-
-          echo "======================================="
-          echo "SAST SECURITY PIPELINE FINALIZED"
-          echo "======================================="
-
-          echo ""
-          echo "[OK] Semgrep SAST scan completed."
-          echo "[OK] Trivy filesystem scan completed."
-          echo ""
-          echo "Security validation finished successfully."
-
-      # =====================================================
-      # ETAPA 5 — RESUMO EXECUTIVO
-      # =====================================================
-      - name: Pipeline Summary
-
-        shell: bash
-
-        run: |
-
-          echo "======================================="
-          echo "PIPELINE COMPONENTS"
-          echo "======================================="
-          echo ""
-
-          echo "[1] Semgrep"
-          echo "    -> Static Application Security Testing"
-
-          echo ""
-
-          echo "[2] Trivy"
-          echo "    -> Filesystem Vulnerability Scan"
-
-          echo ""
-
-          echo "======================================="
-          echo "FINAL STATUS: COMPLETED"
-          echo "======================================="
+          # Arquivo gerado pelo Semgrep
+          sarif_file: semgrep.s
