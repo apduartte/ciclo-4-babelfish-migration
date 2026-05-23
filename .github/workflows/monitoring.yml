@@ -60,7 +60,9 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
 
           # Região AWS utilizada no pipeline
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: us-east-1
+          audience: sts.amazonaws.com
+          output-env-credentials: true
 
       # =========================
       # ETAPA 3 — VALIDAÇÃO DA CONEXÃO AWS
