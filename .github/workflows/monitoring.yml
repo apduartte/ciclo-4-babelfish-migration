@@ -90,3 +90,5 @@ jobs:
           echo "Listando buckets S3 disponíveis..."
 
           aws s3 ls
+
+
