@@ -48,12 +48,14 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-
       # =========================
-      # ETAPA 3 — VALIDAR SESSÃO AWS
+      # ETAPA 3 — VALIDAÇÃO DA CONEXÃO AWS
       # =========================
       - name: Validate AWS Session
+
         run: |
+
+          echo "Validando autenticação AWS..."
 
           echo "Região AWS:"
           echo "$AWS_REGION"
@@ -61,6 +63,7 @@ jobs:
           echo "Caller Identity:"
           aws sts get-caller-identity
 
+          echo "Autenticação AWS realizada com sucesso."
       # =========================
       # ETAPA 4 — VALIDAR REGIÃO AWS
       # =========================
