@@ -4,10 +4,11 @@ name: Monitoring Pipeline
 # EVENTOS QUE DISPARAM O PIPELINE
 # =========================
 on:
-  # Permite execução manual pelo GitHub Actions
+
+  # Execução manual
   workflow_dispatch:
 
-  # Executa automaticamente quando houver push na branch main
+  # Execução automática via push
   push:
     branches:
       - main
@@ -16,77 +17,65 @@ on:
 # PERMISSÕES NECESSÁRIAS
 # =========================
 permissions:
-  # Necessário para autenticação OIDC com AWS IAM Role
   id-token: write
-
-  # Permite leitura do conteúdo do repositório
   contents: read
 
 # =========================
 # JOB PRINCIPAL
 # =========================
 jobs:
+
   monitoring:
 
-    # Runner oficial Linux Ubuntu
+    # Runner oficial GitHub Linux
     runs-on: ubuntu-latest
 
     steps:
 
       # =========================
-      # ETAPA 1 — CHECKOUT DO REPOSITÓRIO
+      # ETAPA 1 — CHECKOUT
       # =========================
       - name: Checkout Repository
-
-        # Action oficial GitHub
         uses: actions/checkout@v4.2.2
 
-        # Objetivo:
-        # Baixar o código do repositório
-        # para dentro do runner do GitHub Actions
-
-        # =========================
-        # ETAPA 2 — AUTENTICAÇÃO AWS
-        # =========================
+      # =========================
+      # ETAPA 2 — AUTENTICAÇÃO AWS
+      # =========================
       - name: Configure AWS Credentials
-
         uses: aws-actions/configure-aws-credentials@v4
 
         with:
-         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
-        # =====================================================
-        # ETAPA 3 — VALIDAÇÃO DA CONEXÃO AWS
-        # =====================================================
-       - name: Validate AWS Session
-
+      # =========================
+      # ETAPA 3 — VALIDAR SESSÃO AWS
+      # =========================
+      - name: Validate AWS Session
         run: |
 
-            echo "Região AWS:"
-            echo "$AWS_REGION"
+          echo "Região AWS:"
+          echo "$AWS_REGION"
 
-            echo "Caller Identity:"
-            aws sts get-caller-identity
+          echo "Caller Identity:"
+          aws sts get-caller-identity
+
       # =========================
-      # ETAPA 4 — VALIDAÇÃO OPCIONAL DE SEGURANÇA
+      # ETAPA 4 — VALIDAR REGIÃO AWS
       # =========================
       - name: Validate Current AWS Region
-
         run: |
 
           echo "Região AWS configurada:"
-
           aws configure get region
 
       # =========================
-      # ETAPA 5 — TESTE OPCIONAL S3
+      # ETAPA 5 — LISTAR BUCKETS S3
       # =========================
       - name: List S3 Buckets
-
         run: |
 
           echo "Listando buckets S3 disponíveis..."
-
           aws s3 ls
+```
