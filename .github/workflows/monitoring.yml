@@ -45,9 +45,9 @@ jobs:
         # Baixar o código do repositório
         # para dentro do runner do GitHub Actions
 
-# =========================
-# ETAPA 2 — AUTENTICAÇÃO AWS
-# =========================
+        # =========================
+        # ETAPA 2 — AUTENTICAÇÃO AWS
+        # =========================
       - name: Configure AWS Credentials
 
         uses: aws-actions/configure-aws-credentials@v4
@@ -57,20 +57,18 @@ jobs:
          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          aws-region: us-east-1
 
-      # =========================
-      # ETAPA 3 — VALIDAÇÃO DA CONEXÃO AWS
-      # =========================
-      - name: Validate AWS Connection
+        # =====================================================
+        # ETAPA 3 — VALIDAÇÃO DA CONEXÃO AWS
+        # =====================================================
+       - name: Validate AWS Session
 
         run: |
 
-          echo "Validando autenticação AWS..."
+            echo "Região AWS:"
+            echo "$AWS_REGION"
 
-          # Exibe identidade autenticada
-          aws sts get-caller-identity
-
-          echo "Autenticação AWS realizada com sucesso."
-
+            echo "Caller Identity:"
+            aws sts get-caller-identity
       # =========================
       # ETAPA 4 — VALIDAÇÃO OPCIONAL DE SEGURANÇA
       # =========================
@@ -92,3 +90,5 @@ jobs:
           echo "Listando buckets S3 disponíveis..."
 
           aws s3 ls
+
+
