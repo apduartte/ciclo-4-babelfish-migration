@@ -6,7 +6,6 @@ name: SAST Security Scan
 env:
 
   # Compatibilidade com GitHub Actions runtime
-  # evitando warnings relacionados ao Node.js 20
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 # =========================================================
@@ -20,7 +19,6 @@ on:
       - main
 
   # Executa automaticamente em Pull Requests
-  # direcionados para branch main
   pull_request:
     branches:
       - main
@@ -35,20 +33,16 @@ jobs:
     # Nome exibido no GitHub Actions
     name: Static Application Security Testing
 
-    # Runner oficial Ubuntu
+    # Runner Ubuntu oficial
     runs-on: ubuntu-latest
 
     # =====================================================
-    # PERMISSÕES NECESSÁRIAS
+    # PERMISSÕES
     # =====================================================
     permissions:
 
-      # Permissão de leitura do repositório
+      # Permissão mínima necessária
       contents: read
-
-      # Permissão para publicar resultados SARIF
-      # na aba Security do GitHub
-      security-events: write
 
       # Necessário para integração entre actions
       actions: read
@@ -59,61 +53,24 @@ jobs:
     steps:
 
       # =====================================================
-      # ETAPA 1 — CHECKOUT DO REPOSITÓRIO
+      # ETAPA 1 — CHECKOUT
       # =====================================================
       - name: Checkout Repository
-
-        # Action oficial GitHub
         uses: actions/checkout@v4
 
       # =====================================================
-      # ETAPA 2 — SEMGREP SAST SCAN
+      # ETAPA 2 — SAST COM SEMGREP
       # =====================================================
       - name: Run Semgrep Security Scan
 
-        # Scanner oficial Semgrep
         uses: semgrep/semgrep-action@v1
 
         with:
 
           # Regras automáticas da comunidade
-          #
-          # Detecta:
-          # - SQL Injection
-          # - Command Injection
-          # - hardcoded secrets
-          # - vulnerabilidades OWASP
-          # - padrões inseguros
           config: auto
-
-          # Geração de relatório SARIF
-          #
-          # Integração:
-          # GitHub Security Tab
-          # Code Scanning Alerts
-          generateSarif: "1"
 
         env:
 
           # Token opcional Semgrep Platform
-          #
-          # Caso não exista secret configurado,
-          # o pipeline continuará funcionando.
-          #
-          # Configuração no GitHub:
-          # Settings
-          # -> Secrets and variables
-          # -> Actions
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-
-      # =====================================================
-      # ETAPA 3 — UPLOAD SARIF PARA GITHUB SECURITY
-      # =====================================================
-      - name: Upload Semgrep SARIF Results
-
-        uses: github/codeql-action/upload-sarif@v3
-
-        with:
-
-          # Arquivo gerado pelo Semgrep
-          sarif_file: semgrep.sarif
