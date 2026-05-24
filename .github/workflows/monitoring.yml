@@ -60,16 +60,15 @@ jobs:
       # =========================
       # ETAPA 3 — VALIDAÇÃO DA CONEXÃO AWS
       # =========================
-      - name: Validate AWS Connection
+      - name: Validate AWS Session
 
         run: |
 
-          echo "Validando autenticação AWS..."
+         echo "Região AWS:"
+         echo "$AWS_REGION"
 
-          # Exibe identidade autenticada
-          aws sts get-caller-identity
-
-          echo "Autenticação AWS realizada com sucesso."
+        echo "Caller Identity:"
+        aws sts get-caller-identity
 
       # =========================
       # ETAPA 4 — VALIDAÇÃO OPCIONAL DE SEGURANÇA
