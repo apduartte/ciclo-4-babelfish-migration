@@ -1,3 +1,12 @@
+```text
+CI/CD
+SAST
+Terraform
+PostgreSQL
+Babelfish
+AWS
+Docker
+```
 Modernização de workloads SQL Server utilizando PostgreSQL, Babelfish, AWS DMS e práticas DevSecOps.
 
 ---
@@ -305,6 +314,72 @@ A arquitetura considera práticas modernas de segurança para garantir proteçã
 
 ---
 
+# 🔐 Segurança e Hardening
+
+## 🔐 Acesso Seguro AWS com Systems Manager (SSM)
+
+Este ambiente utiliza exclusivamente o AWS Systems Manager (SSM) Session Manager para acesso administrativo seguro às instâncias Amazon EC2.
+
+A arquitetura elimina a necessidade de:
+
+- Exposição pública da porta SSH (22)
+- Utilização de chaves PEM
+- Acesso administrativo tradicional via SSH
+
+### Recursos de Segurança
+
+- Autenticação baseada em IAM Role para EC2
+- Credenciais temporárias via AWS STS
+- Administração centralizada via Session Manager
+- Auditoria centralizada de sessões
+- Modelo de segurança Zero Trust
+- Redução da superfície de ataque
+
+### Componentes AWS Utilizados
+
+- Amazon EC2
+- AWS Systems Manager (SSM)
+- Session Manager
+- AWS IAM
+- AWS STS
+
+### Comandos de Validação
+
+```bash
+sudo systemctl status amazon-ssm-agent
+aws sts get-caller-identity
+```
+
+### Fluxo da Arquitetura
+
+GitHub Actions  
+→ OIDC Federation  
+→ AWS IAM Role  
+→ AWS Systems Manager (SSM)  
+→ Session Manager  
+→ Amazon EC2  
+→ Babelfish/PostgreSQL
+
+### Melhorias DevSecOps Implementadas
+
+- Administração segura sem utilização de SSH
+- Controle centralizado de acesso
+- Segurança operacional cloud-native
+- Melhor rastreabilidade operacional
+- Integração segura entre GitHub Actions e AWS
+- Conformidade com boas práticas AWS
+
+### Benefícios da Implementação
+
+- Eliminação de acesso SSH público
+- Redução significativa da superfície de ataque
+- Acesso administrativo baseado em identidade IAM
+- Sessões auditáveis e centralizadas
+- Ambiente mais seguro para workloads críticos
+- Arquitetura alinhada às práticas modernas de DevSecOps
+- 
+---
+
 # 📊 Benefícios Técnicos
 
 * redução de custos de licenciamento;
@@ -348,6 +423,21 @@ scripts/
 terraform/
 tests/
 .github/workflows/
+```
+
+---
+
+# 📂 Estrutura da Documentação
+
+```text
+docs/
+├── architecture/         # Diagramas e arquitetura da solução
+├── evidence/             # Evidências técnicas e screenshots
+├── troubleshooting/      # Problemas conhecidos e soluções
+├── migration-strategy/   # Estratégias e fases da migração
+├── security/             # Hardening, IAM, DevSecOps
+├── operations/           # Operação, backup e rollback
+└── grc/                  # Governança, risco e compliance
 ```
 
 ---
@@ -471,12 +561,15 @@ Resultado esperado:
 --
 -- PostgreSQL database dump
 --
-📊 Aplicação do 5W2H
-Elemento	Descrição
-What	Validação de backup lógico PostgreSQL utilizando pg_dump
-Why	Garantir integridade, recuperação e readiness operacional
-Where	Container Docker postgres-babelfish
-When	Durante fase de validação da POC
-Who	Equipe responsável pela modernização/migração
-How	Execução do pg_dump via Docker container
-How Much	Sem custo adicional — utilização de ferramentas open source
+## 📊 Aplicação do 5W2H
+
+| Elemento | Descrição |
+|----------|------------|
+| **What** | Validação de backup lógico PostgreSQL utilizando `pg_dump` |
+| **Why** | Garantir integridade, recuperação e readiness operacional |
+| **Where** | Container Docker `postgres-babelfish` |
+| **When** | Durante a fase de validação da POC |
+| **Who** | Equipe responsável pela modernização e migração |
+| **How** | Execução do `pg_dump` via container Docker |
+| **How Much** | Sem custo adicional, utilizando ferramentas open source |
+g
