@@ -91,7 +91,6 @@ jobs:
           # Integração:
           # GitHub Security Tab
           # Code Scanning Alerts
-          generateSarif: "1"
 
         env:
 
