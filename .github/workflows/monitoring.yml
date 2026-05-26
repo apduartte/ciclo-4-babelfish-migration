@@ -5,10 +5,8 @@ name: Monitoring Pipeline
 # =========================
 on:
 
-  # Execução manual
   workflow_dispatch:
 
-  # Execução automática via push
   push:
     branches:
       - main
@@ -27,7 +25,6 @@ jobs:
 
   monitoring:
 
-    # Runner oficial GitHub Linux
     runs-on: ubuntu-latest
 
     steps:
@@ -42,71 +39,77 @@ jobs:
       # ETAPA 2 — AUTENTICAÇÃO AWS
       # =========================
       - name: Configure AWS Credentials
+
         uses: aws-actions/configure-aws-credentials@v4
 
         with:
           role-to-assume: arn:aws:iam::ACCOUNT_ID:role/GitHubActionsRole
           aws-region: us-east-1
-# =========================
-# ETAPA 3 — VALIDAÇÃO DA SESSÃO AWS
-# =========================
-- name: Validate AWS Session
-  run: |
 
-    echo "========================================="
-    echo "VALIDANDO SESSÃO AWS"
-    echo "========================================="
+      # =========================
+      # ETAPA 3 — VALIDAÇÃO DA SESSÃO AWS
+      # =========================
+      - name: Validate AWS Session
 
-    echo ""
-    echo "Região AWS configurada:"
-    aws configure get region
+        run: |
 
-    echo ""
-    echo "Validando identidade IAM autenticada..."
-    aws sts get-caller-identity
+          echo "========================================="
+          echo "VALIDANDO SESSÃO AWS"
+          echo "========================================="
 
-    echo ""
-    echo "Status:"
-    echo "Autenticação AWS validada com sucesso."
+          echo ""
+          echo "Região AWS configurada:"
+          aws configure get region
 
-    echo "========================================="
-# =========================
-# ETAPA 4 — VALIDAR REGIÃO AWS
-# =========================
-- name: Validate Current AWS Region
-  run: |
+          echo ""
+          echo "Validando identidade IAM autenticada..."
+          aws sts get-caller-identity
 
-    echo "========================================="
-    echo "VALIDANDO REGIÃO AWS CONFIGURADA"
-    echo "========================================="
+          echo ""
+          echo "Status:"
+          echo "Autenticação AWS validada com sucesso."
 
-    echo ""
-    echo "Região atualmente configurada no runner:"
-    aws configure get region
+          echo "========================================="
 
-    echo ""
-    echo "Status:"
-    echo "Região AWS validada com sucesso."
+      # =========================
+      # ETAPA 4 — VALIDAR REGIÃO AWS
+      # =========================
+      - name: Validate Current AWS Region
 
-    echo "========================================="
+        run: |
 
-# =========================
-# ETAPA 5 — LISTAR BUCKETS S3
-# =========================
-- name: List S3 Buckets
-  run: |
+          echo "========================================="
+          echo "VALIDANDO REGIÃO AWS CONFIGURADA"
+          echo "========================================="
 
-    echo "========================================="
-    echo "VALIDANDO ACESSO AO AMAZON S3"
-    echo "========================================="
+          echo ""
+          echo "Região atualmente configurada no runner:"
+          aws configure get region
 
-    echo ""
-    echo "Listando buckets S3 disponíveis na conta AWS..."
+          echo ""
+          echo "Status:"
+          echo "Região AWS validada com sucesso."
 
-    aws s3 ls
+          echo "========================================="
 
-    echo ""
-    echo "Status:"
-    echo "Conectividade com Amazon S3 validada com sucesso."
+      # =========================
+      # ETAPA 5 — LISTAR BUCKETS S3
+      # =========================
+      - name: List S3 Buckets
 
-    echo "========================================="
+        run: |
+
+          echo "========================================="
+          echo "VALIDANDO ACESSO AO AMAZON S3"
+          echo "========================================="
+
+          echo ""
+          echo "Listando buckets S3 disponíveis na conta AWS..."
+
+          aws s3 ls
+
+          echo ""
+          echo "Status:"
+          echo "Conectividade com Amazon S3 validada com sucesso."
+
+          echo "========================================="
