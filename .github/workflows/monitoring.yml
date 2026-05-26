@@ -45,40 +45,68 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
 
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::ACCOUNT_ID:role/GitHubActionsRole
           aws-region: us-east-1
-      # =========================
-      # ETAPA 3 — VALIDAÇÃO DA CONEXÃO AWS
-      # =========================
-      - name: Validate AWS Session
+# =========================
+# ETAPA 3 — VALIDAÇÃO DA SESSÃO AWS
+# =========================
+- name: Validate AWS Session
+  run: |
 
-        run: |
+    echo "========================================="
+    echo "VALIDANDO SESSÃO AWS"
+    echo "========================================="
 
-          echo "Validando autenticação AWS..."
+    echo ""
+    echo "Região AWS configurada:"
+    aws configure get region
 
-          echo "Região AWS:"
-          echo "$AWS_REGION"
+    echo ""
+    echo "Validando identidade IAM autenticada..."
+    aws sts get-caller-identity
 
-          echo "Caller Identity:"
-          aws sts get-caller-identity
+    echo ""
+    echo "Status:"
+    echo "Autenticação AWS validada com sucesso."
 
-          echo "Autenticação AWS realizada com sucesso."
-      # =========================
-      # ETAPA 4 — VALIDAR REGIÃO AWS
-      # =========================
-      - name: Validate Current AWS Region
-        run: |
+    echo "========================================="
+# =========================
+# ETAPA 4 — VALIDAR REGIÃO AWS
+# =========================
+- name: Validate Current AWS Region
+  run: |
 
-          echo "Região AWS configurada:"
-          aws configure get region
+    echo "========================================="
+    echo "VALIDANDO REGIÃO AWS CONFIGURADA"
+    echo "========================================="
 
-      # =========================
-      # ETAPA 5 — LISTAR BUCKETS S3
-      # =========================
-      - name: List S3 Buckets
-        run: |
+    echo ""
+    echo "Região atualmente configurada no runner:"
+    aws configure get region
 
-          echo "Listando buckets S3 disponíveis..."
-          aws s3 ls
-```
+    echo ""
+    echo "Status:"
+    echo "Região AWS validada com sucesso."
+
+    echo "========================================="
+
+# =========================
+# ETAPA 5 — LISTAR BUCKETS S3
+# =========================
+- name: List S3 Buckets
+  run: |
+
+    echo "========================================="
+    echo "VALIDANDO ACESSO AO AMAZON S3"
+    echo "========================================="
+
+    echo ""
+    echo "Listando buckets S3 disponíveis na conta AWS..."
+
+    aws s3 ls
+
+    echo ""
+    echo "Status:"
+    echo "Conectividade com Amazon S3 validada com sucesso."
+
+    echo "========================================="
