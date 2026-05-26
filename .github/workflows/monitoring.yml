@@ -4,10 +4,9 @@ name: Monitoring Pipeline
 # EVENTOS QUE DISPARAM O PIPELINE
 # =========================
 on:
-  # Permite execução manual pelo GitHub Actions
+
   workflow_dispatch:
 
-  # Executa automaticamente quando houver push na branch main
   push:
     branches:
       - main
@@ -16,79 +15,101 @@ on:
 # PERMISSÕES NECESSÁRIAS
 # =========================
 permissions:
-  # Necessário para autenticação OIDC com AWS IAM Role
   id-token: write
-
-  # Permite leitura do conteúdo do repositório
   contents: read
 
 # =========================
 # JOB PRINCIPAL
 # =========================
 jobs:
+
   monitoring:
 
-    # Runner oficial Linux Ubuntu
     runs-on: ubuntu-latest
 
     steps:
 
       # =========================
-      # ETAPA 1 — CHECKOUT DO REPOSITÓRIO
+      # ETAPA 1 — CHECKOUT
       # =========================
       - name: Checkout Repository
-
-        # Action oficial GitHub
         uses: actions/checkout@v4.2.2
 
-        # Objetivo:
-        # Baixar o código do repositório
-        # para dentro do runner do GitHub Actions
-
-        # =========================
-        # ETAPA 2 — AUTENTICAÇÃO AWS
-        # =========================
+      # =========================
+      # ETAPA 2 — AUTENTICAÇÃO AWS
+      # =========================
       - name: Configure AWS Credentials
 
         uses: aws-actions/configure-aws-credentials@v4
 
         with:
-         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         aws-region: us-east-1
+          role-to-assume: arn:aws:iam::ACCOUNT_ID:role/GitHubActionsRole
+          aws-region: us-east-1
 
-        # =====================================================
-        # ETAPA 3 — VALIDAÇÃO DA CONEXÃO AWS
-        # =====================================================
-       - name: Validate AWS Session
+      # =========================
+      # ETAPA 3 — VALIDAÇÃO DA SESSÃO AWS
+      # =========================
+      - name: Validate AWS Session
 
         run: |
 
-            echo "Região AWS:"
-            echo "$AWS_REGION"
+          echo "========================================="
+          echo "VALIDANDO SESSÃO AWS"
+          echo "========================================="
 
-            echo "Caller Identity:"
-            aws sts get-caller-identity
+          echo ""
+          echo "Região AWS configurada:"
+          aws configure get region
+
+          echo ""
+          echo "Validando identidade IAM autenticada..."
+          aws sts get-caller-identity
+
+          echo ""
+          echo "Status:"
+          echo "Autenticação AWS validada com sucesso."
+
+          echo "========================================="
+
       # =========================
-      # ETAPA 4 — VALIDAÇÃO OPCIONAL DE SEGURANÇA
+      # ETAPA 4 — VALIDAR REGIÃO AWS
       # =========================
       - name: Validate Current AWS Region
 
         run: |
 
-          echo "Região AWS configurada:"
+          echo "========================================="
+          echo "VALIDANDO REGIÃO AWS CONFIGURADA"
+          echo "========================================="
 
+          echo ""
+          echo "Região atualmente configurada no runner:"
           aws configure get region
 
+          echo ""
+          echo "Status:"
+          echo "Região AWS validada com sucesso."
+
+          echo "========================================="
+
       # =========================
-      # ETAPA 5 — TESTE OPCIONAL S3
+      # ETAPA 5 — LISTAR BUCKETS S3
       # =========================
       - name: List S3 Buckets
 
         run: |
 
-          echo "Listando buckets S3 disponíveis..."
+          echo "========================================="
+          echo "VALIDANDO ACESSO AO AMAZON S3"
+          echo "========================================="
+
+          echo ""
+          echo "Listando buckets S3 disponíveis na conta AWS..."
 
           aws s3 ls
 
+          echo ""
+          echo "Status:"
+          echo "Conectividade com Amazon S3 validada com sucesso."
 
+          echo "========================================="

@@ -2,15 +2,26 @@ version: '3.8'
 
 services:
   sqlserver:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+    image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver
-    environment:
-      SA_PASSWORD: "YourStrongPassw0rd"
-      ACCEPT_EULA: "Y"
-    ports:
-      - "1433:1433"
+
+    security_opt:
+      - no-new-privileges:true
+
+    read_only: true
+
+    tmpfs:
+      - /tmp
+
     volumes:
       - sql_data:/var/opt/mssql
+
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "${SA_PASSWORD}"
+
+    ports:
+      - "1433:1433"
 
 volumes:
   sql_data:
