@@ -631,4 +631,3 @@ Resultado esperado:
 | **Who** | Equipe responsável pela modernização e migração |
 | **How** | Execução do `pg_dump` via container Docker |
 | **How Much** | Sem custo adicional, utilizando ferramentas open source |
-g
