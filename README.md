@@ -1,3 +1,13 @@
+# 🚀 SQL Server Modernization with PostgreSQL + Babelfish
+
+![AWS](https://img.shields.io/badge/AWS-Cloud-orange)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)
+![Babelfish](https://img.shields.io/badge/Babelfish-Compatible-green)
+![Terraform](https://img.shields.io/badge/IaC-Terraform-purple)
+![Docker](https://img.shields.io/badge/Container-Docker-blue)
+![DevSecOps](https://img.shields.io/badge/DevSecOps-Enabled-red)
+![CI/CD](https://img.shields.io/badge/CI/CD-GitHub_Actions-black)
+
 ```text
 CI/CD
 SAST
@@ -7,7 +17,56 @@ Babelfish
 AWS
 Docker
 ```
-Modernização de workloads SQL Server utilizando PostgreSQL, Babelfish, AWS DMS e práticas DevSecOps.
+
+# 📑 Sumário
+
+- [🚀 SQL Server Modernization with PostgreSQL + Babelfish](#-sql-server-modernization-with-postgresql--babelfish)
+- [📑 Sumário](#-sumário)
+- [📌 Visão Geral](#-visão-geral)
+- [🎯 Objetivos do Projeto](#-objetivos-do-projeto)
+- [🧠 Cenário de Negócio](#-cenário-de-negócio)
+- [🐳 Arquitetura Local da POC](#-arquitetura-local-da-poc)
+- [✅ Ambiente Provisionado](#-ambiente-provisionado)
+- [✅ SQL Server — Testes Validados](#-sql-server--testes-validados)
+- [🧠 Compatibilidade Babelfish](#-compatibilidade-babelfish)
+- [⚠️ Limitações Conhecidas do Babelfish](#️-limitações-conhecidas-do-babelfish)
+- [💾 Restore do AdventureWorksLT2019](#-restore-do-adventureworkslt2019)
+  - [📥 Download do Backup](#-download-do-backup)
+  - [📦 Cópia do Backup para o Container](#-cópia-do-backup-para-o-container)
+  - [🔎 Verificação do Arquivo](#-verificação-do-arquivo)
+  - [🛠️ Restore do Banco](#️-restore-do-banco)
+  - [✅ Resultado do Restore](#-resultado-do-restore)
+- [📂 Evidências](#-evidências)
+- [🔍 Estratégia de Migração](#-estratégia-de-migração)
+  - [1️⃣ Assessment](#1️⃣-assessment)
+  - [2️⃣ Preparação](#2️⃣-preparação)
+  - [3️⃣ Migração](#3️⃣-migração)
+  - [4️⃣ Validação](#4️⃣-validação)
+  - [5️⃣ Rollback](#5️⃣-rollback)
+- [🔐 Segurança e Hardening](#-segurança-e-hardening)
+  - [🛡️ Controles de Segurança](#️-controles-de-segurança)
+- [🔐 Segurança e Hardening](#-segurança-e-hardening-1)
+  - [🔐 Acesso Seguro AWS com Systems Manager (SSM)](#-acesso-seguro-aws-com-systems-manager-ssm)
+    - [Recursos de Segurança](#recursos-de-segurança)
+    - [Componentes AWS Utilizados](#componentes-aws-utilizados)
+    - [Comandos de Validação](#comandos-de-validação)
+    - [Fluxo da Arquitetura](#fluxo-da-arquitetura)
+    - [Melhorias DevSecOps Implementadas](#melhorias-devsecops-implementadas)
+    - [Benefícios da Implementação](#benefícios-da-implementação)
+- [📊 Benefícios Técnicos](#-benefícios-técnicos)
+- [🚀 DevSecOps](#-devsecops)
+  - [⚙️ Práticas Implementadas](#️-práticas-implementadas)
+- [🧱 Estrutura do Projeto](#-estrutura-do-projeto)
+- [📂 Estrutura da Documentação](#-estrutura-da-documentação)
+- [📌 Status Atual do Projeto](#-status-atual-do-projeto)
+- [📌 Próximos Passos](#-próximos-passos)
+- [🎯 Conclusão](#-conclusão)
+- [📂 Evidências de Validação PostgreSQL](#-evidências-de-validação-postgresql)
+  - [🗂️ Estrutura Recomendada de Evidências](#️-estrutura-recomendada-de-evidências)
+    - [📁 Evidências Operacionais PostgreSQL](#-evidências-operacionais-postgresql)
+  - [Resultado esperado:](#resultado-esperado)
+  - [-- PostgreSQL database dump](#---postgresql-database-dump)
+  - [📊 Aplicação do 5W2H](#-aplicação-do-5w2h)
 
 ---
 
