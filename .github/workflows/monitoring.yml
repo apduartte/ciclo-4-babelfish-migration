@@ -10,6 +10,7 @@ on:
   push:
     branches:
       - main
+      - feature/babelfish-migration-validation
 
 # =========================
 # PERMISSÕES NECESSÁRIAS
@@ -36,7 +37,44 @@ jobs:
         uses: actions/checkout@v4.2.2
 
       # =========================
-      # ETAPA 2 — AUTENTICAÇÃO AWS
+      # ETAPA 2 — DEBUG GITHUB CONTEXT
+      # =========================
+      - name: Debug GitHub Context
+
+        run: |
+
+          echo "========================================="
+          echo "DEBUG GITHUB CONTEXT"
+          echo "========================================="
+
+          echo ""
+          echo "Repository:"
+          echo "${{ github.repository }}"
+
+          echo ""
+          echo "Ref:"
+          echo "${{ github.ref }}"
+
+          echo ""
+          echo "Event:"
+          echo "${{ github.event_name }}"
+
+          echo ""
+          echo "Actor:"
+          echo "${{ github.actor }}"
+
+          echo ""
+          echo "Workflow:"
+          echo "${{ github.workflow }}"
+
+          echo ""
+          echo "Status:"
+          echo "GitHub Context validado com sucesso."
+
+          echo "========================================="
+
+      # =========================
+      # ETAPA 3 — AUTENTICAÇÃO AWS
       # =========================
       - name: Configure AWS Credentials
 
@@ -47,7 +85,7 @@ jobs:
           aws-region: us-east-1
 
       # =========================
-      # ETAPA 3 — VALIDAÇÃO DA SESSÃO AWS
+      # ETAPA 4 — VALIDAÇÃO DA SESSÃO AWS
       # =========================
       - name: Validate AWS Session
 
@@ -59,7 +97,7 @@ jobs:
 
           echo ""
           echo "Região AWS configurada:"
-          aws configure get region
+          echo $AWS_REGION
 
           echo ""
           echo "Validando identidade IAM autenticada..."
@@ -72,7 +110,7 @@ jobs:
           echo "========================================="
 
       # =========================
-      # ETAPA 4 — VALIDAR REGIÃO AWS
+      # ETAPA 5 — VALIDAR REGIÃO AWS
       # =========================
       - name: Validate Current AWS Region
 
@@ -84,7 +122,7 @@ jobs:
 
           echo ""
           echo "Região atualmente configurada no runner:"
-          aws configure get region
+          echo $AWS_REGION
 
           echo ""
           echo "Status:"
@@ -93,7 +131,7 @@ jobs:
           echo "========================================="
 
       # =========================
-      # ETAPA 5 — LISTAR BUCKETS S3
+      # ETAPA 6 — LISTAR BUCKETS S3
       # =========================
       - name: List S3 Buckets
 

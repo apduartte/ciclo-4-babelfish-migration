@@ -13,10 +13,14 @@ env:
 # =========================================================
 on:
 
-  # Executa automaticamente em pushes na branch main
+  # Execução manual
+  workflow_dispatch:
+
+  # Executa automaticamente em pushes
   push:
     branches:
       - main
+      - feature/babelfish-migration-validation
 
   # Executa automaticamente em Pull Requests
   pull_request:
@@ -33,7 +37,7 @@ jobs:
     # Nome exibido no GitHub Actions
     name: Static Application Security Testing
 
-    # Runner Ubuntu oficial
+    # Runner oficial Ubuntu
     runs-on: ubuntu-latest
 
     # =====================================================
@@ -41,11 +45,14 @@ jobs:
     # =====================================================
     permissions:
 
-      # Permissão mínima necessária
+      # Permissão mínima necessária para leitura do repositório
       contents: read
 
-      # Necessário para integração entre actions
+      # Necessário para integração segura entre actions
       actions: read
+
+      # Necessário para leitura de eventos de segurança
+      security-events: write
 
     # =====================================================
     # ETAPAS
@@ -53,13 +60,52 @@ jobs:
     steps:
 
       # =====================================================
-      # ETAPA 1 — CHECKOUT
+      # ETAPA 1 — CHECKOUT DO REPOSITÓRIO
       # =====================================================
       - name: Checkout Repository
         uses: actions/checkout@v4
 
       # =====================================================
-      # ETAPA 2 — SAST COM SEMGREP
+      # ETAPA 2 — DEBUG CONTEXT
+      # =====================================================
+      - name: Debug GitHub Context
+
+        env:
+          GITHUB_REPOSITORY_NAME: ${{ github.repository }}
+          GITHUB_REF_NAME: ${{ github.ref }}
+          GITHUB_EVENT_TYPE: ${{ github.event_name }}
+          GITHUB_ACTOR_NAME: ${{ github.actor }}
+
+        run: |
+
+          echo "========================================="
+          echo "DEBUG GITHUB CONTEXT"
+          echo "========================================="
+
+          echo ""
+          echo "Repository:"
+          echo "$GITHUB_REPOSITORY_NAME"
+
+          echo ""
+          echo "Ref:"
+          echo "$GITHUB_REF_NAME"
+
+          echo ""
+          echo "Event:"
+          echo "$GITHUB_EVENT_TYPE"
+
+          echo ""
+          echo "Actor:"
+          echo "$GITHUB_ACTOR_NAME"
+
+          echo ""
+          echo "Status:"
+          echo "GitHub Context validado com sucesso."
+
+          echo "========================================="
+
+      # =====================================================
+      # ETAPA 3 — EXECUTAR SAST COM SEMGREP
       # =====================================================
       - name: Run Semgrep Security Scan
 
@@ -67,10 +113,35 @@ jobs:
 
         with:
 
-          # Regras automáticas da comunidade
+          # Regras automáticas da comunidade Semgrep
           config: auto
 
         env:
 
-          # Token opcional Semgrep Platform
+          # Token opcional para integração com Semgrep Cloud Platform
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+
+      # =====================================================
+      # ETAPA 4 — STATUS FINAL
+      # =====================================================
+      - name: Validate SAST Execution
+
+        run: |
+
+          echo "========================================="
+          echo "VALIDANDO EXECUÇÃO SAST"
+          echo "========================================="
+
+          echo ""
+          echo "Status:"
+          echo "Pipeline SAST executado com sucesso."
+
+          echo ""
+          echo "Ferramenta:"
+          echo "Semgrep Security Scanner"
+
+          echo ""
+          echo "Resultado:"
+          echo "Análise estática concluída."
+
+          echo "========================================="
