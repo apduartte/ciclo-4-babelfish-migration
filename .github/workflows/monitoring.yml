@@ -33,8 +33,10 @@ jobs:
       # =========================
       # ETAPA 1 — CHECKOUT
       # =========================
-      - name: Checkout Repository
+      - name: Checkout Repository 
         uses: actions/checkout@v4.2.2
+        with: 
+           fetch-depth: 1
 
       # =========================
       # ETAPA 2 — DEBUG GITHUB CONTEXT
@@ -97,10 +99,12 @@ jobs:
 
           echo ""
           echo "Região AWS configurada:"
-          echo $AWS_REGION
+          echo "AWS_REGION=$AWS_REGION"
+          echo "AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION"
 
           echo ""
           echo "Validando identidade IAM autenticada..."
+
           aws sts get-caller-identity
 
           echo ""
