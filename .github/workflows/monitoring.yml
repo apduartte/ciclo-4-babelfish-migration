@@ -1,47 +1,68 @@
 name: Monitoring Pipeline
 
-# =========================
+# =========================================================
 # EVENTOS QUE DISPARAM O PIPELINE
-# =========================
+# =========================================================
 on:
 
+  # Execução manual
   workflow_dispatch:
 
+  # Execução automática em pushes
   push:
     branches:
       - main
       - feature/babelfish-migration-validation
 
-# =========================
+# =========================================================
 # PERMISSÕES NECESSÁRIAS
-# =========================
+# =========================================================
 permissions:
+
+  # Necessário para autenticação OIDC na AWS
   id-token: write
+
+  # Permissão mínima para leitura do repositório
   contents: read
 
-# =========================
-# JOB PRINCIPAL
-# =========================
+# =========================================================
+# JOBS
+# =========================================================
 jobs:
 
   monitoring:
 
+    # Runner oficial Ubuntu
     runs-on: ubuntu-latest
 
+    # =====================================================
+    # ETAPAS
+    # =====================================================
     steps:
 
-      # =========================
-      # ETAPA 1 — CHECKOUT
-      # =========================
-      - name: Checkout Repository 
-        uses: actions/checkout@v4.2.2
-        with: 
-           fetch-depth: 1
+      # =====================================================
+      # ETAPA 1 — CHECKOUT DO REPOSITÓRIO
+      # =====================================================
+      - name: Checkout Repository
 
-      # =========================
+        uses: actions/checkout@v4.2.2
+
+        with:
+
+          # Reduz profundidade do clone para melhorar performance
+          fetch-depth: 1
+
+      # =====================================================
       # ETAPA 2 — DEBUG GITHUB CONTEXT
-      # =========================
+      # =====================================================
       - name: Debug GitHub Context
+
+        env:
+          GITHUB_REPOSITORY_NAME: ${{ github.repository }}
+          GITHUB_REF_NAME: ${{ github.ref }}
+          GITHUB_EVENT_TYPE: ${{ github.event_name }}
+          GITHUB_ACTOR_NAME: ${{ github.actor }}
+          GITHUB_WORKFLOW_NAME: ${{ github.workflow }}
 
         run: |
 
@@ -51,23 +72,23 @@ jobs:
 
           echo ""
           echo "Repository:"
-          echo "${{ github.repository }}"
+          echo "$GITHUB_REPOSITORY_NAME"
 
           echo ""
           echo "Ref:"
-          echo "${{ github.ref }}"
+          echo "$GITHUB_REF_NAME"
 
           echo ""
           echo "Event:"
-          echo "${{ github.event_name }}"
+          echo "$GITHUB_EVENT_TYPE"
 
           echo ""
           echo "Actor:"
-          echo "${{ github.actor }}"
+          echo "$GITHUB_ACTOR_NAME"
 
           echo ""
           echo "Workflow:"
-          echo "${{ github.workflow }}"
+          echo "$GITHUB_WORKFLOW_NAME"
 
           echo ""
           echo "Status:"
@@ -75,20 +96,24 @@ jobs:
 
           echo "========================================="
 
-      # =========================
-      # ETAPA 3 — AUTENTICAÇÃO AWS
-      # =========================
+      # =====================================================
+      # ETAPA 3 — AUTENTICAÇÃO AWS VIA OIDC
+      # =====================================================
       - name: Configure AWS Credentials
 
         uses: aws-actions/configure-aws-credentials@v4
 
         with:
+
+          # Role IAM utilizada pelo GitHub Actions
           role-to-assume: arn:aws:iam::597819997995:role/GitHubActionsRole
+
+          # Região AWS padrão
           aws-region: us-east-1
 
-      # =========================
-      # ETAPA 4 — VALIDAÇÃO DA SESSÃO AWS
-      # =========================
+      # =====================================================
+      # ETAPA 4 — VALIDAR SESSÃO AWS
+      # =====================================================
       - name: Validate AWS Session
 
         run: |
@@ -113,9 +138,9 @@ jobs:
 
           echo "========================================="
 
-      # =========================
+      # =====================================================
       # ETAPA 5 — VALIDAR REGIÃO AWS
-      # =========================
+      # =====================================================
       - name: Validate Current AWS Region
 
         run: |
@@ -126,7 +151,7 @@ jobs:
 
           echo ""
           echo "Região atualmente configurada no runner:"
-          echo $AWS_REGION
+          echo "$AWS_REGION"
 
           echo ""
           echo "Status:"
@@ -134,9 +159,31 @@ jobs:
 
           echo "========================================="
 
-      # =========================
-      # ETAPA 6 — LISTAR BUCKETS S3
-      # =========================
+      # =====================================================
+      # ETAPA 6 — VALIDAR AWS CLI
+      # =====================================================
+      - name: Validate AWS CLI
+
+        run: |
+
+          echo "========================================="
+          echo "VALIDANDO AWS CLI"
+          echo "========================================="
+
+          echo ""
+          echo "Versão AWS CLI instalada:"
+
+          aws --version
+
+          echo ""
+          echo "Status:"
+          echo "AWS CLI validada com sucesso."
+
+          echo "========================================="
+
+      # =====================================================
+      # ETAPA 7 — LISTAR BUCKETS S3
+      # =====================================================
       - name: List S3 Buckets
 
         run: |
@@ -153,5 +200,35 @@ jobs:
           echo ""
           echo "Status:"
           echo "Conectividade com Amazon S3 validada com sucesso."
+
+          echo "========================================="
+
+      # =====================================================
+      # ETAPA 8 — STATUS FINAL DO PIPELINE
+      # =====================================================
+      - name: Final Monitoring Validation
+
+        run: |
+
+          echo "========================================="
+          echo "MONITORING PIPELINE FINALIZADO"
+          echo "========================================="
+
+          echo ""
+          echo "Resultado:"
+          echo "Pipeline de monitoramento executado com sucesso."
+
+          echo ""
+          echo "Recursos validados:"
+          echo "- GitHub Actions"
+          echo "- OIDC Federation"
+          echo "- AWS IAM Role"
+          echo "- AWS STS"
+          echo "- AWS CLI"
+          echo "- Amazon S3"
+
+          echo ""
+          echo "Status geral:"
+          echo "Ambiente operacional e monitorado."
 
           echo "========================================="
