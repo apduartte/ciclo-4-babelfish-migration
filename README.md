@@ -17,7 +17,6 @@ Babelfish
 AWS
 Docker
 ```
-
 # 📑 Sumário
 
 - [🚀 SQL Server Modernization with PostgreSQL + Babelfish](#-sql-server-modernization-with-postgresql--babelfish)
@@ -69,7 +68,6 @@ Docker
   - [📊 Aplicação do 5W2H](#-aplicação-do-5w2h)
 
 ---
-
 # 📌 Visão Geral
 
 Este projeto demonstra uma estratégia de modernização de bancos de dados SQL Server para PostgreSQL utilizando:
