@@ -37,14 +37,15 @@ Docker
   - [✅ Resultado do Restore](#-resultado-do-restore)
 - [📂 Evidências](#-evidências)
 - [🔍 Estratégia de Migração](#-estratégia-de-migração)
-  - [1️⃣ Assessment](#1️⃣-assessment)
-  - [2️⃣ Preparação](#2️⃣-preparação)
-  - [3️⃣ Migração](#3️⃣-migração)
-  - [4️⃣ Validação](#4️⃣-validação)
-  - [5️⃣ Rollback](#5️⃣-rollback)
+  - [1️⃣ Assessment de Compatibilidade](#1️⃣-assessment-de-compatibilidade)
+  - [2️⃣ Preparação do Ambiente](#2️⃣-preparação-do-ambiente)
+  - [3️⃣ Migração dos Dados](#3️⃣-migração-dos-dados)
+  - [4️⃣ Validação Pós-Migração](#4️⃣-validação-pós-migração)
+  - [5️⃣ Estratégia de Rollback](#5️⃣-estratégia-de-rollback)
 - [🔐 Segurança e Hardening](#-segurança-e-hardening)
-  - [🛡️ Controles de Segurança](#️-controles-de-segurança)
 - [🔐 Segurança e Hardening](#-segurança-e-hardening-1)
+  - [🛡️ Controles de Segurança](#️-controles-de-segurança)
+- [🔐 Segurança e Hardening](#-segurança-e-hardening-2)
   - [🔐 Acesso Seguro AWS com Systems Manager (SSM)](#-acesso-seguro-aws-com-systems-manager-ssm)
     - [Recursos de Segurança](#recursos-de-segurança)
     - [Componentes AWS Utilizados](#componentes-aws-utilizados)
@@ -308,50 +309,93 @@ docs/evidence/
 A estratégia foi dividida em fases controladas para garantir segurança, rastreabilidade e minimização de riscos durante a migração.
 
 ---
+## 1️⃣ Assessment de Compatibilidade
 
-## 1️⃣ Assessment
+Esta etapa tem como objetivo avaliar previamente a viabilidade da migração para o Babelfish for PostgreSQL, identificando possíveis incompatibilidades e pontos de atenção antes da execução do processo.
 
-* Babelfish Compass;
-* análise de compatibilidade;
-* identificação de riscos.
+**Atividades principais:**
 
----
-
-## 2️⃣ Preparação
-
-* configuração do ambiente;
-* hardening;
-* backup;
-* validações iniciais.
+- execução do Babelfish Compass;
+- análise de compatibilidade entre SQL Server e Babelfish;
+- identificação de funcionalidades não suportadas;
+- avaliação de riscos técnicos;
+- estimativa de esforço para remediação.
 
 ---
 
-## 3️⃣ Migração
+## 2️⃣ Preparação do Ambiente
 
-* Full Load;
-* CDC contínuo;
-* sincronização controlada;
-* cutover planejado.
+Fase responsável pela estruturação do ambiente de migração, garantindo segurança, estabilidade e capacidade de recuperação.
 
----
+**Atividades principais:**
 
-## 4️⃣ Validação
-
-* contagem de registros;
-* integridade de dados;
-* testes funcionais;
-* validação de queries.
+- provisionamento da infraestrutura;
+- configuração dos ambientes de origem e destino;
+- aplicação de hardening e boas práticas de segurança;
+- execução e validação de backups;
+- validações iniciais de conectividade e acesso;
+- preparação dos mecanismos de monitoramento.
 
 ---
 
-## 5️⃣ Rollback
+## 3️⃣ Migração dos Dados
 
-* preservação do SQL Server original;
-* retorno rápido ao ambiente anterior;
-* minimização de downtime.
+Etapa de transferência controlada dos dados do SQL Server para o ambiente Babelfish for PostgreSQL.
+
+**Atividades principais:**
+
+- execução da carga inicial (Full Load);
+- configuração da captura contínua de alterações (CDC);
+- sincronização entre origem e destino;
+- monitoramento da replicação;
+- planejamento e execução do cutover;
+- minimização de impacto operacional.
 
 ---
 
+## 4️⃣ Validação Pós-Migração
+
+Fase dedicada à verificação da integridade, consistência e funcionalidade dos dados migrados.
+
+**Atividades principais:**
+
+- validação da contagem de registros;
+- verificação da integridade referencial;
+- comparação de dados entre origem e destino;
+- execução de testes funcionais;
+- validação de consultas críticas;
+- validação dos resultados da aplicação.
+
+---
+
+## 5️⃣ Estratégia de Rollback
+
+Plano de contingência destinado a garantir a recuperação rápida do ambiente original em caso de incidentes durante a migração.
+
+**Atividades principais:**
+
+- preservação integral do ambiente SQL Server;
+- definição dos critérios de reversão;
+- procedimentos documentados de rollback;
+- restauração controlada dos serviços;
+- redução de riscos operacionais;
+- minimização do downtime.
+
+---
+
+# 🔐 Segurança e Hardening
+
+A segurança foi considerada em todas as fases do projeto, contemplando controles preventivos, monitoramento e mecanismos de recuperação.
+
+**Controles implementados:**
+
+- segregação de ambientes;
+- gerenciamento seguro de credenciais;
+- princípio do menor privilégio (Least Privilege);
+- proteção de dados em trânsito e em repouso;
+- monitoramento contínuo da infraestrutura;
+- políticas de backup e recuperação;
+- rastreabilidade por meio de logs e evidências técnicas.
 # 🔐 Segurança e Hardening
 
 A arquitetura considera práticas modernas de segurança para garantir proteção, rastreabilidade e conformidade operacional.

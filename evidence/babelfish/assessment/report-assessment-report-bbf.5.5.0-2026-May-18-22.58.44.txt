@@ -1,0 +1,523 @@
+Report for: assessment-report : Generated at 2026-May-18 22:58:44
+-----------------------------------------------------------------
+
+Babelfish Compass version 2026-04, April 2026
+Compatibility assessment tool for Babelfish for PostgreSQL
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+Notice:
+This report contains an assessment based on the resources you scanned with the
+Babelfish Compass tool. The information contained in this report, including whether
+or not a feature is 'supported' or 'not supported', is made available 'as is',
+and may be incomplete, incorrect, and subject to interpretation.
+You should not base decisions on the information in this report without independently
+validating it against the actual SQL/DDL code on which this report is based.
+
+
+  Babelfish Compass User Guide : https://raw.githubusercontent.com/babelfish-for-postgresql/babelfish_compass/main/BabelfishCompass_UserGuide.pdf
+
+
+--- Report Setup ---------------------------------------------------------------
+BabelfishFeatures.cfg file : v.5.5.0, Apr-2026
+Target Babelfish version   : v.5.5.0 (PG 17.9)
+Command line arguments     : assessment-report -sqlendpoint localhost,1433 -sqllogin sa -sqlpasswd ********
+DDL input files            : AdventureWorksLT2019_SMO_DDL_2026-May-18.sql
+DDL input files location   : /tmp/CompassAutoDDL-2026-May-18-22.56.42
+User .cfg file (overrides) : /home/ana/BabelfishCompassReports/BabelfishCompassUser.cfg
+Report name                : assessment-report
+This report                : /home/ana/BabelfishCompassReports/assessment-report/report-assessment-report-bbf.5.5.0-2026-May-18-22.58.44.html
+Session log                : log/session-log-assessment-report-bbf.5.5.0-2026-May-18-22.56.42.html
+================================================================================
+
+--------------------------------------------------------------------------------
+--- Executive Summary for Babelfish v.5.5.0 ------------------------------------
+--------------------------------------------------------------------------------
+Total #lines of SQL/DDL: 1497      Total SQL features: 1124
+#Procedures/functions/triggers/views: 10    #Tables: 12
+
+SQL features not supported by Babelfish (total/unique): 123/13
+Estimated complexity of not-supported features (total/unique): low:89/5 medium:31/5 high:3/3
+
+--------------------------------------------------------------------------------
+--- SQL Server Information -----------------------------------------------------
+--------------------------------------------------------------------------------
+    Servername : dab6d5cdea31
+        Edition        : Developer Edition (64-bit)
+        PhysicalMemory : 3096 MB
+        Processors     : 4
+        VersionString  : 16.0.4252.3
+
+--------------------------------------------------------------------------------
+--- Table Of Contents ----------------------------------------------------------
+--------------------------------------------------------------------------------
+    Executive Summary
+    SQL Server Information
+    Applications Analyzed
+    Assessment Summary
+    Object Count
+
+    Summary of SQL Features 'Not Supported'
+    Summary of SQL Features 'Review Manually'
+    Summary of SQL Features 'Review Semantics'
+    Summary of SQL Features 'Review Performance'
+    Summary of SQL Features 'Ignored'
+    Summary of SQL Features 'Supported'
+
+    X-ref: 'Not Supported' by SQL feature
+    X-ref: 'Review Manually' by SQL feature
+    X-ref: 'Review Semantics' by SQL feature
+    X-ref: 'Review Performance' by SQL feature
+    X-ref: 'Ignored' by SQL feature
+    X-ref: 'Supported' by SQL feature
+
+    X-ref: 'Not Supported' by object
+    X-ref: 'Review Manually' by object
+    X-ref: 'Review Semantics' by object
+    X-ref: 'Review Performance' by object
+    X-ref: 'Ignored' by object
+    X-ref: 'Supported' by object
+
+
+--------------------------------------------------------------------------------
+--- Applications Analyzed (1) --------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+     AdventureWorksLT2019 (1497 lines SQL)
+
+--------------------------------------------------------------------------------
+--- Assessment Summary ---------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+    #applications                     :    1 
+    #input files                      :    1 
+    #SQL batches                      :  420 
+    #lines SQL/DDL processed          : 1497 
+    #lines SQL in objects             :  339    (procedures/functions/triggers/views) 
+    Total #SQL features               : 1124 
+    Supported (total/unique)          :  742/137 
+    Not Supported (total/unique)      :  123/13    (complexity: low:89/5 medium:31/5 high:3/3) 
+    Review Semantics (total/unique)   :   38/4 
+    Review Performance (total/unique) :    3/1 
+    Ignored (total/unique)            :  218/23 
+
+--------------------------------------------------------------------------------
+--- Object Count ---------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+    DATABASE                            :  1                                         
+    FUNCTION, inline table              :  1 (14 lines SQL)  without issues: 1 of 1  
+    FUNCTION, scalar                    :  1 (23 lines SQL)  without issues: 1 of 1  
+    FUNCTION, table                     :  1 (35 lines SQL)  without issues: 1 of 1  
+    LOGIN                               :  5                                         
+    PROCEDURE                           :  2 (81 lines SQL)  without issues: 2 of 2  
+    SCHEMA                              :  1                                         
+    TABLE                               : 12 (136 columns)   without issues: 11 of 12 (issue complexity: high:1)
+    TRIGGER                             :  2 (78 lines SQL)  without issues: 2 of 2  
+    VIEW                                :  3 (108 lines SQL) without issues: 3 of 3  
+    XML INDEX                           :  1                                         
+    XML SCHEMA COLLECTION               :  1                                         
+    constraint CHECK                    : 13                                         
+    constraint FOREIGN KEY              : 11                                         
+    constraint PRIMARY KEY              : 11                                         
+    constraint UNIQUE                   : 15                                         
+    index                               :  5                                         
+    indexed view (materialized view)    :  1                                         
+    user-defined datatype (UDD), scalar :  6                                         
+
+=== SQL Features Report ========================================================
+
+--------------------------------------------------------------------------------
+--- SQL features 'Not Supported' in Babelfish v.5.5.0 --- (total=123/13) -------
+--------------------------------------------------------------------------------
+
+
+Note: the estimated complexity of a not-supported feature (low/medium/high) is indicated in square brackets
+
+Permissions (26/2)
+   ALTER AUTHORIZATION ON object TO SCHEMA OWNER [medium] : 20
+   ALTER AUTHORIZATION ON TYPE:: TO SCHEMA OWNER [medium] : 6
+System Stored Procedures (89/5)
+   Extended property type CONSTRAINT in sp_addextendedproperty [low] : 78
+   Extended property type INDEX in sp_addextendedproperty [low] : 6
+   Extended property type PARAMETER in sp_addextendedproperty [low] : 3
+   Extended property type TRIGGER in sp_addextendedproperty [low] : 1
+   Extended property type XML SCHEMA COLLECTION in sp_addextendedproperty [low] : 1
+Users (4/2)
+   Login option CHECK_EXPIRATION, in CREATE LOGIN [medium] : 2
+   Login option CHECK_POLICY, in CREATE LOGIN [medium] : 2
+Views (1/1)
+   Indexed view (materialized view) [medium] : 1
+XML (3/3)
+   CREATE XML INDEX [high] : 1
+   CREATE XML SCHEMA COLLECTION [high] : 1
+   XML(xmlschema) column [high] : 1
+
+--------------------------------------------------------------------------------
+--- SQL features 'Review Manually' in Babelfish v.5.5.0 ------------------------
+--------------------------------------------------------------------------------
+
+
+
+-no items to report-
+
+--------------------------------------------------------------------------------
+--- SQL features 'Review Semantics' in Babelfish v.5.5.0 --- (total=38/4) ------
+--------------------------------------------------------------------------------
+
+
+
+DDL (37/3)
+   ALTER TABLE..CHECK CONSTRAINT [medium] : 25
+   Constraint PRIMARY KEY/UNIQUE, CLUSTERED, in CREATE TABLE : created as NONCLUSTERED, no physical row order in PG [medium] : 11
+   Index, UNIQUE, CLUSTERED, in CREATE INDEX : created as NONCLUSTERED, no physical row order in PG [medium] : 1
+Views (1/1)
+   View, without SCHEMABINDING: created in PG as WITH SCHEMABINDING [low] : 1
+
+--------------------------------------------------------------------------------
+--- SQL features 'Review Performance' in Babelfish v.5.5.0 --- (total=3/1) -----
+--------------------------------------------------------------------------------
+
+
+
+DDL (3/1)
+   Computed column (not persisted, but created as persisted in PG) [medium] : 3
+
+--------------------------------------------------------------------------------
+--- SQL features 'Ignored' in Babelfish v.5.5.0 --- (total=218/23) -------------
+--------------------------------------------------------------------------------
+
+
+
+DDL (218/23)
+   Column attribute ROWGUIDCOL : 10
+   NOT FOR REPLICATION, IDENTITY column : 3
+   Option ALLOW_PAGE_LOCKS=ON, constraint PRIMARY KEY, in CREATE TABLE : 11
+   Option ALLOW_PAGE_LOCKS=ON, constraint UNIQUE, in CREATE TABLE : 15
+   Option ALLOW_PAGE_LOCKS=ON, index, in CREATE INDEX : 6
+   Option ALLOW_ROW_LOCKS=ON, constraint PRIMARY KEY, in CREATE TABLE : 11
+   Option ALLOW_ROW_LOCKS=ON, constraint UNIQUE, in CREATE TABLE : 15
+   Option ALLOW_ROW_LOCKS=ON, index, in CREATE INDEX : 6
+   Option DROP_EXISTING=OFF, index, in CREATE INDEX : 6
+   Option IGNORE_DUP_KEY=OFF, constraint PRIMARY KEY, in CREATE TABLE : 11
+   Option IGNORE_DUP_KEY=OFF, constraint UNIQUE, in CREATE TABLE : 15
+   Option IGNORE_DUP_KEY=OFF, index, UNIQUE, in CREATE INDEX : 1
+   Option ONLINE=OFF, index, in CREATE INDEX : 6
+   Option OPTIMIZE_FOR_SEQUENTIAL_KEY=OFF, constraint PRIMARY KEY, in CREATE TABLE : 11
+   Option OPTIMIZE_FOR_SEQUENTIAL_KEY=OFF, constraint UNIQUE, in CREATE TABLE : 15
+   Option OPTIMIZE_FOR_SEQUENTIAL_KEY=OFF, index, in CREATE INDEX : 6
+   Option PAD_INDEX=OFF, constraint PRIMARY KEY, in CREATE TABLE : 11
+   Option PAD_INDEX=OFF, constraint UNIQUE, in CREATE TABLE : 15
+   Option PAD_INDEX=OFF, index, in CREATE INDEX : 6
+   Option SORT_IN_TEMPDB=OFF, index, in CREATE INDEX : 6
+   Option STATISTICS_NORECOMPUTE=OFF, constraint PRIMARY KEY, in CREATE TABLE : 11
+   Option STATISTICS_NORECOMPUTE=OFF, constraint UNIQUE, in CREATE TABLE : 15
+   Option STATISTICS_NORECOMPUTE=OFF, index, in CREATE INDEX : 6
+
+--------------------------------------------------------------------------------
+--- SQL features 'Supported' in Babelfish v.5.5.0 --- (total=742/137) ----------
+--------------------------------------------------------------------------------
+
+
+
+@@variables (3/2)
+   @@IDENTITY, reference : 1
+   @@ROWCOUNT, reference : 2
+Aggregate functions (1/1)
+   SUM() : 1
+Built-in functions (48/13)
+   CONVERT() : 6
+   CURRENT_USER : 1
+   ERROR_LINE() : 2
+   ERROR_MESSAGE() : 2
+   ERROR_NUMBER() : 3
+   ERROR_PROCEDURE() : 2
+   ERROR_SEVERITY() : 2
+   ERROR_STATE() : 2
+   GETDATE() : 13
+   ISNULL() : 1
+   ISNULL(), in computed column (not persisted) : 3
+   NEWID() : 10
+   XACT_STATE() : 1
+Collations (24/1)
+   SQL_LATIN1_GENERAL_CP1_CI_AS, for column : 24
+Control flow (23/8)
+   IF : 8
+   PRINT : 4
+   RETURN integer, in procedure : 1
+   RETURN result set, in function : 2
+   RETURN scalar, in function : 1
+   RETURN, in procedure : 2
+   RETURN, in trigger : 2
+   TRY-CATCH : 3
+Databases (3/3)
+   CREATE DATABASE AdventureWorksLT2019 : 1
+   USE AdventureWorksLT2019 : 1
+   USE master : 1
+DDL (90/8)
+   ALTER TABLE..ENABLE TRIGGER : 2
+   Constraint CHECK, in ALTER TABLE : 13
+   Constraint column DEFAULT, in ALTER TABLE : 31
+   Constraint FOREIGN KEY, in ALTER TABLE : 11
+   Constraint PRIMARY KEY/UNIQUE, in CREATE TABLE : 15
+   CREATE INDEX : 5
+   CREATE TABLE : 12
+   FOREIGN KEY, ON DELETE CASCADE, in ALTER TABLE : 1
+DML (25/8)
+   INNER JOIN : 7
+   INSERT..SELECT, WITH (Common Table Expression) : 1
+   INSERT..VALUES : 1
+   SELECT : 7
+   SELECT in Common Table Expression : 2
+   SELECT subquery : 3
+   UNION ALL : 2
+   UPDATE : 2
+Functions (3/3)
+   CREATE FUNCTION, inline table : 1
+   CREATE FUNCTION, scalar : 1
+   CREATE FUNCTION, table : 1
+Identifiers (6/1)
+   Identifier > 63 characters : 6
+Operators (41/7)
+   Arithmetic operator * : 2
+   Arithmetic operator - : 1
+   Comparison operator <= : 1
+   Comparison operator = : 12
+   Comparison operator > : 4
+   Comparison operator >= : 11
+   String concatenation operator + : 10
+Procedures (7/2)
+   CREATE PROCEDURE : 2
+   EXECUTE procedure : 5
+SET options (65/8)
+   SET ANSI_NULLS ON : 24
+   SET ANSI_PADDING ON : 5
+   SET ANSI_WARNINGS ON : 2
+   SET ARITHABORT ON : 2
+   SET CONCAT_NULL_YIELDS_NULL ON : 2
+   SET NOCOUNT ON : 4
+   SET NUMERIC_ROUNDABORT OFF : 2
+   SET QUOTED_IDENTIFIER ON : 24
+System Stored Procedures (211/1)
+   EXECUTE procedure sp_addextendedproperty : 211
+Transactions (4/2)
+   @@TRANCOUNT, reference : 2
+   ROLLBACK TRANSACTION, in trigger : 2
+Triggers (8/3)
+   CREATE TRIGGER, FOR/AFTER DELETE,INSERT,UPDATE : 1
+   CREATE TRIGGER, FOR/AFTER UPDATE : 1
+   UPDATE() : 6
+Users (20/9)
+   ALTER LOGIN : 2
+   ALTER SERVER ROLE sysadmin ADD MEMBER : 2
+   CREATE LOGIN : 5
+   CREATE SCHEMA : 1
+   Login option DEFAULT_DATABASE, in CREATE LOGIN : 2
+   Login option DEFAULT_LANGUAGE, in CREATE LOGIN : 2
+   Login option DISABLE, in ALTER LOGIN : 2
+   Login option FROM WINDOWS, in CREATE LOGIN : 3
+   Schema option AUTHORIZATION, in CREATE SCHEMA : 1
+Views (5/2)
+   CREATE VIEW : 3
+   View, with SCHEMABINDING : 2
+Miscellaneous SQL Features (5/1)
+   Variable assignment by SET @v = : 5
+XML (21/1)
+   XML.value() : 21
+User-Defined Datatypes (6/4)
+   CREATE TYPE, scalar, BIT : 2
+   CREATE TYPE, scalar, NVARCHAR(15) : 1
+   CREATE TYPE, scalar, NVARCHAR(25) : 2
+   CREATE TYPE, scalar, NVARCHAR(50) : 1
+Datatype conversion (7/5)
+   CONVERT() to NVARCHAR(23) : 1
+   CONVERT() to SYSNAME : 1
+   CONVERT() to VARCHAR( 5) : 3
+   CONVERT() to VARCHAR(50) : 1
+   CONVERT(), in computed column (not persisted) : 1
+Datatypes (116/44)
+   BIT (UDD DBO.FLAG) column : 1
+   BIT (UDD DBO.NAMESTYLE) column : 1
+   DATETIME column : 19
+   DECIMAL(8,2) column : 1
+   INT column : 16
+   INT column (table function result) : 1
+   INT function parameter : 1
+   INT IDENTITY(1,1) column : 9
+   INT procedure parameter (with default value, OUTPUT) : 1
+   INT variable : 2
+   MONEY column : 7
+   NCHAR(6) column : 1
+   NVARCHAR(   5) column : 1
+   NVARCHAR(   8) column : 1
+   NVARCHAR(  10) column : 1
+   NVARCHAR(  15) (UDD DBO.ACCOUNTNUMBER) column : 1
+   NVARCHAR(  15) column : 2
+   NVARCHAR(  15) scalar function result type : 1
+   NVARCHAR(  15) variable : 1
+   NVARCHAR(  25) (UDD DBO.ORDERNUMBER) column : 1
+   NVARCHAR(  25) (UDD DBO.PHONE) column : 1
+   NVARCHAR(  25) column : 2
+   NVARCHAR(  30) column : 1
+   NVARCHAR(  50) (UDD DBO.NAME) column : 9
+   NVARCHAR(  50) column (table function result) : 2
+   NVARCHAR(  50) column : 3
+   NVARCHAR(  60) column : 2
+   NVARCHAR( 126) column : 1
+   NVARCHAR( 128) column : 1
+   NVARCHAR( 256) column : 1
+   NVARCHAR( 400) column : 1
+   NVARCHAR(4000) column : 1
+   NVARCHAR(MAX) column : 1
+   SMALLINT column : 1
+   SYSNAME column : 1
+   TINYINT column : 2
+   TINYINT function parameter : 1
+   TINYINT IDENTITY(1,1) column : 1
+   UNIQUEIDENTIFIER column : 10
+   VARBINARY(MAX) column : 1
+   VARCHAR( 10) column : 1
+   VARCHAR( 15) column : 1
+   VARCHAR(128) column : 1
+   VARCHAR(MAX) variable : 1
+
+
+--------------------------------------------------------------------------------
+--- X-ref: 'Not Supported' by SQL feature --------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+To generate this section, specify these options with -reportoption:
+     'xref'  or  'xref=feature'
+For more options and examples, use -help -reportoption
+
+--------------------------------------------------------------------------------
+--- X-ref: 'Review Manually' by SQL feature ------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+To generate this section, specify these options with -reportoption:
+     'xref'  or  'xref=feature'
+For more options and examples, use -help -reportoption
+
+--------------------------------------------------------------------------------
+--- X-ref: 'Review Semantics' by SQL feature -----------------------------------
+--------------------------------------------------------------------------------
+
+
+
+To generate this section, specify these options with -reportoption:
+     'xref'  or  'xref=feature'
+For more options and examples, use -help -reportoption
+
+--------------------------------------------------------------------------------
+--- X-ref: 'Review Performance' by SQL feature ---------------------------------
+--------------------------------------------------------------------------------
+
+
+
+To generate this section, specify these options with -reportoption:
+     'xref'  or  'xref=feature'
+For more options and examples, use -help -reportoption
+
+--------------------------------------------------------------------------------
+--- X-ref: 'Ignored' by SQL feature --------------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+To generate this section, specify these options with -reportoption:
+     'xref'  or  'xref=feature', and 'status=ignored' or 'status=all'
+For more options and examples, use -help -reportoption
+
+--------------------------------------------------------------------------------
+--- X-ref: 'Supported' by SQL feature ------------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+To generate this section, specify these options with -reportoption:
+     'xref'  or  'xref=feature', and 'status=supported' or 'status=all'
+For more options and examples, use -help -reportoption
+
+--------------------------------------------------------------------------------
+--- X-ref: 'Not Supported' by object -------------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+To generate this section, specify these options with -reportoption:
+     'xref'  or  'xref=object'
+For more options and examples, use -help -reportoption
+
+
+--------------------------------------------------------------------------------
+--- X-ref: 'Review Manually' by object -----------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+To generate this section, specify these options with -reportoption:
+     'xref'  or  'xref=object'
+For more options and examples, use -help -reportoption
+
+
+--------------------------------------------------------------------------------
+--- X-ref: 'Review Semantics' by object ----------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+To generate this section, specify these options with -reportoption:
+     'xref'  or  'xref=object'
+For more options and examples, use -help -reportoption
+
+
+--------------------------------------------------------------------------------
+--- X-ref: 'Review Performance' by object --------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+To generate this section, specify these options with -reportoption:
+     'xref'  or  'xref=object'
+For more options and examples, use -help -reportoption
+
+
+--------------------------------------------------------------------------------
+--- X-ref: 'Ignored' by object -------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+To generate this section, specify these options with -reportoption:
+     'xref'  or  'xref=object', and 'status=ignored' or 'status=all'
+For more options and examples, use -help -reportoption
+
+
+--------------------------------------------------------------------------------
+--- X-ref: 'Supported' by object -----------------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+To generate this section, specify these options with -reportoption:
+     'xref'  or  'xref=object', and 'status=supported' or 'status=all'
+For more options and examples, use -help -reportoption
+
+
+================================================================================
+
+--- Run Metrics ----------------------------------------------------------------
+Run start            : 18-May-2026 22:56:42
+Run end              : 18-May-2026 22:58:49
+Run time             : 20 seconds
+#Lines of SQL        : 1497  (74 lines/sec)
+#SQL rewrite oppties : 0
+Session log          : /home/ana/BabelfishCompassReports/assessment-report/log/session-log-assessment-report-bbf.5.5.0-2026-May-18-22.56.42.html
+Assessment report    : /home/ana/BabelfishCompassReports/assessment-report/report-assessment-report-bbf.5.5.0-2026-May-18-22.58.44.html
+================================================================================
