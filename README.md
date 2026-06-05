@@ -136,23 +136,23 @@ O cenário TO-BE prevê:
 |-------------------------|---------------------------|
 | Redução de dependência  | Menor lock-in tecnológico |
 |proprietária             |                           |
-|-------------------------|---------------------------|
+|                         |                           |
 | Modernização progressiva| Menor refatoração imediata|
-|-------------------------|---------------------------|
+|                         |                           |
 | Compatibilidade com     | Preservação inicial de    |
 |aplicações legadas       |T-SQL/TDS                  |
-|-------------------------|---------------------------|
+|                         |                           |
 | Automação operacional   | Rastreabilidade e menor   |
 |                         | erro manual               |
-|-------------------------|---------------------------|
+|                         |                           |
 | Infraestrutura como     | Ambientes reproduzíveis   |
 | Código                  |                           |
-|-------------------------|---------------------------|
+|                         |                           |
 | Segurança cloud-native  | Melhor controle de acesso |
 |                         | e auditoria               |
-|-------------------------|---------------------------|
+|                         |                           |
 | Migração controlada     | Menor risco operacional   |
-|-------------------------|---------------------------|
+|                         |                           |
 | Preparação para escala  | Base pronta para evolução |
 |                         | em AWS                    |
 |-------------------------|---------------------------|
