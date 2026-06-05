@@ -148,7 +148,6 @@ O cenário TO-BE prevê:
 | Migração controlada     | Menor risco operacional   |
 | Preparação para escala  | Base pronta para evolução |
 |                         | em AWS                    |
-|-------------------------|---------------------------|
 
 ## 📌 Resumo Executivo da Jornada
 
