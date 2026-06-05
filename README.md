@@ -1,6 +1,6 @@
 # 🚀 POC de Modernização SQL Server com PostgreSQL e Babelfish
 
-### Migração e Modernização de Workloads SQL Server para PostgreSQL em Ambiente Cloud
+## Migração e Modernização de Workloads SQL Server para PostgreSQL em Ambiente Cloud
 
 ![AWS](https://img.shields.io/badge/AWS-Cloud-orange)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)
@@ -12,7 +12,7 @@
 
 ---
 
-# 📋 Resumo Executivo
+## 📋 Resumo Executivo
 
 Este projeto apresenta uma Prova de Conceito (POC) para modernização de bancos de dados Microsoft SQL Server utilizando PostgreSQL e Babelfish, com foco na redução de custos de licenciamento, diminuição da dependência de tecnologias proprietárias e preparação para ambientes cloud-native.
 
@@ -20,17 +20,18 @@ A iniciativa avalia a viabilidade técnica da migração, compatibilidade com ap
 
 ## Documentação
 
-| Área | Descrição |
-|--------|------------|
-| Arquitetura | Solução alvo e topologia |
-| Segurança | IAM, KMS, OIDC, SAST |
-| Operações | Backup, Restore, Monitoramento |
-| Migração | Estratégia e execução |
-| Rollback | Procedimentos de reversão |
-| Evidências | Execução da POC |
+          Área          |          Descrição             |
+|-----------------------|--------------------------------|
+| Arquitetura           | Solução alvo e topologia       |
+| Segurança             | IAM, KMS, OIDC, SAST           |
+| Operações             | Backup, Restore, Monitoramento |
+| Migração              | Estratégia e execução          |
+| Rollback              | Procedimentos de reversão      |
+| Evidências            | Execução da POC                |
 
 ---
-# 🧭 Jornada da Modernização: AS-IS → POC → TO-BE
+
+### 🧭 Jornada da Modernização: AS-IS → POC → TO-BE
 
 Esta POC foi estruturada para demonstrar, de forma controlada e rastreável, uma jornada de modernização de banco de dados partindo de um cenário legado baseado em SQL Server até uma arquitetura moderna com PostgreSQL, Babelfish, automação, segurança e preparação para AWS.
 
@@ -54,14 +55,14 @@ Nesse modelo, as aplicações geralmente dependem de:
 
 ### Principais Desafios
 
-| Desafio | Impacto |
-|---|---|
-| Alto custo de licenciamento | Aumenta o TCO da solução |
-| Vendor lock-in | Reduz flexibilidade tecnológica |
-| Migração complexa | Exige planejamento, assessment e validação |
-| Dependência de T-SQL | Pode dificultar migração direta para PostgreSQL |
-| Risco operacional | Pode gerar downtime ou inconsistência de dados |
-| Baixa automação | Dificulta auditoria, rollback e rastreabilidade |
+| Desafio                     |                     Impacto                    |
+|-----------------------------|------------------------------------------------|
+| Alto custo de licenciamento | Aumenta o TCO da solução                       |
+| Vendor lock-in              | Reduz flexibilidade tecnológica                |
+| Migração complexa           | Exige planejamento, assessment e validação     |
+| Dependência de T-SQL        | Pode dificultar migração direta para PostgreSQL|
+| Risco operacional           | Pode gerar downtime ou inconsistência de dados |
+| Baixa automação             | Dificulta auditoria, rollback e rastreabilidade|
 
 ---
 
@@ -84,17 +85,17 @@ Nesta etapa, o ambiente foi preparado para validar:
 
 ### Componentes da POC
 
-| Componente | Finalidade |
-|---|---|
-| Docker Desktop | Execução local dos containers |
-| SQL Server 2022 | Banco de origem da migração |
-| PostgreSQL 15 | Banco de destino open source |
-| Babelfish | Camada de compatibilidade T-SQL/TDS |
-| AdventureWorksLT2019 | Base de referência para validação |
-| Babelfish Compass | Assessment de compatibilidade |
-| GitHub Actions | Automação de validações |
-| Terraform | Provisionamento futuro da infraestrutura |
-| AWS DMS | Migração controlada de dados |
+|          Componente          |         Finalidade                       |
+|------------------------------|------------------------------------------|
+| Docker Desktop               | Execução local dos containers            |
+| SQL Server 2022              | Banco de origem da migração              |
+| PostgreSQL 15                | Banco de destino open source             |
+| Babelfish                    | Camada de compatibilidade T-SQL/TDS      |
+| AdventureWorksLT2019         | Base de referência para validação        |
+| Babelfish Compass            | Assessment de compatibilidade            |
+| GitHub Actions               | Automação de validações                  |
+| Terraform                    | Provisionamento futuro da infraestrutura |
+| AWS DMS                      | Migração controlada de dados             |
 
 ---
 
@@ -117,16 +118,16 @@ O cenário TO-BE prevê:
 
 ### Benefícios Esperados
 
-| Benefício | Resultado |
-|---|---|
-| Redução de dependência proprietária | Menor lock-in tecnológico |
-| Modernização progressiva | Menor necessidade de refatoração imediata |
-| Compatibilidade com aplicações legadas | Preservação inicial de T-SQL/TDS |
-| Automação operacional | Mais rastreabilidade e menor erro manual |
-| Infraestrutura como Código | Ambientes reproduzíveis |
-| Segurança cloud-native | Melhor controle de acesso e auditoria |
-| Migração controlada | Menor risco operacional |
-| Preparação para escala | Base pronta para evolução em AWS |
+|               Benefício               |                Resultado                 |
+|---------------------------------------|------------------------------------------|
+| Redução de dependência proprietária   | Menor lock-in tecnológico                |
+| Modernização progressiva              | Menor necessidade de refatoração imediata|
+| Compatibilidade com aplicações legadas| Preservação inicial de T-SQL/TDS         |
+| Automação operacional                 | Mais rastreabilidade e menor erro manual |
+| Infraestrutura como Código            | Ambientes reproduzíveis                  |
+| Segurança cloud-native                | Melhor controle de acesso e auditoria    |
+| Migração controlada                   | Menor risco operacional                  |
+| Preparação para escala                | Base pronta para evolução em AWS         |
 
 ---
 
@@ -161,7 +162,7 @@ CloudWatch
 Rollback planejado
 Validação automatizada
 
-# 🧠 Contexto de Negócio e Problema Técnico
+## 🧠 Contexto de Negócio e Problema Técnico
 
 Em cenários tradicionais, migrar diretamente para PostgreSQL pode exigir:
 
@@ -174,7 +175,7 @@ Esta POC busca validar uma abordagem que reduza esses impactos utilizando o Babe
 
 ---
 
-# 🏗️ Solução Avaliada
+## 🏗️ Solução Avaliada
 
 A arquitetura proposta utiliza:
 
@@ -190,7 +191,7 @@ O objetivo é permitir uma migração gradual dos workloads SQL Server, preserva
 
 ---
 
-# 🏆 Resultados Obtidos
+## 🏆 Resultados Obtidos
 
 ## Validações Concluídas
 
@@ -219,7 +220,7 @@ O objetivo é permitir uma migração gradual dos workloads SQL Server, preserva
 
 ---
 
-# 🧠 Competências Demonstradas
+## 🧠 Competências Demonstradas
 
 ## Cloud Computing
 
@@ -256,7 +257,7 @@ O objetivo é permitir uma migração gradual dos workloads SQL Server, preserva
 
 ---
 
-# 🏛️ Visão Geral da Arquitetura
+## 🏛️ Visão Geral da Arquitetura
 
 ## Fluxo de Modernização
 
@@ -296,7 +297,7 @@ Docker Desktop
 
 ---
 
-# 📂 Estrutura do Projeto
+## 📂 Estrutura do Projeto
 
 ```text
 backup/
@@ -320,7 +321,7 @@ tests/
 
 ---
 
-# 🔄 Estratégia de Migração
+## 🔄 Estratégia de Migração
 
 A migração foi estruturada em cinco fases principais.
 
@@ -374,7 +375,7 @@ Atividades:
 
 ---
 
-# 🔐 Segurança e Governança
+## 🔐 Segurança e Governança
 
 A segurança foi considerada desde a concepção da solução.
 
@@ -405,7 +406,7 @@ Benefícios:
 
 ---
 
-# 📊 Benefícios Esperados
+## 📊 Benefícios Esperados
 
 A estratégia de modernização proporciona:
 
@@ -419,7 +420,7 @@ A estratégia de modernização proporciona:
 
 ---
 
-# 📂 Evidências Técnicas
+## 📂 Evidências Técnicas
 
 As evidências foram organizadas por etapa do processo de migração:
 
@@ -440,7 +441,7 @@ Essa organização garante rastreabilidade, auditoria e reprodução dos testes 
 
 ---
 
-# 📌 Status Atual
+## 📌 Status Atual
 
 | Etapa               | Status          |
 | ------------------- | --------------- |
@@ -457,7 +458,7 @@ Essa organização garante rastreabilidade, auditoria e reprodução dos testes 
 
 ---
 
-# 🚀 Próximos Passos
+## 🚀 Próximos Passos
 
 * Finalizar assessment com Babelfish Compass;
 * Executar migração de schema;
@@ -470,7 +471,7 @@ Essa organização garante rastreabilidade, auditoria e reprodução dos testes 
 
 ---
 
-# 🎯 Conclusão
+## 🎯 Conclusão
 
 Esta POC demonstra uma abordagem estruturada para modernização de workloads Microsoft SQL Server utilizando PostgreSQL e Babelfish.
 
