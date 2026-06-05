@@ -436,16 +436,14 @@ Benefícios:
 
 ### Benefícios Esperados
 
-| Benefício                      | Resultado esperado                    |
-| ------------------------------ | ------------------------------------- |
-| Redução de dependência         | Menor lock-in tecnológico             |
-| Modernização progressiva       | Menor necessidade de refatoração      |
-| Compatibilidade com legados    | Preservação inicial de T-SQL/TDS      |
-| Automação operacional          | Mais rastreabilidade e menor erro     |
-| Infraestrutura como Código     | Ambientes reproduzíveis               |
-| Segurança cloud-native         | Melhor controle de acesso e auditoria |
-| Migração controlada            | Menor risco operacional               |
-| Preparação para escala         | Base pronta para evolução em AWS      |
+- **Redução de dependência:** menor lock-in tecnológico.
+- **Modernização progressiva:** menor necessidade de refatoração imediata.
+- **Compatibilidade com legados:** preservação inicial de T-SQL/TDS.
+- **Automação operacional:** mais rastreabilidade e menor erro manual.
+- **Infraestrutura como Código:** ambientes reproduzíveis.
+- **Segurança cloud-native:** melhor controle de acesso e auditoria.
+- **Migração controlada:** menor risco operacional.
+- **Preparação para escala:** base pronta para evolução em AWS.
 
 A estratégia de modernização proporciona:
 
