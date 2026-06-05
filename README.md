@@ -221,7 +221,7 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 
 ## 🏆 Resultados Obtidos
 
-## Validações Concluídas
+### Validações Concluídas
 
 - Ambiente SQL Server 2022 provisionado e validado;
 - Ambiente PostgreSQL 15 provisionado e validado;
@@ -232,14 +232,14 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 - Estratégia de backup e recuperação validada;
 - Estrutura de evidências técnicas implementada.
 
-## Em Andamento
+### Em Andamento
 
 - Assessment de compatibilidade com Babelfish Compass;
 - Validação de objetos incompatíveis;
 - Estratégia de remediação;
 - Testes controlados de migração.
 
-## Planejado
+### Planejado
 
 - Implementação do AWS DMS;
 - Provisionamento da infraestrutura AWS via Terraform;
@@ -434,7 +434,18 @@ Benefícios:
 
 ---
 
-## 📊 Benefícios Esperados
+### Benefícios Esperados
+
+| Benefício                      | Resultado esperado                    |
+| ------------------------------ | ------------------------------------- |
+| Redução de dependência         | Menor lock-in tecnológico             |
+| Modernização progressiva       | Menor necessidade de refatoração      |
+| Compatibilidade com legados    | Preservação inicial de T-SQL/TDS      |
+| Automação operacional          | Mais rastreabilidade e menor erro     |
+| Infraestrutura como Código     | Ambientes reproduzíveis               |
+| Segurança cloud-native         | Melhor controle de acesso e auditoria |
+| Migração controlada            | Menor risco operacional               |
+| Preparação para escala         | Base pronta para evolução em AWS      |
 
 A estratégia de modernização proporciona:
 
