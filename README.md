@@ -265,7 +265,6 @@ Em cenários tradicionais, migrar diretamente para PostgreSQL pode exigir:
 
 Esta POC busca validar uma abordagem que reduza esses impactos utilizando
 Babelfish for PostgreSQL.
-
 ---
 
 ## 🏗️ Solução Avaliada
