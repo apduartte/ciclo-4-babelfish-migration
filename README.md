@@ -117,45 +117,42 @@ O resultado final esperado é uma arquitetura modernizada, preparada para
 execução em ambiente cloud, com menor dependência de licenciamento proprietário,
 maior rastreabilidade operacional e validações automatizadas.
 
-O cenário TO-BE prevê:
+O cenário TO-BE prevê uma jornada de modernização progressiva, segura e
+controlada, preservando a compatibilidade inicial com aplicações legadas e
+preparando o ambiente para evolução em AWS.
+
+### Arquitetura Alvo
 
 - PostgreSQL com Babelfish como destino da modernização;
 - migração controlada com AWS DMS;
 - infraestrutura provisionada via Terraform;
 - segurança com IAM, Secrets Manager e KMS;
 - observabilidade com CloudWatch;
-- validações automatizadas no pipeline;
+- validações automatizadas via pipeline;
 - documentação técnica versionada;
-- estratégia de rollback;
+- estratégia de rollback documentada;
 - evidências organizadas por fase;
-- redução de risco na jornada de migração.
+- redução de risco durante a jornada de migração.
 
-### Benefícios Esperados
+### Benefícios de Negócio e Técnicos Esperados
 
-|Benefício                |     Resultado             |
-|-------------------------|---------------------------|
-| Redução de dependência  | Menor lock-in tecnológico |
-|proprietária             |                           |
-|                         |                           |
-| Modernização progressiva| Menor refatoração imediata|
-|                         |                           |
-| Compatibilidade com     | Preservação inicial de    |
-|aplicações legadas       |T-SQL/TDS                  |
-|                         |                           |
-| Automação operacional   | Rastreabilidade e menor   |
-|                         | erro manual               |
-|                         |                           |
-| Infraestrutura como     | Ambientes reproduzíveis   |
-| Código                  |                           |
-|                         |                           |
-| Segurança cloud-native  | Melhor controle de acesso |
-|                         | e auditoria               |
-|                         |                           |
-| Migração controlada     | Menor risco operacional   |
-|                         |                           |
-| Preparação para escala  | Base pronta para evolução |
-|                         | em AWS                    |
-|-------------------------|---------------------------|
+- **Redução de dependência proprietária:** menor lock-in tecnológico.
+- **Modernização progressiva:** menor necessidade de refatoração imediata.
+- **Compatibilidade com legados:** preservação inicial de T-SQL/TDS.
+- **Automação operacional:** mais rastreabilidade e menor erro manual.
+- **Infraestrutura como Código:** ambientes reproduzíveis e padronizados.
+- **Segurança cloud-native:** melhor controle de acesso, auditoria e proteção.
+- **Migração controlada:** menor risco operacional durante a transição.
+- **Preparação para escala:** base técnica pronta para evolução em AWS.
+
+### Valor Estratégico
+
+Esta abordagem permite reduzir riscos técnicos e operacionais, mantendo o
+ambiente de origem preservado durante a validação da POC. Ao mesmo tempo,
+estabelece uma base moderna para evolução futura com automação, governança,
+segurança, observabilidade e infraestrutura como código.
+
+---
 
 ## 📌 Resumo Executivo da Jornada
 
@@ -187,6 +184,7 @@ DevSecOps
 CloudWatch
 Rollback planejado
 Validação automatizada
+```
 
 ## 🧠 Contexto de Negócio e Problema Técnico
 
