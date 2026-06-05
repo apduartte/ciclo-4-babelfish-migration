@@ -1,0 +1,82 @@
+This file created at 18-May-2026 22:58:46 for report /home/ana/BabelfishCompassReports/assessment-report/report-assessment-report-bbf.5.5.0-2026-May-18-22.58.44.csv and Babelfish v.5.5.0 by Babelfish Compass version 2026-04
+
+This .csv file is intended for import into a spreadsheet.
+It is aimed at assisting specialist Babelfish Compass users in quantifying the amount of work required
+to address non-supported items in a Babelfish migration -- based on the user's own estimates and experience.
+The column for 'Complexity' (below) indicates an expected low/medium/high complexity for the item in question as defined
+by Compass but this can be overridden with user-specified values in config file /home/ana/BabelfishCompassReports/BabelfishCompassUser.cfg.
+The user should add their own formulas to the spreadsheet for performing calculations for example in the column marked 'Your-Calculation-Here'.
+
+Status,Category,Issue,Count,Babelfish Compass Hint,Complexity Score, 
+
+Status: Not Supported
+
+,Permissions
+,,ALTER AUTHORIZATION ON object TO SCHEMA OWNER,20,This variation of ALTER AUTHORIZATION (change object ownership) is not currently supported.,MEDIUM,,0,,0,
+,,ALTER AUTHORIZATION ON TYPE:: TO SCHEMA OWNER,6,This variation of ALTER AUTHORIZATION (change object ownership) is not currently supported.,MEDIUM,,0,,0,
+
+,System Stored Procedures
+,,Extended property type CONSTRAINT in sp_addextendedproperty,78,This extended property type is not currently supported.,LOW,,0,,0,
+,,Extended property type INDEX in sp_addextendedproperty,6,This extended property type is not currently supported.,LOW,,0,,0,
+,,Extended property type PARAMETER in sp_addextendedproperty,3,This extended property type is not currently supported.,LOW,,0,,0,
+,,Extended property type TRIGGER in sp_addextendedproperty,1,This extended property type is not currently supported.,LOW,,0,,0,
+,,Extended property type XML SCHEMA COLLECTION in sp_addextendedproperty,1,This extended property type is not currently supported.,LOW,,0,,0,
+
+,Users
+,,Login option CHECK_EXPIRATION in CREATE LOGIN,2,,MEDIUM,,0,,0,
+,,Login option CHECK_POLICY in CREATE LOGIN,2,,MEDIUM,,0,,0,
+
+,Views
+,,Indexed view (materialized view),1,Materialized views are not currently supported; consider implementing these via PostgreSQL.,MEDIUM,,0,,0,
+
+,XML
+,,CREATE XML INDEX,1,XML indexes are not currently supported.,HIGH,,0,,0,
+,,CREATE XML SCHEMA COLLECTION,1,XML SCHEMA objects are not currently supported.,HIGH,,0,,0,
+,,XML(xmlschema) column,1,XML declarations with an XML schema are not currently supported.,HIGH,,0,,0,
+
+Status: Review Semantics
+
+,DDL
+,,ALTER TABLE..CHECK CONSTRAINT,25,Enabling FK or CHECK constraints is not currently supported; constraints are always enabled; use escape hatch \\"sp_babelfish_configure 'escape_hatch_nocheck%' 'ignore' [ 'server']\\" to ignore and proceed.,MEDIUM,,0,,0,
+,,Constraint PRIMARY KEY/UNIQUE CLUSTERED in CREATE TABLE : created as NONCLUSTERED no physical row order in PG,11,CLUSTERED constraints are not currently supported. The constraint will be created as if NONCLUSTERED was specified. Review all (implicit) assumptions about row ordering or performance due to existence of a CLUSTERED index.,MEDIUM,,0,,0,
+,,Index UNIQUE CLUSTERED in CREATE INDEX : created as NONCLUSTERED no physical row order in PG,1,CLUSTERED indexes are not currently supported. The index will be created as if NONCLUSTERED was specified. Review all (implicit) assumptions about row ordering or performance due to existence of a CLUSTERED index.,MEDIUM,,0,,0,
+
+,Views
+,,View without SCHEMABINDING: created in PG as WITH SCHEMABINDING,1,PostgreSQL only supports views with the equivalent of WITH SCHEMABINDING i.e. a table cannot be dropped if a view depends on it. By default a view without the SCHEMABINDING clause will still be created by Babelfish but as if WITH SCHEMABINDING was specified. However weak schemabinding can be enabled via the GUC 'babelfishpg_tsql.weak_view_binding'. When this GUC is ON views created without SCHEMABINDING clause will have weak schemabinding while views explicitly created WITH SCHEMABINDING maintain strong binding regardless of the GUC setting.,LOW,,0,,0,
+
+Status: Review Performance
+
+,DDL
+,,Computed column (not persisted but created as persisted in PG),3,,MEDIUM,,0,,0,
+
+Status: Ignored
+
+,DDL
+,,Column attribute ROWGUIDCOL,10,The ROWGUIDCOL attribute is not currently supported; use escape hatch \\"sp_babelfish_configure 'escape_hatch_storage_options' 'ignore' [ 'server']\\" to ignore and proceed.,LOW,,0,,0,
+,,NOT FOR REPLICATION IDENTITY column,3,,MEDIUM,,0,,0,
+,,Option ALLOW_PAGE_LOCKS=ON constraint PRIMARY KEY in CREATE TABLE,11,,MEDIUM,,0,,0,
+,,Option ALLOW_PAGE_LOCKS=ON constraint UNIQUE in CREATE TABLE,15,,MEDIUM,,0,,0,
+,,Option ALLOW_PAGE_LOCKS=ON index in CREATE INDEX,6,,MEDIUM,,0,,0,
+,,Option ALLOW_ROW_LOCKS=ON constraint PRIMARY KEY in CREATE TABLE,11,,MEDIUM,,0,,0,
+,,Option ALLOW_ROW_LOCKS=ON constraint UNIQUE in CREATE TABLE,15,,MEDIUM,,0,,0,
+,,Option ALLOW_ROW_LOCKS=ON index in CREATE INDEX,6,,MEDIUM,,0,,0,
+,,Option DROP_EXISTING=OFF index in CREATE INDEX,6,,MEDIUM,,0,,0,
+,,Option IGNORE_DUP_KEY=OFF constraint PRIMARY KEY in CREATE TABLE,11,,MEDIUM,,0,,0,
+,,Option IGNORE_DUP_KEY=OFF constraint UNIQUE in CREATE TABLE,15,,MEDIUM,,0,,0,
+,,Option IGNORE_DUP_KEY=OFF index UNIQUE in CREATE INDEX,1,,MEDIUM,,0,,0,
+,,Option ONLINE=OFF index in CREATE INDEX,6,,MEDIUM,,0,,0,
+,,Option OPTIMIZE_FOR_SEQUENTIAL_KEY=OFF constraint PRIMARY KEY in CREATE TABLE,11,,MEDIUM,,0,,0,
+,,Option OPTIMIZE_FOR_SEQUENTIAL_KEY=OFF constraint UNIQUE in CREATE TABLE,15,,MEDIUM,,0,,0,
+,,Option OPTIMIZE_FOR_SEQUENTIAL_KEY=OFF index in CREATE INDEX,6,,MEDIUM,,0,,0,
+,,Option PAD_INDEX=OFF constraint PRIMARY KEY in CREATE TABLE,11,,MEDIUM,,0,,0,
+,,Option PAD_INDEX=OFF constraint UNIQUE in CREATE TABLE,15,,MEDIUM,,0,,0,
+,,Option PAD_INDEX=OFF index in CREATE INDEX,6,,MEDIUM,,0,,0,
+,,Option SORT_IN_TEMPDB=OFF index in CREATE INDEX,6,,MEDIUM,,0,,0,
+,,Option STATISTICS_NORECOMPUTE=OFF constraint PRIMARY KEY in CREATE TABLE,11,,MEDIUM,,0,,0,
+,,Option STATISTICS_NORECOMPUTE=OFF constraint UNIQUE in CREATE TABLE,15,,MEDIUM,,0,,0,
+,,Option STATISTICS_NORECOMPUTE=OFF index in CREATE INDEX,6,,MEDIUM,,0,,0,
+
+
+
+(end)
+
