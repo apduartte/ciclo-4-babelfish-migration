@@ -178,6 +178,99 @@ Nesta etapa, o ambiente foi preparado para validar:
 
 ---
 
+## 3️⃣ Resultado Final Esperado — TO-BE
+
+O resultado final esperado é uma arquitetura modernizada, preparada para
+execução em ambiente cloud, com menor dependência de licenciamento proprietário,
+maior rastreabilidade operacional e validações automatizadas.
+
+O cenário TO-BE prevê:
+
+- PostgreSQL com Babelfish como destino da modernização;
+- migração controlada com AWS DMS;
+- infraestrutura provisionada via Terraform;
+- segurança com IAM, Secrets Manager e KMS;
+- observabilidade com CloudWatch;
+- validações automatizadas no pipeline;
+- documentação técnica versionada;
+- estratégia de rollback;
+- evidências organizadas por fase;
+- redução de risco na jornada de migração.
+
+### Benefícios Esperados
+
+|Benefício                |     Resultado             |
+|-------------------------|---------------------------|
+| Redução de dependência  | Menor lock-in tecnológico |
+|proprietária             |                           |
+|-------------------------|---------------------------|
+| Modernização progressiva| Menor refatoração imediata|
+|-------------------------|---------------------------|
+| Compatibilidade com     | Preservação inicial de    |
+|aplicações legadas       |T-SQL/TDS                  |
+|-------------------------|---------------------------|
+| Automação operacional   | Rastreabilidade e menor   |
+|                         | erro manual               |
+|-------------------------|---------------------------|
+| Infraestrutura como     | Ambientes reproduzíveis   |
+| Código                  |                           |
+|-------------------------|---------------------------|
+| Segurança cloud-native  | Melhor controle de acesso |
+|                         | e auditoria               |
+|-------------------------|---------------------------|
+| Migração controlada     | Menor risco operacional   |
+|-------------------------|---------------------------|
+| Preparação para escala  | Base pronta para evolução |
+|                         | em AWS                    |
+|-------------------------|---------------------------|
+
+---
+
+## 📌 Resumo Executivo da Jornada
+
+```text
+AS-IS
+SQL Server legado
+T-SQL
+Licenciamento proprietário
+Operação tradicional
+Baixa automação
+
+        ↓
+
+POC
+Docker
+SQL Server 2022
+PostgreSQL + Babelfish
+AdventureWorksLT2019
+Assessment de compatibilidade
+Evidências técnicas
+
+        ↓
+
+TO-BE
+PostgreSQL/Babelfish em AWS
+AWS DMS
+Terraform
+DevSecOps
+CloudWatch
+Rollback planejado
+Validação automatizada
+
+## 🧠 Contexto de Negócio e Problema Técnico
+
+Em cenários tradicionais, migrar diretamente para PostgreSQL pode exigir:
+
+- Reescrita de consultas SQL;
+- Refatoração de procedures;
+- Alterações na aplicação;
+- Longos ciclos de homologação.
+
+Esta POC busca validar uma abordagem que reduza esses impactos utilizando o
+Babelfish for PostgreSQL.
+
+---
+
 ## 🏗️ Solução Avaliada
 
 A arquitetura proposta utiliza:
