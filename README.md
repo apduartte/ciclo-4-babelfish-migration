@@ -157,8 +157,6 @@ O cenário TO-BE prevê:
 |                         | em AWS                    |
 |-------------------------|---------------------------|
 
----
-
 ## 📌 Resumo Executivo da Jornada
 
 ```text
