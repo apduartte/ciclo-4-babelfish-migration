@@ -18,6 +18,17 @@ Este projeto apresenta uma Prova de Conceito (POC) para modernização de bancos
 
 A iniciativa avalia a viabilidade técnica da migração, compatibilidade com aplicações legadas, estratégias de rollback, automação de infraestrutura e práticas modernas de DevSecOps.
 
+## Documentação
+
+| Área | Descrição |
+|--------|------------|
+| Arquitetura | Solução alvo e topologia |
+| Segurança | IAM, KMS, OIDC, SAST |
+| Operações | Backup, Restore, Monitoramento |
+| Migração | Estratégia e execução |
+| Rollback | Procedimentos de reversão |
+| Evidências | Execução da POC |
+
 ---
 
 # 🎯 Desafio de Negócio
