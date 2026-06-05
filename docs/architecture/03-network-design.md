@@ -37,6 +37,7 @@ Aplicação	PostgreSQL	5432
 Administrador	SSH	22
 5. Fluxo de Comunicação
 Usuário
+
    │
    ▼
 Aplicação
