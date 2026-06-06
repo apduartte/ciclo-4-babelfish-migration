@@ -456,7 +456,7 @@ Essa organização garante rastreabilidade, auditoria e reprodução dos testes 
 ## 📌 Status Atual
 
 | Etapa               | Status          |
-| ------------------- | ----------------|
+| ------------------- | --------------- |
 | Ambiente Docker     | ✅ Concluído    |
 | SQL Server 2022     | ✅ Concluído    |
 | PostgreSQL 15       | ✅ Concluído    |
