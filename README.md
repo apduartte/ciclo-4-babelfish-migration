@@ -1,4 +1,4 @@
----# 🚀 POC de Modernização SQL Server com PostgreSQL e Babelfish
+# 🚀 POC de Modernização SQL Server com PostgreSQL e Babelfish
 
 ## Migração e Modernização de Workloads SQL Server para PostgreSQL em Ambiente Cloud
 
@@ -12,12 +12,12 @@
 
 ---
 
-## 📋 Resumo Executivo
+## Resumo Executivo
 
-Este projeto apresenta uma Prova de Conceito (POC) para modernização de  bancos
+Este projeto apresenta uma Prova de Conceito (POC) para modernização de bancos
 de dados Microsoft SQL Server utilizando PostgreSQL e Babelfish, com foco na
 redução de custos de licenciamento, diminuição da dependência de tecnologias
- proprietárias e preparação para ambientes cloud-native.
+proprietárias e preparação para ambientes cloud-native.
 
 A iniciativa avalia a viabilidade técnica da migração, compatibilidade com
 aplicações legadas, estratégias de rollback, automação de infraestrutura e
@@ -25,25 +25,23 @@ práticas modernas de DevSecOps.
 
 ## Documentação
 
-|          Área         |          Descrição             |
-|-----------------------|--------------------------------|
-| Arquitetura           | Solução alvo e topologia       |
-| Segurança             | IAM, KMS, OIDC, SAST           |
-| Operações             | Backup, Restore, Monitoramento |
-| Migração              | Estratégia e execução          |
-| Rollback              | Procedimentos de reversão      |
-| Evidências            | Execução da POC                |
+| Área        | Descrição                      |
+| ----------- | ------------------------------ |
+| Arquitetura | Solução alvo e topologia       |
+| Segurança   | IAM, KMS, OIDC, SAST           |
+| Operações   | Backup, Restore, Monitoramento |
+| Migração    | Estratégia e execução          |
+| Rollback    | Procedimentos de reversão      |
+| Evidências  | Execução da POC                |
 
 ---
 
-### 🧭 Jornada da Modernização: AS-IS → POC → TO-BE
+## Jornada da Modernização: AS-IS → POC → TO-BE
 
 Esta POC foi estruturada para demonstrar, de forma controlada e rastreável, uma
 jornada de modernização de banco de dados partindo de um cenário legado baseado
 em SQL Server até uma arquitetura moderna com PostgreSQL, Babelfish, automação,
 segurança e preparação para AWS.
-
----
 
 ## 1️⃣ Cenário Atual — AS-IS
 
@@ -117,37 +115,42 @@ O resultado final esperado é uma arquitetura modernizada, preparada para
 execução em ambiente cloud, com menor dependência de licenciamento proprietário,
 maior rastreabilidade operacional e validações automatizadas.
 
-O cenário TO-BE prevê:
+O cenário TO-BE prevê uma jornada de modernização progressiva, segura e
+controlada, preservando a compatibilidade inicial com aplicações legadas e
+preparando o ambiente para evolução em AWS.
+
+### Arquitetura Alvo
 
 - PostgreSQL com Babelfish como destino da modernização;
 - migração controlada com AWS DMS;
 - infraestrutura provisionada via Terraform;
 - segurança com IAM, Secrets Manager e KMS;
 - observabilidade com CloudWatch;
-- validações automatizadas no pipeline;
+- validações automatizadas via pipeline;
 - documentação técnica versionada;
-- estratégia de rollback;
+- estratégia de rollback documentada;
 - evidências organizadas por fase;
-- redução de risco na jornada de migração.
+- redução de risco durante a jornada de migração.
 
-### Benefícios Esperados
+### Benefícios de Negócio e Técnicos Esperados
 
-|Benefício                |     Resultado             |
-|-------------------------|---------------------------|
-| Redução de dependência  | Menor lock-in tecnológico |
-|proprietária             |                           |
-| Modernização progressiva| Menor refatoração imediata|
-| Compatibilidade com     | Preservação inicial de    |
-|aplicações legadas       |T-SQL/TDS                  |
-| Automação operacional   | Rastreabilidade e menor   |
-|                         | erro manual               |
-| Infraestrutura como     | Ambientes reproduzíveis   |
-| Código                  |                           |
-| Segurança cloud-native  | Melhor controle de acesso |
-|                         | e auditoria               |
-| Migração controlada     | Menor risco operacional   |
-| Preparação para escala  | Base pronta para evolução |
-|                         | em AWS                    |
+- **Redução de dependência proprietária:** menor lock-in tecnológico.
+- **Modernização progressiva:** menor necessidade de refatoração imediata.
+- **Compatibilidade com legados:** preservação inicial de T-SQL/TDS.
+- **Automação operacional:** mais rastreabilidade e menor erro manual.
+- **Infraestrutura como Código:** ambientes reproduzíveis e padronizados.
+- **Segurança cloud-native:** melhor controle de acesso, auditoria e proteção.
+- **Migração controlada:** menor risco operacional durante a transição.
+- **Preparação para escala:** base técnica pronta para evolução em AWS.
+
+### Valor Estratégico
+
+Esta abordagem reduz riscos técnicos e operacionais, mantendo o ambiente de
+origem preservado durante a validação da POC. Ao mesmo tempo, estabelece uma
+base moderna para evolução futura com automação, governança, segurança,
+observabilidade e infraestrutura como código.
+
+---
 
 ## 📌 Resumo Executivo da Jornada
 
@@ -179,6 +182,9 @@ DevSecOps
 CloudWatch
 Rollback planejado
 Validação automatizada
+```
+
+---
 
 ## 🧠 Contexto de Negócio e Problema Técnico
 
@@ -189,7 +195,7 @@ Em cenários tradicionais, migrar diretamente para PostgreSQL pode exigir:
 - Alterações na aplicação;
 - Longos ciclos de homologação.
 
-Esta POC busca validar uma abordagem que reduza esses impactos utilizando o
+Esta POC busca validar uma abordagem que reduza esses impactos utilizando
 Babelfish for PostgreSQL.
 
 ---
@@ -242,14 +248,14 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 
 ## 🧠 Competências Demonstradas
 
-## Cloud Computing
+### Cloud Computing
 
 - Amazon Web Services (AWS)
 - Arquitetura Cloud
 - Modernização de Workloads
 - Infraestrutura como Código
 
-## Engenharia de Dados e Banco de Dados
+### Engenharia de Dados e Banco de Dados
 
 - SQL Server
 - PostgreSQL
@@ -258,7 +264,7 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 - Backup e Recuperação
 - Validação de Integridade
 
-## DevOps e DevSecOps
+### DevOps e DevSecOps
 
 - Docker
 - GitHub Actions
@@ -267,7 +273,7 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 - Hardening de Ambiente
 - Segurança Integrada ao Ciclo de Entrega
 
-## Engenharia de Plataforma
+### Engenharia de Plataforma
 
 - Troubleshooting
 - Documentação Técnica
@@ -279,7 +285,7 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 
 ## 🏛️ Visão Geral da Arquitetura
 
-## Fluxo de Modernização
+### Fluxo de Modernização
 
 ```text
 SQL Server
@@ -300,7 +306,7 @@ PostgreSQL + Babelfish
 Validação da Aplicação
 ```
 
-## Ambiente da POC
+### Ambiente da POC
 
 ```text
 Windows 11
@@ -345,7 +351,7 @@ tests/
 
 A migração foi estruturada em cinco fases principais.
 
-## 1. Assessment
+### 1. Assessment
 
 Avaliação prévia da compatibilidade entre SQL Server e Babelfish.
 
@@ -356,7 +362,7 @@ Atividades:
 - Avaliação de riscos;
 - Planejamento de remediações.
 
-## 2. Preparação do Ambiente
+### 2. Preparação do Ambiente
 
 Atividades:
 
@@ -366,7 +372,7 @@ Atividades:
 - Validação de backups;
 - Configuração de monitoramento.
 
-## 3. Migração dos Dados
+### 3. Migração dos Dados
 
 Atividades:
 
@@ -375,7 +381,7 @@ Atividades:
 - Sincronização entre origem e destino;
 - Planejamento do cutover.
 
-## 4. Validação Pós-Migração
+### 4. Validação Pós-Migração
 
 Atividades:
 
@@ -384,7 +390,7 @@ Atividades:
 - Validação de consultas críticas;
 - Verificação de integridade.
 
-## 5. Estratégia de Rollback
+### 5. Estratégia de Rollback
 
 Atividades:
 
@@ -411,7 +417,7 @@ Controles avaliados:
 - CloudWatch;
 - Estratégias de backup e recuperação.
 
-## Administração Segura com AWS Systems Manager
+### Administração Segura com AWS Systems Manager
 
 A arquitetura elimina a necessidade de acesso SSH público às instâncias.
 
@@ -423,29 +429,6 @@ Benefícios:
 - Sessões auditáveis;
 - Menor superfície de ataque;
 - Maior aderência às boas práticas AWS.
-
----
-
-### Benefícios Esperados
-
-- **Redução de dependência:** menor lock-in tecnológico.
-- **Modernização progressiva:** menor necessidade de refatoração imediata.
-- **Compatibilidade com legados:** preservação inicial de T-SQL/TDS.
-- **Automação operacional:** mais rastreabilidade e menor erro manual.
-- **Infraestrutura como Código:** ambientes reproduzíveis.
-- **Segurança cloud-native:** melhor controle de acesso e auditoria.
-- **Migração controlada:** menor risco operacional.
-- **Preparação para escala:** base pronta para evolução em AWS.
-
-A estratégia de modernização proporciona:
-
-- Redução de custos de licenciamento;
-- Menor dependência de tecnologias proprietárias;
-- Migração gradual e controlada;
-- Redução de riscos operacionais;
-- Maior preparação para ambientes cloud-native;
-- Melhor governança e rastreabilidade;
-- Maior flexibilidade tecnológica.
 
 ---
 
