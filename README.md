@@ -43,53 +43,6 @@ jornada de modernização de banco de dados partindo de um cenário legado basea
 em SQL Server até uma arquitetura moderna com PostgreSQL, Babelfish, automação,
 segurança e preparação para AWS.
 
----# 🚀 POC de Modernização SQL Server com PostgreSQL e Babelfish
-
-## Migração e Modernização de Workloads SQL Server para PostgreSQL em Ambiente Cloud
-
-![AWS](https://img.shields.io/badge/AWS-Cloud-orange)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)
-![Babelfish](https://img.shields.io/badge/Babelfish-Compatible-green)
-![Terraform](https://img.shields.io/badge/IaC-Terraform-purple)
-![Docker](https://img.shields.io/badge/Container-Docker-blue)
-![DevSecOps](https://img.shields.io/badge/DevSecOps-Enabled-red)
-![CI/CD](https://img.shields.io/badge/CI/CD-GitHub_Actions-black)
-
----
-
-## 📋 Resumo Executivo
-
-Este projeto apresenta uma Prova de Conceito (POC) para modernização de  bancos
-de dados Microsoft SQL Server utilizando PostgreSQL e Babelfish, com foco na
-redução de custos de licenciamento, diminuição da dependência de tecnologias
- proprietárias e preparação para ambientes cloud-native.
-
-A iniciativa avalia a viabilidade técnica da migração, compatibilidade com
-aplicações legadas, estratégias de rollback, automação de infraestrutura e
-práticas modernas de DevSecOps.
-
-## Documentação
-
-|          Área         |          Descrição             |
-|-----------------------|--------------------------------|
-| Arquitetura           | Solução alvo e topologia       |
-| Segurança             | IAM, KMS, OIDC, SAST           |
-| Operações             | Backup, Restore, Monitoramento |
-| Migração              | Estratégia e execução          |
-| Rollback              | Procedimentos de reversão      |
-| Evidências            | Execução da POC                |
-
----
-
-### 🧭 Jornada da Modernização: AS-IS → POC → TO-BE
-
-Esta POC foi estruturada para demonstrar, de forma controlada e rastreável, uma
-jornada de modernização de banco de dados partindo de um cenário legado baseado
-em SQL Server até uma arquitetura moderna com PostgreSQL, Babelfish, automação,
-segurança e preparação para AWS.
-
----
-
 ## 1️⃣ Cenário Atual — AS-IS
 
 O cenário atual representa um ambiente legado baseado em Microsoft SQL Server,
@@ -155,6 +108,7 @@ Nesta etapa, o ambiente foi preparado para validar:
 | AWS DMS                      | Migração controlada de dados             |
 
 ---
+
 ## 3️⃣ Resultado Final Esperado — TO-BE
 
 O resultado final esperado é uma arquitetura modernizada, preparada para
@@ -243,6 +197,7 @@ Em cenários tradicionais, migrar diretamente para PostgreSQL pode exigir:
 
 Esta POC busca validar uma abordagem que reduza esses impactos utilizando
 Babelfish for PostgreSQL.
+
 ---
 
 ## 🏗️ Solução Avaliada
@@ -293,14 +248,14 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 
 ## 🧠 Competências Demonstradas
 
-### Cloud Computing
+#### Cloud Computing
 
 - Amazon Web Services (AWS)
 - Arquitetura Cloud
 - Modernização de Workloads
 - Infraestrutura como Código
 
-### Engenharia de Dados e Banco de Dados
+#### Engenharia de Dados e Banco de Dados
 
 - SQL Server
 - PostgreSQL
@@ -309,7 +264,7 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 - Backup e Recuperação
 - Validação de Integridade
 
-### DevOps e DevSecOps
+#### DevOps e DevSecOps
 
 - Docker
 - GitHub Actions
@@ -318,7 +273,7 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 - Hardening de Ambiente
 - Segurança Integrada ao Ciclo de Entrega
 
-## Engenharia de Plataforma
+### Engenharia de Plataforma
 
 - Troubleshooting
 - Documentação Técnica
@@ -330,7 +285,7 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 
 ## 🏛️ Visão Geral da Arquitetura
 
-### Fluxo de Modernização
+#### Fluxo de Modernização
 
 ```text
 SQL Server
@@ -351,7 +306,7 @@ PostgreSQL + Babelfish
 Validação da Aplicação
 ```
 
-### Ambiente da POC
+#### Ambiente da POC
 
 ```text
 Windows 11
@@ -396,7 +351,7 @@ tests/
 
 A migração foi estruturada em cinco fases principais.
 
-### 1. Assessment
+#### 1. Assessment
 
 Avaliação prévia da compatibilidade entre SQL Server e Babelfish.
 
@@ -407,7 +362,7 @@ Atividades:
 - Avaliação de riscos;
 - Planejamento de remediações.
 
-### 2. Preparação do Ambiente
+#### 2. Preparação do Ambiente
 
 Atividades:
 
@@ -417,7 +372,7 @@ Atividades:
 - Validação de backups;
 - Configuração de monitoramento.
 
-### 3. Migração dos Dados
+#### 3. Migração dos Dados
 
 Atividades:
 
@@ -426,7 +381,7 @@ Atividades:
 - Sincronização entre origem e destino;
 - Planejamento do cutover.
 
-### 4. Validação Pós-Migração
+#### 4. Validação Pós-Migração
 
 Atividades:
 
@@ -435,7 +390,7 @@ Atividades:
 - Validação de consultas críticas;
 - Verificação de integridade.
 
-### 5. Estratégia de Rollback
+#### 5. Estratégia de Rollback
 
 Atividades:
 
@@ -462,7 +417,7 @@ Controles avaliados:
 - CloudWatch;
 - Estratégias de backup e recuperação.
 
-### Administração Segura com AWS Systems Manager
+#### Administração Segura com AWS Systems Manager
 
 A arquitetura elimina a necessidade de acesso SSH público às instâncias.
 
