@@ -1,4 +1,4 @@
-# POC de Modernização SQL Server com PostgreSQL e Babelfish
+# 🚀 POC de Modernização SQL Server com PostgreSQL e Babelfish
 
 ## Migração e Modernização de Workloads SQL Server para PostgreSQL em Ambiente Cloud
 
@@ -248,14 +248,14 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 
 ## 🧠 Competências Demonstradas
 
-#### Cloud Computing
+### Cloud Computing
 
 - Amazon Web Services (AWS)
 - Arquitetura Cloud
 - Modernização de Workloads
 - Infraestrutura como Código
 
-#### Engenharia de Dados e Banco de Dados
+### Engenharia de Dados e Banco de Dados
 
 - SQL Server
 - PostgreSQL
@@ -264,7 +264,7 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 - Backup e Recuperação
 - Validação de Integridade
 
-#### DevOps e DevSecOps
+### DevOps e DevSecOps
 
 - Docker
 - GitHub Actions
@@ -285,7 +285,7 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 
 ## 🏛️ Visão Geral da Arquitetura
 
-#### Fluxo de Modernização
+### Fluxo de Modernização
 
 ```text
 SQL Server
@@ -306,7 +306,7 @@ PostgreSQL + Babelfish
 Validação da Aplicação
 ```
 
-#### Ambiente da POC
+### Ambiente da POC
 
 ```text
 Windows 11
@@ -351,7 +351,7 @@ tests/
 
 A migração foi estruturada em cinco fases principais.
 
-#### 1. Assessment
+### 1. Assessment
 
 Avaliação prévia da compatibilidade entre SQL Server e Babelfish.
 
@@ -362,7 +362,7 @@ Atividades:
 - Avaliação de riscos;
 - Planejamento de remediações.
 
-#### 2. Preparação do Ambiente
+### 2. Preparação do Ambiente
 
 Atividades:
 
@@ -372,7 +372,7 @@ Atividades:
 - Validação de backups;
 - Configuração de monitoramento.
 
-#### 3. Migração dos Dados
+### 3. Migração dos Dados
 
 Atividades:
 
@@ -381,7 +381,7 @@ Atividades:
 - Sincronização entre origem e destino;
 - Planejamento do cutover.
 
-#### 4. Validação Pós-Migração
+### 4. Validação Pós-Migração
 
 Atividades:
 
@@ -390,7 +390,7 @@ Atividades:
 - Validação de consultas críticas;
 - Verificação de integridade.
 
-#### 5. Estratégia de Rollback
+### 5. Estratégia de Rollback
 
 Atividades:
 
@@ -417,7 +417,7 @@ Controles avaliados:
 - CloudWatch;
 - Estratégias de backup e recuperação.
 
-#### Administração Segura com AWS Systems Manager
+### Administração Segura com AWS Systems Manager
 
 A arquitetura elimina a necessidade de acesso SSH público às instâncias.
 
