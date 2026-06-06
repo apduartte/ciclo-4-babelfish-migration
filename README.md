@@ -43,28 +43,6 @@ jornada de modernização de banco de dados partindo de um cenário legado basea
 em SQL Server até uma arquitetura moderna com PostgreSQL, Babelfish, automação,
 segurança e preparação para AWS.
 
----
-
-## Documentação
-
-| Área        | Descrição                      |
-| ----------- | ------------------------------ |
-| Arquitetura | Solução alvo e topologia       |
-| Segurança   | IAM, KMS, OIDC, SAST           |
-| Operações   | Backup, Restore, Monitoramento |
-| Migração    | Estratégia e execução          |
-| Rollback    | Procedimentos de reversão      |
-| Evidências  | Execução da POC                |
-
----
-
-## Jornada da Modernização: AS-IS → POC → TO-BE
-
-Esta POC foi estruturada para demonstrar, de forma controlada e rastreável, uma
-jornada de modernização de banco de dados partindo de um cenário legado baseado
-em SQL Server até uma arquitetura moderna com PostgreSQL, Babelfish, automação,
-segurança e preparação para AWS.
-
 ---# 🚀 POC de Modernização SQL Server com PostgreSQL e Babelfish
 
 ## Migração e Modernização de Workloads SQL Server para PostgreSQL em Ambiente Cloud
@@ -315,14 +293,14 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 
 ## 🧠 Competências Demonstradas
 
-## Cloud Computing
+### Cloud Computing
 
 - Amazon Web Services (AWS)
 - Arquitetura Cloud
 - Modernização de Workloads
 - Infraestrutura como Código
 
-## Engenharia de Dados e Banco de Dados
+### Engenharia de Dados e Banco de Dados
 
 - SQL Server
 - PostgreSQL
@@ -331,7 +309,7 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 - Backup e Recuperação
 - Validação de Integridade
 
-## DevOps e DevSecOps
+### DevOps e DevSecOps
 
 - Docker
 - GitHub Actions
@@ -352,7 +330,7 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 
 ## 🏛️ Visão Geral da Arquitetura
 
-## Fluxo de Modernização
+### Fluxo de Modernização
 
 ```text
 SQL Server
@@ -373,7 +351,7 @@ PostgreSQL + Babelfish
 Validação da Aplicação
 ```
 
-## Ambiente da POC
+### Ambiente da POC
 
 ```text
 Windows 11
@@ -418,7 +396,7 @@ tests/
 
 A migração foi estruturada em cinco fases principais.
 
-## 1. Assessment
+### 1. Assessment
 
 Avaliação prévia da compatibilidade entre SQL Server e Babelfish.
 
@@ -429,7 +407,7 @@ Atividades:
 - Avaliação de riscos;
 - Planejamento de remediações.
 
-## 2. Preparação do Ambiente
+### 2. Preparação do Ambiente
 
 Atividades:
 
@@ -439,7 +417,7 @@ Atividades:
 - Validação de backups;
 - Configuração de monitoramento.
 
-## 3. Migração dos Dados
+### 3. Migração dos Dados
 
 Atividades:
 
@@ -448,7 +426,7 @@ Atividades:
 - Sincronização entre origem e destino;
 - Planejamento do cutover.
 
-## 4. Validação Pós-Migração
+### 4. Validação Pós-Migração
 
 Atividades:
 
@@ -457,7 +435,7 @@ Atividades:
 - Validação de consultas críticas;
 - Verificação de integridade.
 
-## 5. Estratégia de Rollback
+### 5. Estratégia de Rollback
 
 Atividades:
 
@@ -484,7 +462,7 @@ Controles avaliados:
 - CloudWatch;
 - Estratégias de backup e recuperação.
 
-## Administração Segura com AWS Systems Manager
+### Administração Segura com AWS Systems Manager
 
 A arquitetura elimina a necessidade de acesso SSH público às instâncias.
 
@@ -496,29 +474,6 @@ Benefícios:
 - Sessões auditáveis;
 - Menor superfície de ataque;
 - Maior aderência às boas práticas AWS.
-
----
-
-### Benefícios Esperados
-
-- **Redução de dependência:** menor lock-in tecnológico.
-- **Modernização progressiva:** menor necessidade de refatoração imediata.
-- **Compatibilidade com legados:** preservação inicial de T-SQL/TDS.
-- **Automação operacional:** mais rastreabilidade e menor erro manual.
-- **Infraestrutura como Código:** ambientes reproduzíveis.
-- **Segurança cloud-native:** melhor controle de acesso e auditoria.
-- **Migração controlada:** menor risco operacional.
-- **Preparação para escala:** base pronta para evolução em AWS.
-
-A estratégia de modernização proporciona:
-
-- Redução de custos de licenciamento;
-- Menor dependência de tecnologias proprietárias;
-- Migração gradual e controlada;
-- Redução de riscos operacionais;
-- Maior preparação para ambientes cloud-native;
-- Melhor governança e rastreabilidade;
-- Maior flexibilidade tecnológica.
 
 ---
 
