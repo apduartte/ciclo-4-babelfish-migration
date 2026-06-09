@@ -16,6 +16,7 @@
     "Actions",
     "Terraform",
     "DMS",
+	"cutover",
     "AWS",
     "rollback",
     "assessment",
@@ -23,6 +24,6 @@
     "AS-IS",
     "TO-BE",
     "README",
-    "T-SQL"
+    "T-SQL"	
   ]
 }
