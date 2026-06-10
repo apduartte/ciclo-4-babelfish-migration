@@ -25,16 +25,23 @@ práticas modernas de DevSecOps.
 
 ## Status Executivo da POC
 
-A POC encontra-se com a fase de assessment técnico documentada, incluindo validação do ambiente de origem, inventário de objetos SQL Server e evidências de compatibilidade inicial para migração para PostgreSQL com Babelfish.
+A POC encontra-se em fase final de consolidação, com as principais etapas do ciclo de modernização documentadas e versionadas no repositório.
+
+Foram contempladas as fases de preparação do ambiente, validação do SQL Server de origem, execução do assessment com Babelfish Compass, documentação do inventário técnico, organização das evidências, migração, validação pós-migração e preparação para rollback.
 
 ### Evidências Concluídas
 
-- Validação do ambiente local com Docker e WSL.
-- Validação do container SQL Server correto: `sqlserver-adventureworks`.
-- Validação do container PostgreSQL/Babelfish: `postgres-babelfish`.
-- Confirmação do banco `AdventureWorksLT2019` com status `ONLINE`.
-- Inventário técnico do banco de origem.
-- Documentação executiva da fase de assessment.
+- Validação do ambiente local com Docker e WSL;
+- Validação do container SQL Server `sqlserver-adventureworks`;
+- Validação do container PostgreSQL/Babelfish `postgres-babelfish`;
+- Confirmação do banco `AdventureWorksLT2019` com status `ONLINE`;
+- Inventário técnico do banco de origem;
+- Execução e documentação do assessment com Babelfish Compass;
+- Documentação da fase de remediação;
+- Registro das evidências de migração;
+- Documentação da validação pós-migração;
+- Organização das evidências legadas em `legacy-evidence`;
+- Estruturação das evidências oficiais em `docs/evidence`.
 
 ### Inventário SQL Server
 
@@ -45,16 +52,24 @@ A POC encontra-se com a fase de assessment técnico documentada, incluindo valid
 | Views | 3 |
 | Total de objetos | 15 |
 
-### Evidências da Fase de Assessment
+### Evidências por Fase
 
-- `docs/evidence/04-assessment/container-restart-and-source-validation.md`
-- `docs/evidence/04-assessment/sqlserver-table-inventory.txt`
-- `docs/evidence/04-assessment/assessment-summary.md`
+- `docs/evidence/01-environment/`
+- `docs/evidence/02-sqlserver/`
+- `docs/evidence/03-compass/`
+- `docs/evidence/04-assessment/`
+- `docs/evidence/05-remediation/`
+- `docs/evidence/06-migration/`
+- `docs/evidence/07-validation/`
+- `docs/evidence/08-rollback/`
 
-### Próxima Fase
+### Status Final
 
-A próxima etapa da POC será a fase de remediação e análise de compatibilidade, com foco em identificar objetos compatíveis, pontos de atenção, ajustes necessários e estratégia de migração para PostgreSQL com Babelfish.
-
+A POC está tecnicamente consolidada como um projeto de portfólio,
+demonstrando uma jornada ponta a ponta de modernização de banco
+de dados SQL Server para PostgreSQL com Babelfish, incluindo 
+assessment, documentação técnica, evidências, validação e 
+estratégia de rollback.
 
 ## Documentação
 
@@ -254,28 +269,28 @@ compatibilidade com aplicações existentes e reduzindo riscos operacionais.
 
 ### Validações Concluídas
 
-- Ambiente SQL Server 2022 provisionado e validado;
-- Ambiente PostgreSQL 15 provisionado e validado;
-- Babelfish instalado e operacional;
-- Restore do banco AdventureWorksLT2019 realizado com sucesso;
-- Conectividade TDS validada;
-- Operações T-SQL básicas testadas;
-- Estratégia de backup e recuperação validada;
-- Estrutura de evidências técnicas implementada.
+* Ambiente SQL Server 2022 provisionado e validado;
+* Ambiente PostgreSQL 15 provisionado e validado;
+* Babelfish instalado e operacional;
+* Restore do banco AdventureWorksLT2019 realizado com sucesso;
+* Conectividade TDS validada;
+* Operações T-SQL básicas testadas;
+* Assessment de compatibilidade executado com Babelfish Compass;
+* Inventário técnico do banco de origem documentado;
+* Evidências de remediação organizadas;
+* Evidências de migração documentadas;
+* Validação pós-migração documentada;
+* Estratégia de rollback estruturada;
+* Estrutura de evidências técnicas implementada.
 
-### Em Andamento
+### Evoluções Futuras
 
-- Assessment de compatibilidade com Babelfish Compass;
-- Validação de objetos incompatíveis;
-- Estratégia de remediação;
-- Testes controlados de migração.
-
-### Planejado
-
-- Implementação do AWS DMS;
-- Provisionamento da infraestrutura AWS via Terraform;
-- Automação completa do ambiente;
-- Testes de performance e escalabilidade.
+* Implementação de migração utilizando AWS DMS;
+* Provisionamento de infraestrutura AWS via Terraform;
+* Automação completa do ambiente cloud;
+* Testes de performance e escalabilidade;
+* Implementação de observabilidade com CloudWatch;
+* Publicação da arquitetura de referência em AWS.
 
 ---
 
@@ -495,25 +510,18 @@ Essa organização garante rastreabilidade, auditoria e reprodução dos testes 
 | PostgreSQL 15       | ✅ Concluído    |
 | Babelfish           | ✅ Concluído    |
 | Backup e Restore    | ✅ Concluído    |
-| Assessment Compass  | 🔄 Em andamento |
-| Migração Controlada | 🔄 Em andamento |
+| Assessment Compass  | ✅ Concluído    |
+| Migração Controlada | ✅ Concluído    |
 | AWS DMS             | ⏳ Planejado    |
 | Terraform           | ⏳ Planejado    |
 | Arquitetura AWS     | ⏳ Planejado    |
 
 ---
+## 🚀 Evoluções Futuras
 
-## 🚀 Próximos Passos
-
-- Finalizar assessment com Babelfish Compass;
-- Executar migração de schema;
-- Validar migração dos dados;
-- Realizar testes de performance;
-- Implementar AWS DMS;
-- Provisionar infraestrutura AWS via Terraform;
-- Automatizar validações pós-migração;
-- Publicar arquitetura de referência em AWS.
-
+* Implementar migração utilizando AWS DMS;
+* Provisionar infraestrutura AWS via Terraform;
+* Automatizar validações pós-migração
 ---
 
 ## 🎯 Conclusão
