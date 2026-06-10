@@ -23,6 +23,53 @@ A iniciativa avalia a viabilidade técnica da migração, compatibilidade com
 aplicações legadas, estratégias de rollback, automação de infraestrutura e
 práticas modernas de DevSecOps.
 
+
+## Tecnologias e Competências Demonstradas
+
+### Cloud & Infrastructure
+
+* Amazon Web Services (AWS)
+* Infrastructure as Code (Terraform)
+* Docker
+* GitHub Actions
+* DevSecOps
+* Continuous Integration and Continuous Delivery (CI/CD)
+* Cloud-Native Architecture
+
+### Database Modernization
+
+* Microsoft SQL Server 2022
+* PostgreSQL 15
+* Babelfish for PostgreSQL
+* Database Assessment
+* Database Modernization
+* Database Migration
+* Schema Validation
+* Data Validation
+* Backup and Recovery
+* Rollback Strategy
+
+### Engineering Practices
+
+* Technical Documentation
+* Troubleshooting
+* Operational Governance
+* Change Management
+* Risk Assessment
+* Evidence-Based Validation
+* Migration Planning
+* Technical Assessment
+* Operational Readiness
+
+### Tools & Platforms
+
+* Babelfish Compass
+* Docker Desktop
+* WSL2 Ubuntu
+* Git
+* GitHub
+* GitHub Actions
+
 ## Status Executivo da POC
 
 A POC encontra-se em fase final de consolidação, com as principais etapas do ciclo de modernização documentadas e versionadas no repositório.
@@ -539,3 +586,4 @@ criando uma base sólida para adoção de soluções cloud-native.
 Além da validação tecnológica, a iniciativa demonstra práticas de arquitetura,
 governança, automação, segurança e documentação técnica alinhadas aos desafios
 encontrados em ambientes corporativos.
+
