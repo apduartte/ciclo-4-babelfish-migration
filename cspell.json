@@ -1,0 +1,29 @@
+{
+  "version": "0.2",
+  "language": "en,pt-BR",
+  "words": [
+    "Modernização",
+    "POC",
+    "Babelfish",
+    "PostgreSQL",
+    "DevSecOps",
+    "cloud-native",
+    "AdventureWorksLT2019",
+    "SQL",
+    "Server",
+    "Docker",
+    "GitHub",
+    "Actions",
+    "Terraform",
+    "DMS",
+	"cutover",
+    "AWS",
+    "rollback",
+    "assessment",
+    "Compass",
+    "AS-IS",
+    "TO-BE",
+    "README",
+    "T-SQL"	
+  ]
+}
