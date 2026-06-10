@@ -503,18 +503,21 @@ Essa organização garante rastreabilidade, auditoria e reprodução dos testes 
 
 ## 📌 Status Atual
 
-| Etapa               | Status          |
-| ------------------- | --------------- |
-| Ambiente Docker     | ✅ Concluído    |
-| SQL Server 2022     | ✅ Concluído    |
-| PostgreSQL 15       | ✅ Concluído    |
-| Babelfish           | ✅ Concluído    |
-| Backup e Restore    | ✅ Concluído    |
-| Assessment Compass  | ✅ Concluído    |
-| Migração Controlada | ✅ Concluído    |
-| AWS DMS             | ⏳ Planejado    |
-| Terraform           | ⏳ Planejado    |
-| Arquitetura AWS     | ⏳ Planejado    |
+| Etapa               | Status       |
+|---------------------|--------------|
+| Ambiente Docker     | ✅ Concluído |
+| SQL Server 2022     | ✅ Concluído |
+| PostgreSQL 15       | ✅ Concluído |
+| Babelfish           | ✅ Concluído |
+| Backup e Restore    | ✅ Concluído |
+| Assessment Compass  | ✅ Concluído |
+| Remediação          | ✅ Concluído |
+| Migração            | ✅ Concluído |
+| Validação           | ✅ Concluído |
+| Rollback            | ✅ Concluído |
+| AWS DMS             | ⏳ Futuro |
+| Terraform           | ⏳ Futuro |
+| Arquitetura AWS    
 
 ---
 ## 🚀 Evoluções Futuras
