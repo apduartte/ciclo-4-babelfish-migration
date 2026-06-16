@@ -25,16 +25,18 @@ práticas modernas de DevSecOps.
 
 ## Status Executivo da POC
 
-A POC encontra-se com a fase de assessment técnico documentada, incluindo validação do ambiente de origem, inventário de objetos SQL Server e evidências de compatibilidade inicial para migração para PostgreSQL com Babelfish.
+A POC encontra-se com a fase de assessment técnico documentada, incluindo
+validação do ambiente de origem, inventário de objetos SQL Server e evidências
+de compatibilidade inicial para migração para PostgreSQL com Babelfish.
 
 ### Evidências Concluídas
 
-- Validação do ambiente local com Docker e WSL.
-- Validação do container SQL Server correto: `sqlserver-adventureworks`.
-- Validação do container PostgreSQL/Babelfish: `postgres-babelfish`.
-- Confirmação do banco `AdventureWorksLT2019` com status `ONLINE`.
-- Inventário técnico do banco de origem.
-- Documentação executiva da fase de assessment.
+Validação do ambiente local com Docker e WSL.
+Validação do container SQL Server correto: sqlserver-adventureworks.
+Validação do container PostgreSQL/Babelfish: postgres-babelfish.
+Confirmação do banco AdventureWorksLT2019 com status ONLINE.
+Inventário técnico do banco de origem.
+Documentação executiva da fase de assessment.
 
 ### Inventário SQL Server
 
@@ -53,7 +55,9 @@ A POC encontra-se com a fase de assessment técnico documentada, incluindo valid
 
 ### Próxima Fase
 
-A próxima etapa da POC será a fase de remediação e análise de compatibilidade, com foco em identificar objetos compatíveis, pontos de atenção, ajustes necessários e estratégia de migração para PostgreSQL com Babelfish.
+A próxima etapa da POC será a fase de remediação e análise de compatibilidade,
+com foco em identificar objetos compatíveis, pontos de atenção, ajustes 
+necessários e estratégia de migração para PostgreSQL com Babelfish.
 
 
 ## Documentação
