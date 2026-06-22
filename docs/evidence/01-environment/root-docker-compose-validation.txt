@@ -1,0 +1,29 @@
+# Root Docker Compose Environment Validation
+
+Date:
+Mon Jun 22 16:45:17 -03 2026
+
+## Objective
+Validate the root docker-compose.yml as the standardized local environment for the SQL Server to Babelfish/PostgreSQL migration POC.
+
+## docker compose ps
+NAME                       IMAGE                                        COMMAND                  SERVICE     CREATED         STATUS                   PORTS
+postgres-babelfish         jonathanpotts/babelfishpg:latest             "/start.sh"              babelfish   5 minutes ago   Up 4 minutes             0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp, 0.0.0.0:1434->1433/tcp, [::]:1434->1433/tcp
+sqlserver-adventureworks   mcr.microsoft.com/mssql/server:2022-latest   "/opt/mssql/bin/laun…"   sqlserver   5 minutes ago   Up 4 minutes (healthy)   0.0.0.0:1433->1433/tcp, [::]:1433->1433/tcp
+
+## docker ps
+CONTAINER ID   IMAGE                                        COMMAND                  CREATED         STATUS                   PORTS                                                                                      NAMES
+7b24cb9ee25a   jonathanpotts/babelfishpg:latest             "/start.sh"              5 minutes ago   Up 4 minutes             0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp, 0.0.0.0:1434->1433/tcp, [::]:1434->1433/tcp   postgres-babelfish
+c584ed3f5769   mcr.microsoft.com/mssql/server:2022-latest   "/opt/mssql/bin/laun…"   5 minutes ago   Up 4 minutes (healthy)   0.0.0.0:1433->1433/tcp, [::]:1433->1433/tcp                                                sqlserver-adventureworks
+
+## docker compose config - services
+services:
+  babelfish:
+    container_name: postgres-babelfish
+    environment:
+      BABELFISH_PASSWORD: postgres
+      POSTGRES_DB: babelfish
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    image: jonathanpotts/babelfishpg:latest
+    networks:
