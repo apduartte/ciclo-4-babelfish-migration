@@ -8,3 +8,7 @@ reports/
 .vscode/
 .env
 .env
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars

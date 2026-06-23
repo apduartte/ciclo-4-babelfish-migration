@@ -1,0 +1,34 @@
+# Terraform Init and Validate Evidence
+
+Date:
+Tue Jun 23 15:13:42 -03 2026
+
+## Current branch
+feature/aws-aurora-babelfish-terraform
+
+## Terraform version
+Terraform v1.15.6
+on linux_amd64
+
+## Terraform init
+[0m[1mInitializing provider plugins found in the configuration...[0m
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Using previously-installed hashicorp/aws v5.100.0
+
+[0m[1mInitializing the backend...[0m
+
+
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
+
+## Terraform validate
+[32m[1mSuccess![0m The configuration is valid.
+[0m

@@ -1,0 +1,36 @@
+# Terraform Baseline Structure
+
+Date:
+Tue Jun 23 14:30:16 -03 2026
+
+## Current branch
+feature/aws-aurora-babelfish-terraform
+
+## Terraform folder after baseline creation
+total 0
+drwxrwxrwx 1 ana ana 512 Jun 23 14:26 .
+drwxrwxrwx 1 ana ana 512 Jun 23 14:15 ..
+-rwxrwxrwx 1 ana ana   0 Jun 23 14:26 README.md
+-rwxrwxrwx 1 ana ana   0 Jun 23 14:26 aurora-babelfish.tf
+-rwxrwxrwx 1 ana ana   0 Jun 23 14:26 locals.tf
+-rwxrwxrwx 1 ana ana   0 Jun 23 14:26 networking.tf
+-rwxrwxrwx 1 ana ana   0 Jun 23 14:26 outputs.tf
+-rwxrwxrwx 1 ana ana   0 Jun 23 14:26 providers.tf
+-rwxrwxrwx 1 ana ana   0 Jun 23 14:26 rds-parameter-groups.tf
+-rwxrwxrwx 1 ana ana   0 Jun 23 14:26 security-groups.tf
+-rwxrwxrwx 1 ana ana   0 Jun 23 14:26 terraform.tfvars.example
+-rwxrwxrwx 1 ana ana   0 Jun 23 14:26 variables.tf
+-rwxrwxrwx 1 ana ana   0 Jun 23 14:26 versions.tf
+
+## Terraform files
+terraform/README.md
+terraform/aurora-babelfish.tf
+terraform/locals.tf
+terraform/networking.tf
+terraform/outputs.tf
+terraform/providers.tf
+terraform/rds-parameter-groups.tf
+terraform/security-groups.tf
+terraform/terraform.tfvars.example
+terraform/variables.tf
+terraform/versions.tf
