@@ -1,0 +1,4 @@
+aws_region  = "us-east-1"
+project_name = "ciclo-4-babelfish-migration"
+environment  = "poc"
+owner        = "apduartte"
