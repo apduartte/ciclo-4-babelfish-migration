@@ -1,0 +1,21 @@
+AWS Babelfish Infrastructure Branch Start
+
+Branch: feature/aws-babelfish-infrastructure
+
+Objective:
+Start the AWS infrastructure implementation phase for the Babelfish migration proof of concept.
+
+Context:
+This branch contains Terraform infrastructure definitions required to support the AWS Babelfish migration environment.
+
+Initial Terraform files changed:
+- terraform/networking.tf
+- terraform/variables.tf
+
+Expected scope:
+- Networking baseline
+- Variables definition
+- Infrastructure preparation for future AWS deployment steps
+
+Status:
+Branch initialized and ready for AWS infrastructure implementation.
