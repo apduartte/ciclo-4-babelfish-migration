@@ -19,3 +19,18 @@ Expected scope:
 
 Status:
 Branch initialized and ready for AWS infrastructure implementation.
+
+SAST Adjustment:
+- Updated public subnet configuration to disable automatic public IP assignment.
+- Changed map_public_ip_on_launch from true to false in terraform/networking.tf.
+- Reason: comply with Semgrep SAST rule preventing automatic public IP exposure.
+
+SAST Adjustment:
+- Updated public subnet configuration to disable automatic public IP assignment.
+- Changed map_public_ip_on_launch from true to false in terraform/networking.tf.
+- Reason: comply with Semgrep SAST rule preventing automatic public IP exposure.
+
+SAST Adjustment:
+- Updated public subnet configuration to disable automatic public IP assignment.
+- Changed map_public_ip_on_launch from true to false in terraform/networking.tf.
+- Reason: comply with Semgrep SAST rule preventing automatic public IP exposure.
